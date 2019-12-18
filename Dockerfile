@@ -2,12 +2,17 @@ FROM phusion/baseimage:0.11
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV PHP_VERSION 7.3.10
-ENV PHP_HASH fb670723a9b8fda31c89529f27e0dda289d8af4b6ce9f152c8010876639c0fb4
-ENV COMPOSER_VERSION 1.9.0
-ENV COMPOSER_HASH c9dff69d092bdec14dee64df6677e7430163509798895fbd54891c166c5c0875
-ENV RESTY_VERSION 1.15.8.2
-ENV RESTY_HASH c9dff69d092bdec14dee64df6677e7430163509798895fbd54891c166c5c0875
+ENV PHP_VERSION         7.3.13
+ENV PHP_HASH            9cf835416a3471d7e6615e9288e76813d55ffaf60e0aa9ce74884a7c228cb6dd
+
+ENV MEMCACHED_VERSION   1.5.20
+ENV MEMCACHED_HASH      cfd7b023a9cefe7ae8a67184f51d841dbbf97994ed0e8a55e31ee092320ea1e4
+
+ENV COMPOSER_VERSION    1.9.1
+ENV COMPOSER_HASH       1f210b9037fcf82670d75892dfc44400f13fe9ada7af9e787f93e50e3b764111
+
+ENV NGINX_VERSION       1.17.6
+ENV NGINX_HASH          3cb4a5314dc0ab0a4e8a7b51ae17c027133417a45cc6c5a96e3dd80141c237b6
 
 COPY ./startserv.sh                   /etc/my_init.d/
 COPY ./conf/php.ini                   /usr/local/src/
@@ -18,10 +23,11 @@ COPY ./conf/nginx.conf                /usr/local/src/
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
-&& sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
+&& sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& apt-get -y clean all         \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y install build-essential \
@@ -71,6 +77,13 @@ fonts-arphic-uming              \
 \
 && chmod +x /etc/my_init.d/startserv.sh \
 \
+&& cd /usr/local/bin/ \
+&& wget https://mirrors.aliyun.com/composer/composer.phar \
+&& echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
+&& COMPOSER_HASH_CHECK=$? \
+&& if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
+&& chmod +x /usr/local/bin/composer.phar \
+\
 && cd /usr/local/src \
 \
 && wget https://mirrors.sohu.com/php/php-${PHP_VERSION}.tar.gz \
@@ -78,13 +91,19 @@ fonts-arphic-uming              \
 && PHP_HASH_CHECK=$? \
 && if [ "$PHP_HASH_CHECK" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz \
-&& echo "${RESTY_HASH} *openresty-${RESTY_VERSION}.tar.gz" | shasum -a 256 --check \
-&& RESTY_HASH_CHECK=$? \
-&& if [ "$RESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${RESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+&& wget https://mirrors.sohu.com/nginx/nginx-${NGINX_VERSION}.tar.gz \
+&& echo "${NGINX_HASH} *nginx-${NGINX_VERSION}.tar.gz" | shasum -a 256 --check \
+&& NGINX_HASH_CHECK=$? \
+&& if [ "$NGINX_HASH_CHECK" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& wget https://memcached.org/files/memcached-${MEMCACHED_VERSION}.tar.gz \
+&& echo "${MEMCACHED_HASH} *memcached-${MEMCACHED_VERSION}.tar.gz" | shasum -a 256 --check \
+&& MEMCACHED_HASH_CHECK=$? \
+&& if [ "$MEMCACHED_HASH_CHECK" -ne "0" ]; then echo "memcached-${MEMCACHED_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
-&& tar -zxf openresty-${RESTY_VERSION}.tar.gz \
+&& tar -zxf nginx-${NGINX_VERSION}.tar.gz \
+&& tar -zxf memcached-${MEMCACHED_VERSION}.tar.gz \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --prefix=/usr/local/php \
@@ -156,17 +175,25 @@ fonts-arphic-uming              \
 && echo '' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
 \
-&& cd /usr/local/bin/ \
-&& wget https://mirrors.aliyun.com/composer/composer.phar \
-&& echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
-&& COMPOSER_HASH_CHECK=$? \
-&& if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
-&& chmod +x /usr/local/bin/composer.phar \
+&& cd /usr/local/src \
+\
+&& cd /usr/local/src/memcached-${MEMCACHED_VERSION} \
+&& ./configure --prefix=/usr/local/memcached \
+--runstatedir=/usr/local/memcached/rsdir \
+--datadir=/usr/local/memcached/ddir \
+--enable-64bit \
+--enable-seccomp \
+--enable-tls \
+\
+&& make && make install \
+\
+&& echo '' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/memcached/bin"' >> ~/.bashrc \
 \
 && cd /usr/local/src \
 \
-&& cd /usr/local/src/openresty-${RESTY_VERSION} \
-&& ./configure --prefix=/usr/local/openresty \
+&& cd /usr/local/src/nginx-${NGINX_VERSION} \
+&& ./configure --prefix=/usr/local/nginx \
 --with-threads \
 --with-file-aio \
 --with-http_v2_module \
@@ -195,28 +222,27 @@ fonts-arphic-uming              \
 \
 && make && make install \
 \
-&& mkdir /usr/local/openresty/nginx/vhosts \
-&& mkdir /usr/local/openresty/nginx/vconfs \
-&& mkdir /usr/local/openresty/nginx/vlogs \
-&& mkdir /usr/local/openresty/nginx/vcerts \
+&& mkdir /usr/local/nginx/vhosts \
+&& mkdir /usr/local/nginx/vconfs \
+&& mkdir /usr/local/nginx/vcerts \
 \
 && cd /usr/local/src \
-&& yes | cp ./nginx.conf  /usr/local/openresty/nginx/conf/nginx.conf \
+&& yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
 \
-&& chown -R user7:group7 /usr/local/openresty \
-&& /usr/local/openresty/nginx/sbin/nginx -t \
-&& /usr/local/openresty/nginx/sbin/nginx \
+&& chown -R user7:group7 /usr/local/nginx \
+&& /usr/local/nginx/sbin/nginx -t \
+&& /usr/local/nginx/sbin/nginx \
 && sleep 3s \
-&& /usr/local/openresty/nginx/sbin/nginx -s stop \
+&& /usr/local/nginx/sbin/nginx -s stop \
 \
 && echo '' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/openresty/bin:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/nginx/bin:/usr/local/nginx/sbin"' >> ~/.bashrc \
 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 9000
+EXPOSE 80 443
 
 CMD ["/sbin/my_init"]
 
