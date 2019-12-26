@@ -11,8 +11,8 @@ ENV MEMCACHED_HASH      cfd7b023a9cefe7ae8a67184f51d841dbbf97994ed0e8a55e31ee092
 ENV COMPOSER_VERSION    1.9.1
 ENV COMPOSER_HASH       1f210b9037fcf82670d75892dfc44400f13fe9ada7af9e787f93e50e3b764111
 
-ENV NGINX_VERSION       1.17.6
-ENV NGINX_HASH          3cb4a5314dc0ab0a4e8a7b51ae17c027133417a45cc6c5a96e3dd80141c237b6
+ENV NGINX_VERSION       1.17.7
+ENV NGINX_HASH          b62756842807e5693b794e5d0ae289bd8ae5b098e66538b2a91eb80f25c591ff
 
 COPY ./startserv.sh                   /etc/my_init.d/
 COPY ./conf/php.ini                   /usr/local/src/
@@ -82,6 +82,7 @@ fonts-arphic-uming              \
 && echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
 && COMPOSER_HASH_CHECK=$? \
 && if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
+\
 && chmod +x /usr/local/bin/composer.phar \
 \
 && cd /usr/local/src \
@@ -168,6 +169,8 @@ fonts-arphic-uming              \
 && yes | cp ./php.ini      /usr/local/php/lib/php.ini \
 \
 && chown -R user7:group7  /usr/local/php \
+&& /usr/local/php/bin/php -v \
+&& sleep  3s \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
@@ -242,7 +245,7 @@ fonts-arphic-uming              \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443
+EXPOSE 80 443 9000 11211
 
 CMD ["/sbin/my_init"]
 

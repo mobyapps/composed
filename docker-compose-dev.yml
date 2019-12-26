@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  web:
+    image: dockerhub.azk8s.cn/charescape/composed:1.0.1
+    volumes:
+      - ./nginx/vhosts:/usr/local/nginx/vhosts
+      - ./nginx/vlogs:/usr/local/nginx/vlogs
+      - ./nginx/vconfs:/usr/local/nginx/vconfs
+      - ./nginx/vcerts:/usr/local/nginx/vcerts
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9000:9000"
+      - "11211:11211"
+    networks:
+      - web
+    depends_on:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "20"
+
+networks:
+  web:
+    driver: bridge
