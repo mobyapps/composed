@@ -63,6 +63,12 @@ volumes:
     driver: local
 ```
 
+```
+$ docker-compose up -d
+Creating network "v101_web" with driver "bridge"
+...
+```
+
 Note
 -------------
 | Option | Default | Current
