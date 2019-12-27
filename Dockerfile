@@ -5,9 +5,6 @@ LABEL maintainer="charescape@outlook.com"
 ENV PHP_VERSION         7.3.13
 ENV PHP_HASH            9cf835416a3471d7e6615e9288e76813d55ffaf60e0aa9ce74884a7c228cb6dd
 
-ENV MEMCACHED_VERSION   1.5.20
-ENV MEMCACHED_HASH      cfd7b023a9cefe7ae8a67184f51d841dbbf97994ed0e8a55e31ee092320ea1e4
-
 ENV COMPOSER_VERSION    1.9.1
 ENV COMPOSER_HASH       1f210b9037fcf82670d75892dfc44400f13fe9ada7af9e787f93e50e3b764111
 
@@ -27,6 +24,10 @@ RUN set -eux \
 && sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
 && sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
 && sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
+\
+&& apt-get -y clean all         \
+&& apt-get -y update            \
+&& apt-get -y upgrade           \
 && apt-get -y clean all         \
 && apt-get -y update            \
 && apt-get -y upgrade           \
@@ -97,14 +98,8 @@ fonts-arphic-uming              \
 && NGINX_HASH_CHECK=$? \
 && if [ "$NGINX_HASH_CHECK" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://memcached.org/files/memcached-${MEMCACHED_VERSION}.tar.gz \
-&& echo "${MEMCACHED_HASH} *memcached-${MEMCACHED_VERSION}.tar.gz" | shasum -a 256 --check \
-&& MEMCACHED_HASH_CHECK=$? \
-&& if [ "$MEMCACHED_HASH_CHECK" -ne "0" ]; then echo "memcached-${MEMCACHED_VERSION}.tar.gz hash mismatch." && exit 1; fi \
-\
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf nginx-${NGINX_VERSION}.tar.gz \
-&& tar -zxf memcached-${MEMCACHED_VERSION}.tar.gz \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --prefix=/usr/local/php \
@@ -180,21 +175,6 @@ fonts-arphic-uming              \
 \
 && cd /usr/local/src \
 \
-&& cd /usr/local/src/memcached-${MEMCACHED_VERSION} \
-&& ./configure --prefix=/usr/local/memcached \
---runstatedir=/usr/local/memcached/rsdir \
---datadir=/usr/local/memcached/ddir \
---enable-64bit \
---enable-seccomp \
---enable-tls \
-\
-&& make && make install \
-\
-&& echo '' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/memcached/bin"' >> ~/.bashrc \
-\
-&& cd /usr/local/src \
-\
 && cd /usr/local/src/nginx-${NGINX_VERSION} \
 && ./configure --prefix=/usr/local/nginx \
 --with-threads \
@@ -245,7 +225,7 @@ fonts-arphic-uming              \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 9000 11211
+EXPOSE 80 443 9000
 
 CMD ["/sbin/my_init"]
 
