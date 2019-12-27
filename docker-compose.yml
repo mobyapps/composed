@@ -15,7 +15,6 @@ services:
       - "11211:11211"
     networks:
       - web
-    depends_on:
     logging:
       driver: "json-file"
       options:
