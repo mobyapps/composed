@@ -156,7 +156,7 @@ fonts-arphic-uming              \
 --with-sodium \
 --with-password-argon2 \
 \
-&& make && make install \
+&& make -j2 && make install \
 \
 && cd /usr/local/src \
 && yes | cp ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
