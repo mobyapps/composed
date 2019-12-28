@@ -156,7 +156,9 @@ fonts-arphic-uming              \
 --with-sodium \
 --with-password-argon2 \
 \
-&& make && make install \
+&& make \
+&& sleep  3s \
+&& make install \
 \
 && cd /usr/local/src \
 && yes | cp ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
@@ -203,7 +205,9 @@ fonts-arphic-uming              \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
 \
-&& make && make install \
+&& make \
+&& sleep  3s \
+&& make install \
 \
 && mkdir /usr/local/nginx/vhosts \
 && mkdir /usr/local/nginx/vconfs \
