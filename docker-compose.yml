@@ -2,17 +2,16 @@ version: "3.7"
 
 services:
   web:
-    image: dockerhub.azk8s.cn/charescape/composed:1.0.1
+    image: dockerhub.azk8s.cn/charescape/web:1.0.0
     volumes:
-      - vhosts:/usr/local/nginx/vhosts
-      - vlogs:/usr/local/nginx/vlogs
-      - vconfs:/usr/local/nginx/vconfs
-      - vcerts:/usr/local/nginx/vcerts
+      - ./nginx/vhosts:/usr/local/nginx/vhosts
+      - ./nginx/vlogs:/usr/local/nginx/vlogs
+      - ./nginx/vconfs:/usr/local/nginx/vconfs
+      - ./nginx/vcerts:/usr/local/nginx/vcerts
     ports:
       - "80:80"
       - "443:443"
       - "9000:9000"
-      - "11211:11211"
     networks:
       - web
     logging:
@@ -24,13 +23,3 @@ services:
 networks:
   web:
     driver: bridge
-
-volumes:
-  vhosts:
-    driver: local
-  vlogs:
-    driver: local
-  vconfs:
-    driver: local
-  vcerts:
-    driver: local
