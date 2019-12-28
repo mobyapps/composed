@@ -252,21 +252,21 @@ Extensions:
                           for an Oracle Instant Client installation.
   --with-pdo-odbc=flavour,dir
                           PDO: Support for 'flavour' ODBC driver.
-			  include and lib dirs are looked for under 'dir'.
+                          include and lib dirs are looked for under 'dir'.
 
-			  'flavour' can be one of:  ibm-db2, iODBC, unixODBC, generic
-			  If ',dir' part is omitted, default for the flavour
-			  you have selected will be used. e.g.:
+                          'flavour' can be one of:  ibm-db2, iODBC, unixODBC, generic
+                          If ',dir' part is omitted, default for the flavour
+                          you have selected will be used. e.g.:
 
-			    --with-pdo-odbc=unixODBC
+                            --with-pdo-odbc=unixODBC
 
-			  will check for unixODBC under /usr/local. You may attempt
-			  to use an otherwise unsupported driver using the 'generic'
-			  flavour.  The syntax for generic ODBC support is:
+                          will check for unixODBC under /usr/local. You may attempt
+                          to use an otherwise unsupported driver using the 'generic'
+                          flavour.  The syntax for generic ODBC support is:
 
-			    --with-pdo-odbc=generic,dir,libname,ldflags,cflags
+                            --with-pdo-odbc=generic,dir,libname,ldflags,cflags
 
-			  When built as 'shared' the extension filename is always pdo_odbc.so
+                          When built as 'shared' the extension filename is always pdo_odbc.so
   --with-pdo-pgsql=DIR    PDO: PostgreSQL support.  DIR is the PostgreSQL base
                           install directory or the path to pg_config
   --without-pdo-sqlite=DIR
