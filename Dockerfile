@@ -212,6 +212,7 @@ fonts-arphic-uming              \
 && mkdir /usr/local/nginx/vhosts \
 && mkdir /usr/local/nginx/vconfs \
 && mkdir /usr/local/nginx/vcerts \
+&& mkdir /usr/local/nginx/vlogs \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
