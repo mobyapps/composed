@@ -29,43 +29,12 @@ apt-get install docker-ce docker-ce-cli containerd.io
 docker run hello-world
 ```
 
-
-# Dockerfile for php
-
-Usage
+Run docker-compose
 -------------
-docker-compose.yml
-
 ```
-version: "3"
-
-services:
-  php:
-    image: charescape/php:7.3.10.0
-    volumes:
-      - vhosts:/usr/local/nginx/vhosts
-    ports:
-      - "9000:9000"
-    networks:
-      - php
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "500k"
-        max-file: "20"
-
-networks:
-  php:
-    driver: bridge
-
-volumes:
-  vhosts:
-    driver: local
-```
-
-```
+$ cd ./charescape_web_100/
 $ docker-compose up -d
-Creating network "v101_web" with driver "bridge"
+Creating network "charescape_web_100_web" with driver "bridge"
 ...
 ```
 
@@ -73,8 +42,5 @@ Note
 -------------
 | Option | Default | Current
 | --- | --- | ---
-| session.cookie_secure | off | on
-| session.name | PHPSESSID | SERVSESSID
 | session.cookie_httponly | - | 1
 | session.cookie_samesite | - | Lax
-
