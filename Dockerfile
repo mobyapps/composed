@@ -172,9 +172,6 @@ fonts-arphic-uming              \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
-&& echo '' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
-\
 && cd /usr/local/src \
 \
 && cd /usr/local/src/nginx-${NGINX_VERSION} \
@@ -223,9 +220,6 @@ fonts-arphic-uming              \
 && /usr/local/nginx/sbin/nginx \
 && sleep 3s \
 && /usr/local/nginx/sbin/nginx -s stop \
-\
-&& echo '' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/nginx/bin:/usr/local/nginx/sbin"' >> ~/.bashrc \
 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
