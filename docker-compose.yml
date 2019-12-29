@@ -4,10 +4,10 @@ services:
   web:
     image: dockerhub.azk8s.cn/charescape/web:1.0.0
     volumes:
-      - ./nginx/vhosts:/usr/local/nginx/vhosts
-      - ./nginx/vlogs:/usr/local/nginx/vlogs
-      - ./nginx/vconfs:/usr/local/nginx/vconfs
-      - ./nginx/vcerts:/usr/local/nginx/vcerts
+      - ./nginx_vhosts:/usr/local/nginx/vhosts
+      - ./nginx_vlogs:/usr/local/nginx/vlogs
+      - ./nginx_vconfs:/usr/local/nginx/vconfs
+      - ./nginx_vcerts:/usr/local/nginx/vcerts
     ports:
       - "80:80"
       - "443:443"
