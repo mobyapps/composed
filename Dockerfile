@@ -181,6 +181,7 @@ fonts-arphic-uming              \
 && ./configure --prefix=/usr/local/nginx \
 --with-threads \
 --with-file-aio \
+--with-http_ssl_module \
 --with-http_v2_module \
 --with-http_realip_module \
 --with-http_addition_module \
