@@ -97,8 +97,8 @@ tar -zxf nginx-${NGINX_VERSION}.tar.gz
 
 
 
-cd /usr/local/src/php-${PHP_VERSION} \
-&& ./configure --prefix=/usr/local/php \
+cd /usr/local/src/php-${PHP_VERSION}
+./configure --prefix=/usr/local/php \
 --enable-fpm \
 --with-fpm-user=root \
 --with-fpm-group=root \
