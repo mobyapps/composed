@@ -168,7 +168,7 @@ wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyunconf/php.i
 
 /usr/local/php/bin/php -v
 
-/usr/local/php/sbin/php-fpm
+/usr/local/php/sbin/php-fpm --allow-to-run-as-root
 sleep 3s
 # shellcheck disable=SC2046
 # shellcheck disable=SC2006
