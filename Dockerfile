@@ -2,14 +2,14 @@ FROM phusion/baseimage:bionic-1.0.0
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV PHP_VERSION         7.4.7
-ENV PHP_HASH            a554a510190e726ebe7157fb00b4aceabdb50c679430510a3b93cbf5d7546e44
+ENV PHP_VERSION         7.4.9
+ENV PHP_HASH            c0c657b5769bc463f5f028b1f4fef8814d98ecf3459a402a9e30d41d68b2323e
 
-ENV COMPOSER_VERSION    1.10.8
-ENV COMPOSER_HASH       4c40737f5d5f36d04f8b2df37171c6a1ff520efcadcb8626cc7c30bd4c5178e5
+ENV COMPOSER_VERSION    1.10.10
+ENV COMPOSER_HASH       8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f05f181b9
 
-ENV NGINX_VERSION       1.19.0
-ENV NGINX_HASH          44a616171fcd7d7ad7c6af3e6f3ad0879b54db5a5d21be874cd458b5691e36c8
+ENV NGINX_VERSION       1.19.2
+ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
 COPY ./startserv.sh                   /etc/my_init.d/
 COPY ./conf/php.ini                   /usr/local/src/
