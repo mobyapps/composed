@@ -15,6 +15,19 @@ COMPOSER_HASH=8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f05f181b9
 NGINX_VERSION=1.19.2
 NGINX_HASH=7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
+# apt-get -y install build-essential \
+# zlib1g-dev                      \
+# libedit-dev                     \
+# libeditline-dev                 \
+# libgd-dev                       \
+# libicu-dev                      \
+# libevent-dev                    \
+# chromium-browser                \
+# fonts-droid-fallback            \
+# ttf-wqy-zenhei                  \
+# ttf-wqy-microhei                \
+# fonts-arphic-ukai               \
+# fonts-arphic-uming
 
 apt-get -y install build-essential \
 autoconf                        \
@@ -28,35 +41,26 @@ bison                           \
 zip                             \
 socat                           \
 libtool                         \
-libssl-dev                      \
-zlib1g-dev                      \
-libpcre3-dev                    \
-libedit-dev                     \
-libeditline-dev                 \
-libgd-dev                       \
-libwebp-dev                     \
-libfreetype6-dev                \
-libpng-dev                      \
-libjpeg-dev                     \
 libxml2-dev                     \
-libxslt1-dev                    \
-libargon2-0-dev                 \
-libbz2-dev                      \
+libssl-dev                      \
 libcurl4-openssl-dev            \
+libsqlite3-dev                  \
+libbz2-dev                      \
 libgmp-dev                      \
+libonig-dev                     \
 libreadline-dev                 \
-libicu-dev                      \
-libzip-dev                      \
-libtidy-dev                     \
-libevent-dev                    \
-libgeoip-dev                    \
 libsodium-dev                   \
-chromium-browser                \
-fonts-droid-fallback            \
-ttf-wqy-zenhei                  \
-ttf-wqy-microhei                \
-fonts-arphic-ukai               \
-fonts-arphic-uming
+libargon2-0-dev                 \
+libtidy-dev                     \
+libxslt1-dev                    \
+libpng-dev                      \
+libwebp-dev                     \
+libjpeg-dev                     \
+libxpm-dev                      \
+libfreetype6-dev                \
+libzip-dev                      \
+libpcre3-dev                    \
+libgeoip-dev
 
 # shellcheck disable=SC2164
 cd /usr/local/bin/
@@ -226,6 +230,7 @@ echo '' >> ~/.bashrc
 echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc
 # shellcheck disable=SC2016
 echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc
+echo '' >> ~/.bashrc
 
 
 apt-get clean
