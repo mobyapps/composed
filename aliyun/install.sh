@@ -158,9 +158,9 @@ make install
 # shellcheck disable=SC2164
 cd /usr/local/src
 
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyunconf/php-fpm.conf
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyunconf/www.conf
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyunconf/php.ini
+wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/php-fpm.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/www.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/php.ini
 
 /bin/cp  ./php-fpm.conf  /usr/local/php/etc/php-fpm.conf
 /bin/cp  ./www.conf      /usr/local/php/etc/php-fpm.d/www.conf
@@ -214,7 +214,7 @@ mkdir /usr/local/nginx/vhosts
 # shellcheck disable=SC2164
 cd /usr/local/src
 
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyunconf/nginx.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/nginx.conf
 
 /bin/cp  ./nginx.conf  /usr/local/nginx/conf/nginx.conf
 
