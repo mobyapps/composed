@@ -11,11 +11,11 @@ ENV COMPOSER_HASH       8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f
 ENV NGINX_VERSION       1.19.2
 ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
-COPY ./runapp.sh                      /etc/my_init.d/
-COPY ../configfiles/php.ini           /usr/local/src/
-COPY ../configfiles/php-fpm.conf      /usr/local/src/
-COPY ../configfiles/www.conf          /usr/local/src/
-COPY ../configfiles/nginx.conf        /usr/local/src/
+COPY ./runapp.sh  /etc/my_init.d/
+COPY https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini           /usr/local/src/
+COPY https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf      /usr/local/src/
+COPY https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf          /usr/local/src/
+COPY https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf        /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
