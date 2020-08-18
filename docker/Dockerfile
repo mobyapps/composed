@@ -12,10 +12,10 @@ ENV NGINX_VERSION       1.19.2
 ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
 COPY ./runapp.sh                      /etc/my_init.d/
-COPY ./conf/php.ini                   /usr/local/src/
-COPY ./conf/php-fpm.conf              /usr/local/src/
-COPY ./conf/www.conf                  /usr/local/src/
-COPY ./conf/nginx.conf                /usr/local/src/
+COPY ../configfiles/php.ini           /usr/local/src/
+COPY ../configfiles/php-fpm.conf      /usr/local/src/
+COPY ../configfiles/www.conf          /usr/local/src/
+COPY ../configfiles/nginx.conf        /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -70,9 +70,6 @@ ttf-wqy-microhei                \
 fonts-arphic-ukai               \
 fonts-arphic-uming              \
 \
-&& groupadd group7 \
-&& useradd -g group7 -M -d /usr/local/php user7 -s /sbin/nologin \
-\
 && chmod +x /etc/my_init.d/runapp.sh \
 \
 && cd /usr/local/bin/ \
@@ -101,8 +98,8 @@ fonts-arphic-uming              \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
---with-fpm-user=user7 \
---with-fpm-group=group7 \
+--with-fpm-user=root \
+--with-fpm-group=root \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
@@ -156,10 +153,9 @@ fonts-arphic-uming              \
 && yes | cp ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && yes | cp ./php.ini      /usr/local/php/lib/php.ini \
 \
-&& chown -R user7:group7  /usr/local/php \
 && /usr/local/php/bin/php -v \
 && sleep  3s \
-&& /usr/local/php/sbin/php-fpm \
+&& /usr/local/php/sbin/php-fpm --allow-to-run-as-root \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
@@ -203,7 +199,6 @@ fonts-arphic-uming              \
 && cd /usr/local/src \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
 \
-&& chown -R user7:group7 /usr/local/nginx \
 && /usr/local/nginx/sbin/nginx -t \
 && /usr/local/nginx/sbin/nginx \
 && sleep 3s \
