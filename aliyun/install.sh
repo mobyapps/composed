@@ -209,7 +209,7 @@ cd /usr/local/src/nginx-${NGINX_VERSION}
 make
 make install
 
-mkdir /usr/local/nginx/vhosts
+mkdir /usr/local/nginx/gitrepos
 
 # shellcheck disable=SC2164
 cd /usr/local/src

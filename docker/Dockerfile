@@ -11,7 +11,7 @@ ENV COMPOSER_HASH       8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f
 ENV NGINX_VERSION       1.19.2
 ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
-COPY ./runapp.sh                   /etc/my_init.d/
+COPY ./runapp.sh                      /etc/my_init.d/
 COPY ./conf/php.ini                   /usr/local/src/
 COPY ./conf/php-fpm.conf              /usr/local/src/
 COPY ./conf/www.conf                  /usr/local/src/
@@ -20,10 +20,7 @@ COPY ./conf/nginx.conf                /usr/local/src/
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
-&& sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
+&& sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/' /etc/apt/sources.list \
 \
 && apt-get -y clean all         \
 && apt-get -y update            \
@@ -107,11 +104,8 @@ fonts-arphic-uming              \
 --with-fpm-user=user7 \
 --with-fpm-group=group7 \
 --disable-short-tags \
---with-libxml-dir \
 --with-openssl \
 --with-openssl-dir \
---with-pcre-regex \
---with-pcre-dir \
 --with-pcre-jit \
 --with-zlib \
 --with-zlib-dir \
@@ -120,18 +114,16 @@ fonts-arphic-uming              \
 --enable-calendar \
 --with-curl \
 --enable-exif \
---with-gd \
---with-freetype-dir \
---with-webp-dir \
---with-jpeg-dir \
---with-png-dir \
---with-xpm-dir \
+--enable-gd \
+--with-freetype \
+--with-webp \
+--with-jpeg \
+--with-xpm \
 --enable-gd-jis-conv \
 --with-gettext \
 --with-gmp \
 --with-mhash \
 --enable-intl \
---with-icu-dir=/usr \
 --enable-mbstring \
 --enable-mysqlnd \
 --enable-pdo \
@@ -145,12 +137,11 @@ fonts-arphic-uming              \
 --enable-sysvsem \
 --enable-sysvshm \
 --enable-shmop \
---enable-zip \
+--with-zip \
 --enable-zend-test \
 --with-xsl \
 --with-tidy \
 --with-xmlrpc \
---with-libzip \
 --with-iconv-dir \
 --with-pear \
 --with-sodium \
@@ -207,10 +198,7 @@ fonts-arphic-uming              \
 && sleep  3s \
 && make install \
 \
-&& mkdir /usr/local/nginx/vhosts \
-&& mkdir /usr/local/nginx/vconfs \
-&& mkdir /usr/local/nginx/vcerts \
-&& mkdir /usr/local/nginx/vlogs \
+&& mkdir /usr/local/nginx/gitrepos \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
