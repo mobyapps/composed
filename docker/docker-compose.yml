@@ -4,8 +4,8 @@ services:
   web:
     image: charescape/web:2.0.1
     volumes:
-      - "./docker_charescape_web_2x/gitrepos:/usr/local/nginx/gitrepos"
-      - "./docker_charescape_web_2x/nginx_init_config:/usr/local/nginx/nginx_init_config"
+      - "./gitrepos:/usr/local/nginx/gitrepos"
+      - "./nginx_init_config:/usr/local/nginx/nginx_init_config"
     ports:
       - "80:80"
       - "443:443"
