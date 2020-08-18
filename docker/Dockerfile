@@ -11,7 +11,7 @@ ENV COMPOSER_HASH       8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f
 ENV NGINX_VERSION       1.19.2
 ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
-COPY ./startserv.sh                   /etc/my_init.d/
+COPY ./runapp.sh                   /etc/my_init.d/
 COPY ./conf/php.ini                   /usr/local/src/
 COPY ./conf/php-fpm.conf              /usr/local/src/
 COPY ./conf/www.conf                  /usr/local/src/
@@ -76,7 +76,7 @@ fonts-arphic-uming              \
 && groupadd group7 \
 && useradd -g group7 -M -d /usr/local/php user7 -s /sbin/nologin \
 \
-&& chmod +x /etc/my_init.d/startserv.sh \
+&& chmod +x /etc/my_init.d/runapp.sh \
 \
 && cd /usr/local/bin/ \
 && wget https://mirrors.aliyun.com/composer/composer.phar \
