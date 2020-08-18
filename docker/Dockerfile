@@ -1,4 +1,4 @@
-FROM phusion/baseimage:bionic-1.0.0
+FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 
 LABEL maintainer="charescape@outlook.com"
 
@@ -20,8 +20,8 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
-&& sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/security.ubuntu.com/mirrors.aliyun.com/' /etc/apt/sources.list \
+&& sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
+&& sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 \
 && apt-get -y clean all         \
 && apt-get -y update            \
@@ -41,6 +41,7 @@ bison                           \
 zip                             \
 socat                           \
 libtool                         \
+libsqlite3-dev                  \
 libssl-dev                      \
 zlib1g-dev                      \
 libpcre3-dev                    \
@@ -70,6 +71,37 @@ ttf-wqy-zenhei                  \
 ttf-wqy-microhei                \
 fonts-arphic-ukai               \
 fonts-arphic-uming              \
+autoconf                        \
+pkg-config                      \
+wget                            \
+perl                            \
+git                             \
+curl                            \
+re2c                            \
+bison                           \
+zip                             \
+socat                           \
+libtool                         \
+libxml2-dev                     \
+libssl-dev                      \
+libcurl4-openssl-dev            \
+libsqlite3-dev                  \
+libbz2-dev                      \
+libgmp-dev                      \
+libonig-dev                     \
+libreadline-dev                 \
+libsodium-dev                   \
+libargon2-0-dev                 \
+libtidy-dev                     \
+libxslt1-dev                    \
+libpng-dev                      \
+libwebp-dev                     \
+libjpeg-dev                     \
+libxpm-dev                      \
+libfreetype6-dev                \
+libzip-dev                      \
+libpcre3-dev                    \
+libgeoip-dev                    \
 \
 && chmod +x /etc/my_init.d/runapp.sh \
 \

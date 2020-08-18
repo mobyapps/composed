@@ -1,17 +1,14 @@
-version: "3.7"
+version: "3.8"
 
 services:
   web:
-    image: dockerhub.azk8s.cn/charescape/web:1.0.0
+    image: charescape/web:2.0.1
     volumes:
-      - ./nginx_vhosts:/usr/local/nginx/vhosts
-      - ./nginx_vlogs:/usr/local/nginx/vlogs
-      - ./nginx_vconfs:/usr/local/nginx/vconfs
-      - ./nginx_vcerts:/usr/local/nginx/vcerts
+      - "./docker_charescape_web_2x/gitrepos:/usr/local/nginx/gitrepos"
+      - "./docker_charescape_web_2x/nginx_init_config:/usr/local/nginx/nginx_init_config"
     ports:
       - "80:80"
       - "443:443"
-      - "9000:9000"
     networks:
       - web
     logging:
