@@ -106,8 +106,8 @@ tar -zxf nginx-${NGINX_VERSION}.tar.gz
 cd /usr/local/src/php-${PHP_VERSION}
 ./configure --prefix=/usr/local/php \
 --enable-fpm \
---with-fpm-user=root \
---with-fpm-group=root \
+--with-fpm-user=www-data \
+--with-fpm-group=www-data \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
@@ -168,7 +168,7 @@ wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.
 
 /usr/local/php/bin/php -v
 
-/usr/local/php/sbin/php-fpm --allow-to-run-as-root
+/usr/local/php/sbin/php-fpm
 sleep 3s
 # shellcheck disable=SC2046
 # shellcheck disable=SC2006
