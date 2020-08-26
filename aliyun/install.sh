@@ -214,7 +214,7 @@ mkdir /usr/local/nginx/gitrepos
 # shellcheck disable=SC2164
 cd /usr/local/src
 
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/nginx.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf
 
 /bin/cp  ./nginx.conf  /usr/local/nginx/conf/nginx.conf
 
