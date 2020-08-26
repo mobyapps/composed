@@ -158,8 +158,8 @@ make install
 # shellcheck disable=SC2164
 cd /usr/local/src
 
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/php-fpm.conf
-wget https://raw.githubusercontent.com/mobyapps/composed/master/aliyun/www.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf
 wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini
 
 /bin/cp  ./php-fpm.conf  /usr/local/php/etc/php-fpm.conf
