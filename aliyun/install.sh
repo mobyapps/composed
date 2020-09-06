@@ -6,8 +6,8 @@ apt-get -y update
 
 apt-get -y upgrade
 
-PHP_VERSION=7.4.9
-PHP_HASH=c0c657b5769bc463f5f028b1f4fef8814d98ecf3459a402a9e30d41d68b2323e
+PHP_VERSION=7.4.10
+PHP_HASH=e720f1286f895ca37f1c75a2ca338ad2f2456664d7097298167181b25b212feb
 
 COMPOSER_VERSION=1.10.10
 COMPOSER_HASH=8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f05f181b9
@@ -102,6 +102,7 @@ if [ "${NGINX_HASH_CHECK}" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz h
 tar -zxf nginx-${NGINX_VERSION}.tar.gz
 
 
+mkdir -p /var/www
 
 cd /usr/local/src/php-${PHP_VERSION}
 ./configure --prefix=/usr/local/php \
@@ -143,7 +144,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-sysvshm \
 --enable-shmop \
 --with-zip \
---enable-zend-test \
 --with-xsl \
 --with-tidy \
 --with-xmlrpc \
@@ -209,7 +209,7 @@ cd /usr/local/src/nginx-${NGINX_VERSION}
 make
 make install
 
-mkdir /usr/local/nginx/gitrepos
+# mkdir /usr/local/nginx/gitrepos
 
 # shellcheck disable=SC2164
 cd /usr/local/src
@@ -233,8 +233,8 @@ echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc
 echo '' >> ~/.bashrc
 
 
-apt-get clean
-rm -rf /var/lib/apt/lists/*
-rm -rf /tmp/*
-rm -rf /var/tmp/*
+# apt-get clean
+# rm -rf /var/lib/apt/lists/*
+# rm -rf /tmp/*
+# rm -rf /var/tmp/*
 rm -rf /usr/local/src/*
