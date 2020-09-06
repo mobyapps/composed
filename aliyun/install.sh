@@ -166,13 +166,17 @@ wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.
 /bin/cp  ./www.conf      /usr/local/php/etc/php-fpm.d/www.conf
 /bin/cp  ./php.ini       /usr/local/php/lib/php.ini
 
-/usr/local/php/bin/php -v
 
+chown -R www-data:www-data /usr/local/php
+
+/usr/local/php/bin/php -v
 /usr/local/php/sbin/php-fpm
 sleep 3s
 # shellcheck disable=SC2046
 # shellcheck disable=SC2006
 kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
+
+chown -R www-data:www-data /usr/local/php
 
 
 
@@ -209,19 +213,24 @@ cd /usr/local/src/nginx-${NGINX_VERSION}
 make
 make install
 
-# mkdir /usr/local/nginx/gitrepos
+mkdir -p /var/www/gitrepos
+chown -R www-data:www-data /var/www
 
 # shellcheck disable=SC2164
 cd /usr/local/src
 
 wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf
-
 /bin/cp  ./nginx.conf  /usr/local/nginx/conf/nginx.conf
+
+
+chown -R www-data:www-data /usr/local/nginx
 
 /usr/local/nginx/sbin/nginx -t
 /usr/local/nginx/sbin/nginx
 sleep 3s
 /usr/local/nginx/sbin/nginx -s stop
+
+chown -R www-data:www-data /usr/local/nginx
 
 
 # shellcheck disable=SC2129
