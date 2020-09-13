@@ -2,17 +2,22 @@ FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV PHP_VERSION         7.4.9
-ENV PHP_HASH            c0c657b5769bc463f5f028b1f4fef8814d98ecf3459a402a9e30d41d68b2323e
+ENV MYSQL_MAIN_VERSION  8.0
+ENV MYSQL_VERSION       8.0.21
+ENV MYSQL_HASH          7a63ac9044f9a87adc2644fea310a513
 
-ENV COMPOSER_VERSION    1.10.10
-ENV COMPOSER_HASH       8f16aa77b1236ed40855d8d141c0a939d108a939c8e73f9f32eadd3f05f181b9
+ENV PHP_VERSION         7.4.10
+ENV PHP_HASH            e720f1286f895ca37f1c75a2ca338ad2f2456664d7097298167181b25b212feb
+
+ENV COMPOSER_VERSION    1.10.13
+ENV COMPOSER_HASH       5ca7445cfd48dd27c5a84aa005a47b4d9fd91132313830609875df3a6973708f
 
 ENV NGINX_VERSION       1.19.2
 ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
 
 COPY ./runapp.sh  /etc/my_init.d/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini           /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf      /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf          /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf        /usr/local/src/
@@ -20,57 +25,14 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
+&& export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 && sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 && sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 \
-&& apt-get -y clean all         \
-&& apt-get -y update            \
-&& apt-get -y upgrade           \
-&& apt-get -y clean all         \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y install build-essential \
-autoconf                        \
-pkg-config                      \
-wget                            \
-perl                            \
-git                             \
-curl                            \
-re2c                            \
-bison                           \
-zip                             \
-socat                           \
-libtool                         \
-libsqlite3-dev                  \
-libssl-dev                      \
-zlib1g-dev                      \
-libpcre3-dev                    \
-libedit-dev                     \
-libeditline-dev                 \
-libgd-dev                       \
-libwebp-dev                     \
-libfreetype6-dev                \
-libpng-dev                      \
-libjpeg-dev                     \
-libxml2-dev                     \
-libxslt1-dev                    \
-libargon2-0-dev                 \
-libbz2-dev                      \
-libcurl4-openssl-dev            \
-libgmp-dev                      \
-libreadline-dev                 \
-libicu-dev                      \
-libzip-dev                      \
-libtidy-dev                     \
-libevent-dev                    \
-libgeoip-dev                    \
-libsodium-dev                   \
-chromium-browser                \
-fonts-droid-fallback            \
-ttf-wqy-zenhei                  \
-ttf-wqy-microhei                \
-fonts-arphic-ukai               \
-fonts-arphic-uming              \
+cmake                           \
 autoconf                        \
 pkg-config                      \
 wget                            \
@@ -102,6 +64,12 @@ libfreetype6-dev                \
 libzip-dev                      \
 libpcre3-dev                    \
 libgeoip-dev                    \
+libjemalloc-dev                 \
+libzstd-dev                     \
+libedit-dev                     \
+libeditline-dev                 \
+libevent-dev                    \
+liblz4-dev                      \
 \
 && chmod +x /etc/my_init.d/runapp.sh \
 \
@@ -125,14 +93,66 @@ libgeoip-dev                    \
 && NGINX_HASH_CHECK=$? \
 && if [ "$NGINX_HASH_CHECK" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
+&& wget https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
+&& echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
+&& MYSQL_HASH_CHECK=$? \
+&& if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf nginx-${NGINX_VERSION}.tar.gz \
+\
+&& mkdir -p /var/www/mysql_data \
+&& mkdir -p /var/www/mysql_conf \
+&& mkdir -p /var/www/mysql_temp \
+&& chown -R www-data:www-data /var/www \
+\
+&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/builddir0 \
+&& cd /usr/local/src/mysql-${MYSQL_VERSION}/builddir0 \
+&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DCMAKE_BUILD_TYPE=Release \
+-DWITH_SYSTEM_LIBS=1 \
+-DMYSQL_DATADIR=/var/www/mysql_data \
+-DSYSCONFDIR=/var/www/mysql_conf \
+-DTMPDIR=/var/www/mysql_temp \
+-DDEFAULT_CHARSET=utf8mb4 \
+-DDEFAULT_COLLATION=utf8mb4_unicode_ci \
+-DDOWNLOAD_BOOST=1 \
+-DWITH_BOOST=/usr/local/boostcxx \
+-DENABLED_LOCAL_INFILE=1 \
+-DMYSQL_TCP_PORT=3306 \
+-DMYSQL_UNIX_ADDR=/var/www/mysql.sock \
+-DWITH_JEMALLOC=1 \
+-DWITH_RAPIDJSON=bundled \
+-DWITH_PROTOBUF=bundled \
+-DWITH_UNIT_TESTS=0 \
+-DWITH_GMOCK=/usr/local/googletest \
+-DENABLE_DOWNLOADS=1 \
+\
+&& make -j$CPUS_COUNT \
+&& sleep 3s \
+&& make install \
+\
+&& cp ./my.cnf /var/www/mysql_conf/ \
+&& chown -R www-data:www-data /var/www \
+&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
+\
+&& chown -R www-data:www-data /usr/local/mysql \
+&& chown -R www-data:www-data /var/www \
+&& /usr/local/mysql/support-files/mysql.server start \
+&& sleep 3s \
+&& /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
+&& sleep 3s \
+&& /usr/local/mysql/bin/mysql -u root root12345 -e "CREATE DATABASE 'testdb';" \
+&& sleep 3s \
+&& /usr/local/mysql/support-files/mysql.server stop \
+\
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
---with-fpm-user=root \
---with-fpm-group=root \
+--with-fpm-user=www-data \
+--with-fpm-group=www-data \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
@@ -177,8 +197,8 @@ libgeoip-dev                    \
 --with-sodium \
 --with-password-argon2 \
 \
-&& make \
-&& sleep  3s \
+&& make -j$CPUS_COUNT \
+&& sleep 3s \
 && make install \
 \
 && cd /usr/local/src \
@@ -188,7 +208,7 @@ libgeoip-dev                    \
 \
 && /usr/local/php/bin/php -v \
 && sleep  3s \
-&& /usr/local/php/sbin/php-fpm --allow-to-run-as-root \
+&& /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
@@ -223,7 +243,7 @@ libgeoip-dev                    \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
 \
-&& make \
+&& make -j$CPUS_COUNT \
 && sleep  3s \
 && make install \
 \
