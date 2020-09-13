@@ -140,11 +140,14 @@ liblz4-dev                      \
 \
 && chown -R www-data:www-data /usr/local/mysql \
 && chown -R www-data:www-data /var/www \
+&& /usr/local/mysql/support-files/mysql.server status \
 && /usr/local/mysql/support-files/mysql.server start \
 && sleep 3s \
 && /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
 && sleep 3s \
-&& /usr/local/mysql/bin/mysql -u root root12345 -e "CREATE DATABASE 'testdb';" \
+&& /usr/local/mysql/support-files/mysql.server restart \
+&& sleep 3s \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb;" \
 && sleep 3s \
 && /usr/local/mysql/support-files/mysql.server stop \
 \
@@ -260,6 +263,7 @@ liblz4-dev                      \
 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+&& rm -rf /usr/local/mysql/mysql-test/* \
 && rm -rf /usr/local/src/*
 
 EXPOSE 80 443 9000
