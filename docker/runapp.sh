@@ -7,7 +7,6 @@ chown -R www-data:www-data /usr/local/mysql
 chown -R www-data:www-data /usr/local/php
 chown -R www-data:www-data /usr/local/nginx
 
-/usr/local/mysql/support-files/mysql.server status
 /usr/local/mysql/support-files/mysql.server start
 
 /usr/local/php/bin/php -v

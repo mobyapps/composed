@@ -140,7 +140,6 @@ liblz4-dev                      \
 \
 && chown -R www-data:www-data /usr/local/mysql \
 && chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/support-files/mysql.server status \
 && /usr/local/mysql/support-files/mysql.server start \
 && sleep 3s \
 && /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
