@@ -133,6 +133,7 @@ liblz4-dev                      \
 && sleep 3s \
 && make install \
 \
+&& cd /usr/local/src \
 && cp ./my.cnf /var/www/mysql_conf/my.cnf \
 && chown -R www-data:www-data /var/www \
 && /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
