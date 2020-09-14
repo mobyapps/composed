@@ -20,7 +20,7 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.i
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf      /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf          /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf        /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx_testing.conf  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -70,6 +70,11 @@ libedit-dev                     \
 libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
+\
+&& echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
+&& echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
+&& echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
+&& echo '' >> /etc/hosts \
 \
 && chmod +x /etc/my_init.d/runapp.sh \
 \
@@ -146,7 +151,9 @@ liblz4-dev                      \
 && sleep 3s \
 && /usr/local/mysql/support-files/mysql.server restart \
 && sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb0;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb1;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb2;" \
 && sleep 3s \
 && /usr/local/mysql/support-files/mysql.server stop \
 \
@@ -253,7 +260,7 @@ liblz4-dev                      \
 && mkdir /usr/local/nginx/gitrepos \
 \
 && cd /usr/local/src \
-&& yes | cp ./nginx.conf  /usr/local/nginx/conf/nginx.conf \
+&& yes | cp ./nginx_testing.conf  /usr/local/nginx/conf/nginx.conf \
 \
 && /usr/local/nginx/sbin/nginx -t \
 && /usr/local/nginx/sbin/nginx \
