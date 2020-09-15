@@ -267,6 +267,12 @@ liblz4-dev                      \
 && sleep 3s \
 && /usr/local/nginx/sbin/nginx -s stop \
 \
+&& echo '' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
+&& echo '' >> ~/.bashrc \
+\
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
