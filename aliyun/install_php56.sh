@@ -126,7 +126,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-gd \
 --enable-ftp \
 --with-jpeg-dir \
---with-freetype-dir \
 --with-xpm-dir \
 --with-png-dir \
 --with-zlib-dir \
