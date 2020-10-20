@@ -132,7 +132,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-gd-native-ttf \
 --enable-gd-jis-conv \
 --with-gettext \
---with-gmp \
 --with-mhash \
 --enable-intl \
 --with-icu-dir \
