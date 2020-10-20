@@ -133,7 +133,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-gd-jis-conv \
 --with-gettext \
 --with-mhash \
---enable-intl \
 --enable-mbstring \
 --with-mcrypt \
 --with-mysql \
