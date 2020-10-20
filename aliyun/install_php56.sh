@@ -134,7 +134,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-gettext \
 --with-mhash \
 --enable-intl \
---with-icu-dir \
 --enable-mbstring \
 --with-mcrypt \
 --with-mysql \
