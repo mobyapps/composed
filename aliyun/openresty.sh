@@ -200,12 +200,12 @@ cd /usr/local/src/openresty-${OPENRESTY_VERSION}
 --without-mail_pop3_module \
 --without-mail_imap_module \
 --without-mail_smtp_module \
---with-stream=dynamic \
+--with-stream \
 --with-stream_ssl_module \
 --with-stream_realip_module \
 --with-stream_ssl_preread_module \
---with-pcre \
 --with-pcre-jit \
+--with-ipv6 \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic
