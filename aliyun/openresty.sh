@@ -205,7 +205,6 @@ cd /usr/local/src/openresty-${OPENRESTY_VERSION}
 --with-stream_realip_module \
 --with-stream_ssl_preread_module \
 --with-pcre-jit \
---with-ipv6 \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic
