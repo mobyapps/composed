@@ -218,18 +218,18 @@ chown -R www-data:www-data /var/www
 # shellcheck disable=SC2164
 cd /usr/local/src
 
-wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx.conf
-/bin/cp  ./nginx.conf  /usr/local/nginx/conf/nginx.conf
+wget https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty.conf
+/bin/cp  ./openresty.conf  /usr/local/openresty/nginx/conf/nginx.conf
 
 
-chown -R www-data:www-data /usr/local/nginx
+chown -R www-data:www-data /usr/local/openresty
 
-/usr/local/nginx/sbin/nginx -t
-/usr/local/nginx/sbin/nginx
+/usr/local/openresty/nginx/sbin/nginx -t
+/usr/local/openresty/nginx/sbin/nginx
 sleep 3s
-/usr/local/nginx/sbin/nginx -s stop
+/usr/local/openresty/nginx/sbin/nginx -s stop
 
-chown -R www-data:www-data /usr/local/nginx
+chown -R www-data:www-data /usr/local/openresty
 
 
 # shellcheck disable=SC2129
@@ -237,7 +237,7 @@ echo '' >> ~/.bashrc
 # shellcheck disable=SC2016
 echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc
 # shellcheck disable=SC2016
-echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc
+echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc
 echo '' >> ~/.bashrc
 
 
