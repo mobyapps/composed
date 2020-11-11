@@ -12,8 +12,8 @@ PHP_HASH=f056d74409a71f17218f76538c6a2d7b59ee99db9db7685fa0ab9cd0d4c0f286
 COMPOSER_VERSION=1.10.17
 COMPOSER_HASH=6fa00eba5103ce6750f94f87af8356e12cc45d5bbb11a140533790cf60725f1c
 
-NGINX_VERSION=1.19.4
-NGINX_HASH=61df546927905a0d624f9396bb7a8bc7ca7fd26522ce9714d56a78b73284000e
+OPENRESTY_VERSION=1.19.3.1
+OPENRESTY_HASH=f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
 # apt-get -y install build-essential \
 # zlib1g-dev                      \
@@ -91,15 +91,15 @@ if [ "${PHP_HASH_CHECK}" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mi
 tar -zxf php-${PHP_VERSION}.tar.gz
 
 
-wget https://mirrors.sohu.com/nginx/nginx-${NGINX_VERSION}.tar.gz
+wget https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz
 
-echo "${NGINX_HASH} *nginx-${NGINX_VERSION}.tar.gz" | shasum -a 256 --check
+echo "${OPENRESTY_HASH} *openresty-${OPENRESTY_VERSION}.tar.gz" | shasum -a 256 --check
 
-NGINX_HASH_CHECK=$?
+OPENRESTY_HASH_CHECK=$?
 
-if [ "${NGINX_HASH_CHECK}" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi
+if [ "${OPENRESTY_HASH_CHECK}" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi
 
-tar -zxf nginx-${NGINX_VERSION}.tar.gz
+tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz
 
 
 mkdir -p /var/www
@@ -181,8 +181,8 @@ chown -R www-data:www-data /usr/local/php
 
 
 # shellcheck disable=SC2164
-cd /usr/local/src/nginx-${NGINX_VERSION}
-./configure --prefix=/usr/local/nginx \
+cd /usr/local/src/openresty-${OPENRESTY_VERSION}
+./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
 --with-http_ssl_module \
