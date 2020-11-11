@@ -65,7 +65,7 @@ libgeoip-dev
 # shellcheck disable=SC2164
 cd /usr/local/bin/
 
-wget https://mirrors.aliyun.com/composer/composer.phar
+wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
 
 echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check
 
