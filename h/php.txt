@@ -1,4 +1,4 @@
-`configure' configures PHP 7.4.9 to adapt to many kinds of systems.
+`configure' configures PHP 7.4.12 to adapt to many kinds of systems.
 
 Usage: ./configure [OPTION]... [VAR=VALUE]...
 
