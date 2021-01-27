@@ -16,10 +16,10 @@ ENV OPENRESTY_VERSION   1.19.3.1
 ENV OPENRESTY_HASH      f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
 COPY ./runapp.sh  /etc/my_init.d/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini           /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf            /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf      /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf          /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini                 /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf                  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf            /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf                /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty_testing.conf  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
@@ -71,6 +71,7 @@ liblz4-dev                      \
 \
 && echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
+&& echo '127.0.0.1 app.slimtest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
 && echo '' >> /etc/hosts \
 \
@@ -274,7 +275,7 @@ liblz4-dev                      \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 9000
+EXPOSE 80 443 9000 3360
 
 CMD ["/sbin/my_init"]
 
