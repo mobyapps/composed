@@ -86,7 +86,7 @@ liblz4-dev                      \
 \
 && cd /usr/local/src \
 \
-&& wget https://mirrors.sohu.com/php/php-${PHP_VERSION}.tar.gz \
+&& wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && echo "${PHP_HASH} *php-${PHP_VERSION}.tar.gz" | shasum -a 256 --check \
 && PHP_HASH_CHECK=$? \
 && if [ "$PHP_HASH_CHECK" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mismatch." && exit 1; fi \
