@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY hello /
+COPY ./hello /
 
 CMD ["/hello"]
