@@ -198,7 +198,6 @@ liblz4-dev                      \
 --enable-sysvshm \
 --enable-shmop \
 --with-zip \
---enable-zend-test \
 --with-xsl \
 --with-tidy \
 --with-xmlrpc \
@@ -243,11 +242,10 @@ liblz4-dev                      \
 --without-mail_pop3_module \
 --without-mail_imap_module \
 --without-mail_smtp_module \
---with-stream=dynamic \
+--with-stream \
 --with-stream_ssl_module \
 --with-stream_realip_module \
 --with-stream_ssl_preread_module \
---with-pcre \
 --with-pcre-jit \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
