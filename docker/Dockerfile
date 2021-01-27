@@ -3,17 +3,17 @@ FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 LABEL maintainer="charescape@outlook.com"
 
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.21
-ENV MYSQL_HASH          7a63ac9044f9a87adc2644fea310a513
+ENV MYSQL_VERSION       8.0.23
+ENV MYSQL_HASH          77f03606ed9d25d00986b9bc49069a7e
 
-ENV PHP_VERSION         7.4.10
-ENV PHP_HASH            e720f1286f895ca37f1c75a2ca338ad2f2456664d7097298167181b25b212feb
+ENV PHP_VERSION         7.4.14
+ENV PHP_HASH            d359183e2436f4ab30b70d4fbd881b5705a46b2e68cc6069fe91cd63d6e98e13
 
-ENV COMPOSER_VERSION    1.10.13
-ENV COMPOSER_HASH       5ca7445cfd48dd27c5a84aa005a47b4d9fd91132313830609875df3a6973708f
+ENV COMPOSER_VERSION    2.0.8
+ENV COMPOSER_HASH       2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538
 
-ENV NGINX_VERSION       1.19.2
-ENV NGINX_HASH          7c1f7bb13e79433ee930c597d272a64bc6e30c356a48524f38fd34fa88d62473
+ENV OPENRESTY_VERSION   1.19.3.1
+ENV OPENRESTY_HASH      f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
 COPY ./runapp.sh  /etc/my_init.d/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini           /usr/local/src/
