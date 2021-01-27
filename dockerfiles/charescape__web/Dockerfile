@@ -15,7 +15,7 @@ ENV COMPOSER_HASH       2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d
 ENV OPENRESTY_VERSION   1.19.3.1
 ENV OPENRESTY_HASH      f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
-COPY ./runapp.sh  /etc/my_init.d/
+COPY ./dockerfiles/charescape__web/runapp.sh  /etc/my_init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini                 /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf                  /usr/local/src/

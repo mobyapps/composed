@@ -45,6 +45,9 @@ jobs:
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:4.0.0 .
 
+      - name: Docker Images
+        run: docker image ls
+
       - name: Docker Login
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
