@@ -1,8 +1,8 @@
-FROM scratch
+FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 
-COPY ./dockerfiles/charescape__hello/hello /
+COPY ./dockerfiles/charescape__hello/helloworld  /etc/my_init.d/
 
 RUN set -eux \
-&& chmod 777 /hello
+&& chmod +x /etc/my_init.d/helloworld
 
-CMD ["/hello"]
+CMD ["/sbin/my_init"]
