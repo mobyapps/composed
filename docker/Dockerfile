@@ -79,7 +79,7 @@ liblz4-dev                      \
 && chmod +x /etc/my_init.d/runapp.sh \
 \
 && cd /usr/local/bin/ \
-&& wget https://mirrors.aliyun.com/composer/composer.phar \
+&& wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
 && echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
 && COMPOSER_HASH_CHECK=$? \
 && if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
@@ -93,10 +93,10 @@ liblz4-dev                      \
 && PHP_HASH_CHECK=$? \
 && if [ "$PHP_HASH_CHECK" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://mirrors.sohu.com/nginx/nginx-${NGINX_VERSION}.tar.gz \
-&& echo "${NGINX_HASH} *nginx-${NGINX_VERSION}.tar.gz" | shasum -a 256 --check \
-&& NGINX_HASH_CHECK=$? \
-&& if [ "$NGINX_HASH_CHECK" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+&& wget https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz \
+&& echo "${OPENRESTY_HASH} *openresty-${OPENRESTY_VERSION}.tar.gz" | shasum -a 256 --check \
+&& OPENRESTY_HASH_CHECK=$? \
+&& if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && wget https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
 && echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
@@ -105,7 +105,7 @@ liblz4-dev                      \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
-&& tar -zxf nginx-${NGINX_VERSION}.tar.gz \
+&& tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
 \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
@@ -224,8 +224,8 @@ liblz4-dev                      \
 \
 && cd /usr/local/src \
 \
-&& cd /usr/local/src/nginx-${NGINX_VERSION} \
-&& ./configure --prefix=/usr/local/nginx \
+&& cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
+&& ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
 --with-http_ssl_module \
