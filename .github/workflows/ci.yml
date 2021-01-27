@@ -10,7 +10,7 @@ on:
 jobs:
   job0:
     name: job0 ON ubuntu-20.04
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    if: "contains(github.event.head_commit.message, 'do job0')"
 
     runs-on: ubuntu-20.04
 
@@ -19,6 +19,9 @@ jobs:
 
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
+
+      - name: Docker Images
+        run: docker image ls
 
       - name: Docker Login
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
