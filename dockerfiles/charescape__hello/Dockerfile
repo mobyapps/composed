@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY ./hello /
+COPY ./dockerfiles/charescape__hello/hello /
 
 CMD ["/hello"]
