@@ -255,7 +255,7 @@ liblz4-dev                      \
 && sleep  3s \
 && make install \
 \
-&& mkdir /usr/local/nginx/gitrepos \
+&& mkdir /var/www/gitrepos \
 \
 && cd /usr/local/src \
 && yes | cp ./nginx_testing.conf  /usr/local/nginx/conf/nginx.conf \
