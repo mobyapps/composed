@@ -21,3 +21,9 @@ jobs:
         run: |
           cd ./docker/
           docker build -t charescape/web:4.0.0 .
+
+      - name: Docker Login
+        run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
+
+      - name: Docker Push
+        run: docker push charescape/web:4.0.0
