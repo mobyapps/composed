@@ -26,8 +26,6 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openr
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
-&& sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
-&& sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 \
 && apt-get -y update            \
 && apt-get -y upgrade           \
