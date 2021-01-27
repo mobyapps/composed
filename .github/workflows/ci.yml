@@ -1,0 +1,23 @@
+name: Zii-CI
+
+on:
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: On ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Build
+        run: |
+          cd ./docker/
+          docker build -t charescape/web:4.0.0 .
