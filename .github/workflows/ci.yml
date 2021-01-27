@@ -21,7 +21,7 @@ jobs:
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
 
       - name: Build Test
-        run: docker run --rm -i charescape/hello:$GITHUB_RUN_ID
+        run: docker run -i --stop-timeout 10 charescape/hello:$GITHUB_RUN_ID
 
 
   job1:
