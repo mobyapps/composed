@@ -112,8 +112,8 @@ liblz4-dev                      \
 && mkdir -p /var/www/mysql_temp \
 && chown -R www-data:www-data /var/www \
 \
-&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/builddir0 \
-&& cd /usr/local/src/mysql-${MYSQL_VERSION}/builddir0 \
+&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
+&& cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
 && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DCMAKE_BUILD_TYPE=Release \
 -DWITH_SYSTEM_LIBS=1 \
