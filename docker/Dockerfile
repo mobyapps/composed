@@ -258,16 +258,16 @@ liblz4-dev                      \
 && mkdir /var/www/gitrepos \
 \
 && cd /usr/local/src \
-&& yes | cp ./nginx_testing.conf  /usr/local/nginx/conf/nginx.conf \
+&& yes | cp ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
-&& /usr/local/nginx/sbin/nginx -t \
-&& /usr/local/nginx/sbin/nginx \
+&& /usr/local/openresty/nginx/sbin/nginx -t \
+&& /usr/local/openresty/nginx/sbin/nginx \
 && sleep 3s \
-&& /usr/local/nginx/sbin/nginx -s stop \
+&& /usr/local/openresty/nginx/sbin/nginx -s stop \
 \
 && echo '' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc \
+&& echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
