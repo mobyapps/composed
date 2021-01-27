@@ -20,7 +20,7 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.i
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf      /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf          /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/nginx_testing.conf  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty_testing.conf  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
