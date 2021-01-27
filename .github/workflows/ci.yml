@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: On ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    if: "contains(github.event.head_commit.message, 'do ci')"
 
     runs-on: ubuntu-latest
 
@@ -18,9 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Docker Build
-        run: |
-          cd ./docker/
-          docker build -t charescape/web:4.0.0 .
+        run: docker build -t charescape/web:4.0.0 .
 
       - name: Docker Login
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
