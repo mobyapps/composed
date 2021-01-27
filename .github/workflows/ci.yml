@@ -8,11 +8,11 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    name: On ubuntu-latest
+  job1:
+    name: On Ubuntu 20.04
     if: "contains(github.event.head_commit.message, 'do ci')"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
