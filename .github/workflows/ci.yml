@@ -20,6 +20,9 @@ jobs:
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
 
+      - name: Build Test
+        run: docker run --rm -i charescape/hello:$GITHUB_RUN_ID
+
 
   job1:
     name: job1 ON ubuntu-20.04
