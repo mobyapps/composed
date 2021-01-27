@@ -20,6 +20,12 @@ jobs:
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
 
+      - name: Docker Login
+        run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
+
+      - name: Docker Push
+        run: docker push charescape/hello:$GITHUB_RUN_ID
+
 #      - name: Build Test
 #        run: docker run -i --stop-timeout 10 charescape/hello:$GITHUB_RUN_ID
 
