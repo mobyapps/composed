@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+
+example nginx conf:
+
+    map $time_iso8601 $tt_yyyy {
+        volatile;
+
+        default "9999";
+
+        "~^(\d{4})-(\d{2})-(\d{2})" $1;
+    }
+
+    map $time_iso8601 $tt_mm {
+        volatile;
+
+        default "99";
+
+        "~^(\d{4})-(\d{2})-(\d{2})" $2;
+    }
+
+    map $time_iso8601 $tt_dd {
+        volatile;
+
+        default "99";
+
+        "~^(\d{4})-(\d{2})-(\d{2})" $3;
+    }
+
+    # list of nginx variables: http://nginx.org/en/docs/varindex.html
+    log_format fmtv2  '$remote_addr ,,, $http_x_forwarded_for ,,, $time_iso8601 ,,, '
+                      '$request_method ,,, $server_name ,,, $request_uri ,,, $request_time ,,, $request_completion ,,, '
+                      '$status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent';
+
+    access_log  /usr/local/nginx/logs/fmtv2.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv2;
+
+ */
+
+$handle = @fopen('/path-to-file', 'rb');
+
+if (is_resource($handle)) {
+  while (($buffer = fgets($handle, 4096)) !== false) {
+    echo $buffer;
+  }
+  if (!feof($handle)) {
+    echo "Error: unexpected fgets() fail\n";
+  }
+  fclose($handle);
+}
