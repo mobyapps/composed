@@ -32,6 +32,7 @@ example nginx conf:
 
     # list of nginx variables: http://nginx.org/en/docs/varindex.html
     log_format fmtv3  '$remote_addr ,,, $http_x_forwarded_for ,,, $time_iso8601 ,,, $request_id ,,, '
+    # about $bytes_received variable: https://github.com/openresty/openresty/issues/566
                       '$server_name ,,, $content_type ,,, $content_length ,,, $bytes_received ,,, $request_completion ,,, '
                       '$request_method ,,, $uri ,,, $query_string ,,, $request_uri ,,, '
                       '$request_time ,,, $status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent';
