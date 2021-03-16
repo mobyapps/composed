@@ -31,11 +31,12 @@ example nginx conf:
     }
 
     # list of nginx variables: http://nginx.org/en/docs/varindex.html
-    log_format fmtv2  '$remote_addr ,,, $http_x_forwarded_for ,,, $time_iso8601 ,,, '
-                      '$request_method ,,, $server_name ,,, $request_uri ,,, $request_time ,,, $request_completion ,,, '
-                      '$status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent';
+    log_format fmtv3  '$remote_addr ,,, $http_x_forwarded_for ,,, $time_iso8601 ,,, $request_id ,,, '
+                      '$server_name ,,, $content_type ,,, $content_length ,,, $bytes_received ,,, $request_completion ,,, '
+                      '$request_method ,,, $uri ,,, $query_string ,,, $request_uri ,,, '
+                      '$request_time ,,, $status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent';
 
-    access_log  /usr/local/nginx/logs/fmtv2.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv2;
+    access_log  /usr/local/nginx/logs/fmtv3.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv3;
 
  */
 
