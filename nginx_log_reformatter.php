@@ -35,7 +35,7 @@ example nginx conf:
     log_format fmtv3  '$remote_addr ,,, $http_x_forwarded_for ,,, $time_iso8601 ,,, '
                       '$server_name ,,, $content_type ,,, $content_length ,,, $bytes_received ,,, $request_completion ,,, '
                       '$request_method ,,, $request_uri ,,, $query_string ,,, '
-                      '$request_time ,,, $status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent';
+                      '$request_time ,,, $status ,,, $body_bytes_sent ,,, $http_referer ,,, $http_user_agent ,,, $msec';
 
     access_log  /usr/local/nginx/logs/fmtv3.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv3;
 
