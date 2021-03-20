@@ -2,9 +2,9 @@
 
 set -eux
 
-apt-get -y update
+apt -y update
 
-apt-get -y upgrade
+apt -y upgrade
 
 PHP_VERSION=5.6.40
 PHP_HASH=56fb9878d12fdd921f6a0897e919f4e980d930160e154cbde2cc6d9206a27cac
@@ -15,7 +15,7 @@ COMPOSER_HASH=a69df12e86a0a18fbedfc91a33d5f9acc5cf939576e0258326074fc1b2ee1aea
 NGINX_VERSION=1.19.3
 NGINX_HASH=91e5b74fa17879d2463294e93ad8f6ffc066696ae32ad0478ffe15ba0e9e8df0
 
-# apt-get -y install build-essential \
+# apt -y install build-essential \
 # zlib1g-dev                      \
 # libedit-dev                     \
 # libeditline-dev                 \
@@ -29,7 +29,7 @@ NGINX_HASH=91e5b74fa17879d2463294e93ad8f6ffc066696ae32ad0478ffe15ba0e9e8df0
 # fonts-arphic-ukai               \
 # fonts-arphic-uming
 
-apt-get -y install build-essential \
+apt -y install build-essential \
 autoconf                        \
 pkg-config                      \
 wget                            \
@@ -250,7 +250,7 @@ echo 'export PATH="$PATH:/usr/local/nginx/sbin"' >> ~/.bashrc
 echo '' >> ~/.bashrc
 
 
-# apt-get clean
+# apt clean
 # rm -rf /var/lib/apt/lists/*
 # rm -rf /tmp/*
 # rm -rf /var/tmp/*

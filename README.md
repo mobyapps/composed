@@ -5,11 +5,11 @@ sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/so
 && sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
 && sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list
 
-apt-get -y update && apt-get -y upgrade
+apt -y update && apt -y upgrade
 
-apt-get remove docker docker-engine docker.io containerd runc
+apt remove docker docker-engine docker.io containerd runc
 
-apt-get install \
+apt install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -22,9 +22,9 @@ apt-key fingerprint 0EBFCD88
 
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-apt-get -y update && apt-get -y upgrade
+apt -y update && apt -y upgrade
 
-apt-get install docker-ce docker-ce-cli containerd.io
+apt install docker-ce docker-ce-cli containerd.io
 
 docker run hello-world
 ```

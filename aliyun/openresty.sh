@@ -2,9 +2,9 @@
 
 set -eux
 
-apt-get -y update
+apt -y update
 
-apt-get -y upgrade
+apt -y upgrade
 
 PHP_VERSION=7.4.12
 PHP_HASH=f056d74409a71f17218f76538c6a2d7b59ee99db9db7685fa0ab9cd0d4c0f286
@@ -15,7 +15,7 @@ COMPOSER_HASH=6fa00eba5103ce6750f94f87af8356e12cc45d5bbb11a140533790cf60725f1c
 OPENRESTY_VERSION=1.19.3.1
 OPENRESTY_HASH=f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
-# apt-get -y install build-essential \
+# apt -y install build-essential \
 # zlib1g-dev                      \
 # libedit-dev                     \
 # libeditline-dev                 \
@@ -29,7 +29,7 @@ OPENRESTY_HASH=f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 # fonts-arphic-ukai               \
 # fonts-arphic-uming
 
-apt-get -y install build-essential \
+apt -y install build-essential \
 autoconf                        \
 pkg-config                      \
 wget                            \
@@ -241,7 +241,7 @@ echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc
 echo '' >> ~/.bashrc
 
 
-# apt-get clean
+# apt clean
 # rm -rf /var/lib/apt/lists/*
 # rm -rf /tmp/*
 # rm -rf /var/tmp/*

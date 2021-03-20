@@ -28,9 +28,9 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
-&& apt-get -y update            \
-&& apt-get -y upgrade           \
-&& apt-get -y install build-essential \
+&& apt -y update            \
+&& apt -y upgrade           \
+&& apt -y install build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -271,7 +271,7 @@ liblz4-dev                      \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
-&& apt-get clean \
+&& apt clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && rm -rf /usr/local/src/*
