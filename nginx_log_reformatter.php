@@ -39,6 +39,16 @@ example nginx conf:
 
     access_log  /usr/local/nginx/logs/fmtv3.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv3;
 
+    # for logging request_body with openresty
+    log_format fmtv3body escape=json '{"rb": "$request_body", "rbf": "$request_body_file"}';
+
+    location = /testfeature {
+        access_log   /usr/local/nginx/logs/fmtv3.$tt_yyyy.$tt_mm.$tt_dd.log  fmtv3;
+        access_log   /usr/local/nginx/logs/testfeature.log  fmtv3body;
+
+        echo_read_request_body;
+    }
+
  */
 
 $handle = @fopen('/path-to-file', 'rb');
