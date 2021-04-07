@@ -133,8 +133,6 @@ liblz4-dev                      \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_UNIT_TESTS=0 \
--DWITH_GMOCK=/usr/local/googletest \
--DENABLE_DOWNLOADS=1 \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
