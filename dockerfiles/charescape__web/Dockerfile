@@ -202,7 +202,6 @@ liblz4-dev                      \
 --with-tidy \
 --with-xmlrpc \
 --with-iconv-dir \
---with-pear \
 --with-sodium \
 --with-password-argon2 \
 \
