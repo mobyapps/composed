@@ -42,14 +42,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Docker Build
+      - name: Build image
         run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:4.1.0 .
 
-      - name: Docker Images
+      - name: List images
         run: docker image ls
 
-      - name: Docker Login
+      - name: Login to DockerHub
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
-      - name: Docker Push
+      - name: Push image
         run: docker push charescape/web:4.1.0
