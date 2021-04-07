@@ -69,6 +69,7 @@ libedit-dev                     \
 libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
+libsasl2-dev                    \
 \
 && echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
