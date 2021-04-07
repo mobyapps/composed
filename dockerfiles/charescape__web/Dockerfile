@@ -6,11 +6,11 @@ ENV MYSQL_MAIN_VERSION  8.0
 ENV MYSQL_VERSION       8.0.23
 ENV MYSQL_HASH          77f03606ed9d25d00986b9bc49069a7e
 
-ENV PHP_VERSION         7.4.14
-ENV PHP_HASH            d359183e2436f4ab30b70d4fbd881b5705a46b2e68cc6069fe91cd63d6e98e13
+ENV PHP_VERSION         7.4.16
+ENV PHP_HASH            ef2d2b463fc3444895ec599337b663a8832c6ade148d9832417e59aa2b9e93da
 
-ENV COMPOSER_VERSION    2.0.8
-ENV COMPOSER_HASH       2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538
+ENV COMPOSER_VERSION    2.0.12
+ENV COMPOSER_HASH       82ea8c1537cfaceb7e56f6004c7ccdf99ddafce7237c07374d920e635730a631
 
 ENV OPENRESTY_VERSION   1.19.3.1
 ENV OPENRESTY_HASH      f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
@@ -72,6 +72,7 @@ liblz4-dev                      \
 \
 && echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
+&& echo '127.0.0.1 app.symfonytest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.slimtest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
 && echo '' >> /etc/hosts \
@@ -110,6 +111,7 @@ liblz4-dev                      \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
+&& mkdir -p /var/www/default_site \
 && chown -R www-data:www-data /var/www \
 \
 && mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
