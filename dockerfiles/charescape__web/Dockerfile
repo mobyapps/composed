@@ -1,4 +1,4 @@
-FROM phusion/baseimage:focal-1.0.0alpha1-amd64
+FROM ubuntu:latest
 
 LABEL maintainer="charescape@outlook.com"
 
@@ -15,7 +15,7 @@ ENV COMPOSER_HASH       82ea8c1537cfaceb7e56f6004c7ccdf99ddafce7237c07374d920e63
 ENV OPENRESTY_VERSION   1.19.3.1
 ENV OPENRESTY_HASH      f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
 
-COPY ./dockerfiles/charescape__web/runapp.sh  /etc/my_init.d/
+COPY ./dockerfiles/charescape__web/runapp.sh  /etc/init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini                 /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf                  /usr/local/src/
@@ -80,7 +80,7 @@ libldap2-dev                    \
 && echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
 && echo '' >> /etc/hosts \
 \
-&& chmod +x /etc/my_init.d/runapp.sh \
+&& chmod +x /etc/init.d/runapp.sh \
 \
 && cd /usr/local/bin/ \
 && wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
@@ -280,6 +280,6 @@ libldap2-dev                    \
 
 EXPOSE 80 443 9000 3306
 
-CMD ["/sbin/my_init"]
+CMD ["/etc/init.d/runapp.sh"]
 
 # source ~/.bashrc
