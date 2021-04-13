@@ -80,7 +80,7 @@ libldap2-dev                    \
 && echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
 && echo '' >> /etc/hosts \
 \
-&& chmod +x /etc/my_init.d/runapp.sh \
+&& chmod +x /etc/init.d/runapp.sh \
 \
 && cd /usr/local/bin/ \
 && wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
