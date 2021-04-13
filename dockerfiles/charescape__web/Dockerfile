@@ -278,7 +278,7 @@ libldap2-dev                    \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 9000 3360
+EXPOSE 80 443 9000 3306
 
 CMD ["/sbin/my_init"]
 
