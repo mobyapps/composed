@@ -35,7 +35,6 @@ jobs:
 
   job1:
     name: job1 ON ubuntu-20.04
-    if: "contains(github.event.head_commit.message, 'do job1')"
 
     runs-on: ubuntu-20.04
 
