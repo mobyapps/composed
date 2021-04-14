@@ -89,6 +89,7 @@ libldap2-dev                    \
 && if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
 \
 && chmod +x /usr/local/bin/composer.phar \
+&& chown www-data:www-data /usr/local/bin/composer.phar \
 \
 && cd /usr/local/src \
 \
