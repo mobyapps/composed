@@ -3,8 +3,8 @@ FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 LABEL maintainer="charescape@outlook.com"
 
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.23
-ENV MYSQL_HASH          77f03606ed9d25d00986b9bc49069a7e
+ENV MYSQL_VERSION       8.0.24
+ENV MYSQL_HASH          93f9a015ff05c0fe720f3abee243bfc8
 
 ENV PHP_VERSION         7.4.16
 ENV PHP_HASH            ef2d2b463fc3444895ec599337b663a8832c6ade148d9832417e59aa2b9e93da
