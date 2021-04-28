@@ -8,8 +8,8 @@ on:
     branches: [ master ]
 
 jobs:
-  job0:
-    name: job0 ON ubuntu-20.04
+  hello:
+    name: "hello on ubuntu-20.04"
     if: "contains(github.event.head_commit.message, 'build hello')"
 
     runs-on: ubuntu-20.04
@@ -33,8 +33,8 @@ jobs:
 #        run: docker run -i --stop-timeout 10 charescape/hello:$GITHUB_RUN_ID
 
 
-  job1:
-    name: job1 ON ubuntu-20.04
+  web:
+    name: web on ubuntu-20.04
     if: "contains(github.event.head_commit.message, 'build web')"
 
     runs-on: ubuntu-20.04
@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:4.2.1 .
+        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:4.3.0 .
 
       - name: List images
         run: docker image ls
@@ -52,4 +52,4 @@ jobs:
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
       - name: Push image
-        run: docker push charescape/web:4.2.1
+        run: docker push charescape/web:4.3.0

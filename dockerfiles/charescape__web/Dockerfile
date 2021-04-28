@@ -72,6 +72,41 @@ liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
 \
+\
+\
+nodejs \
+npm \
+libgtk2.0-0 \
+libgtk-3-0 \
+libnotify-dev \
+libgconf-2-4 \
+libgbm-dev \
+libnss3 \
+libxss1 \
+libasound2 \
+libxtst6 \
+xauth \
+xvfb \
+\
+fontconfig \
+fonts-noto-color-emoji \
+fonts-arphic-bkai00mp \
+fonts-arphic-bsmi00lp \
+fonts-arphic-gbsn00lp \
+fonts-arphic-gkai00mp \
+fonts-arphic-ukai \
+fonts-arphic-uming \
+ttf-wqy-zenhei \
+ttf-wqy-microhei \
+xfonts-wqy \
+\
+fonts-liberation \
+libappindicator3-1 \
+xdg-utils \
+mplayer \
+\
+\
+\
 && echo '' >> /etc/hosts \
 && echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
@@ -107,6 +142,10 @@ libldap2-dev                    \
 && echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb \
+&& dpkg -i google-chrome-unstable_current_amd64.deb \
+&& apt-get install -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
