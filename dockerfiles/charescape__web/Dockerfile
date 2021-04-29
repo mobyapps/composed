@@ -22,6 +22,7 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cn
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf                /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty_testing.conf  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/ttt/ttt_dbapi.php                   /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -108,6 +109,7 @@ mplayer \
 \
 \
 && echo '' >> /etc/hosts \
+&& echo '127.0.0.1 dbapi.ttt.com' >> /etc/hosts \
 && echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
 && echo '127.0.0.1 app.symfonytest.com' >> /etc/hosts \
@@ -297,10 +299,16 @@ mplayer \
 && sleep  3s \
 && make install \
 \
-&& mkdir /var/www/gitrepos \
-\
 && cd /usr/local/src \
-&& yes | cp ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
+&& rm -f                        /usr/local/openresty/nginx/conf/nginx.conf \
+&& cp ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
+\
+\
+&& mkdir                       /var/www/repos \
+&& mkdir -p                    /var/www/repos/ttt/dbapi \
+&& cp ./ttt_dbapi.php          /var/www/repos/ttt/dbapi/index.php \
+&& chown -R www-data:www-data  /var/www \
+\
 \
 && /usr/local/openresty/nginx/sbin/nginx -t \
 && /usr/local/openresty/nginx/sbin/nginx \

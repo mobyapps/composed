@@ -17,3 +17,7 @@ chown -R www-data:www-data /usr/local/openresty/
 
 /usr/local/openresty/nginx/sbin/nginx -t
 /usr/local/openresty/nginx/sbin/nginx
+
+pgrep -l mysql
+pgrep -l php
+pgrep -l nginx
