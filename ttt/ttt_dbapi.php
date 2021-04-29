@@ -11920,6 +11920,13 @@ namespace Tqdev\PhpCrudApi {
     use Tqdev\PhpCrudApi\RequestFactory;
     use Tqdev\PhpCrudApi\ResponseUtils;
 
+    $externalConfig = [];
+    foreach ($_GET as $k => $v) {
+      if (is_string($k) && mb_strpos($k, '__') === 0) {
+        $externalConfig[mb_substr($k, 2)] = $v;
+      }
+    }
+
     $config = new Config(array_merge([
       'driver' => 'mysql',
       'address' => '127.0.0.1',
@@ -11929,7 +11936,7 @@ namespace Tqdev\PhpCrudApi {
       'database' => 'testdb0',
       'cacheType' => 'NoCache',
       'debug' => true,
-    ], $_GET));
+    ], $externalConfig));
 
     $request = RequestFactory::fromGlobals();
     $api = new Api($config);
