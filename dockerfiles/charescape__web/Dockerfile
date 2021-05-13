@@ -169,8 +169,8 @@ mplayer \
 -DTMPDIR=/var/www/mysql_temp \
 -DDEFAULT_CHARSET=utf8mb4 \
 -DDEFAULT_COLLATION=utf8mb4_unicode_ci \
--DDOWNLOAD_BOOST=1 \
--DWITH_BOOST=/usr/local/boostcxx \
+-DDOWNLOAD_BOOST=0 \
+-DWITH_BOOST=system \
 -DENABLED_LOCAL_INFILE=1 \
 -DMYSQL_TCP_PORT=3306 \
 -DMYSQL_UNIX_ADDR=/var/www/mysql.sock \
