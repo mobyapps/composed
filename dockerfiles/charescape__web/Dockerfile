@@ -31,6 +31,9 @@ RUN set -eux \
 \
 && apt-get -y update            \
 && apt-get -y upgrade           \
+\
+&& echo '' >> ~/.bashrc         \
+\
 && apt-get -y install sudo build-essential \
 cmake                           \
 autoconf                        \
