@@ -153,6 +153,8 @@ mplayer \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
 \
+&& sed -i 's/dl.bintray.com\/boostorg\/release/boostorg.jfrog.io\/artifactory\/main\/release/' /usr/local/src/mysql-${MYSQL_VERSION}/cmake/boost.cmake \
+\
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
