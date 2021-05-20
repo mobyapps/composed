@@ -41,6 +41,7 @@ pkg-config                      \
 wget                            \
 perl                            \
 git                             \
+git-lfs                         \
 curl                            \
 re2c                            \
 bison                           \
