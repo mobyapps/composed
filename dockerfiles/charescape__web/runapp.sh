@@ -15,8 +15,14 @@ chown -R www-data:www-data /usr/local/openresty/
 /usr/local/php/bin/php -v
 /usr/local/php/sbin/php-fpm
 
-/usr/local/openresty/nginx/sbin/nginx -t
-/usr/local/openresty/nginx/sbin/nginx
+if [ -e /var/www/nginx.conf ]
+then
+  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx.conf -t
+  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx.conf
+else
+  /usr/local/openresty/nginx/sbin/nginx -t
+  /usr/local/openresty/nginx/sbin/nginx
+fi
 
 pgrep -l mysql
 pgrep -l php
