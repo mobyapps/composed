@@ -47,6 +47,7 @@ re2c                            \
 bison                           \
 zip                             \
 socat                           \
+zstd                            \
 libtool                         \
 libxml2-dev                     \
 libssl-dev                      \
