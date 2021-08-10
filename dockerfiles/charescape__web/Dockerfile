@@ -3,17 +3,17 @@ FROM phusion/baseimage:focal-1.0.0-amd64
 LABEL maintainer="charescape@outlook.com"
 
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.25
-ENV MYSQL_HASH          001a17602310317d17524b2e36113c53
+ENV MYSQL_VERSION       8.0.26
+ENV MYSQL_HASH          a43890b29592ec120b072e68971e7dbf
 
-ENV PHP_VERSION         7.4.20
-ENV PHP_HASH            84b09e4617e960b36dfa15fdbf2e3cd7141a2e877216ea29391b12ae86963cf4
+ENV PHP_VERSION         7.4.22
+ENV PHP_HASH            4ca2642b99a822237d7f84dc19682be702ad0e2d5d282f7646d84b746d454e34
 
-ENV COMPOSER_VERSION    2.1.3
-ENV COMPOSER_HASH       f8a72e98dec8da736d8dac66761ca0a8fbde913753e9a43f34112367f5174d11
+ENV COMPOSER_VERSION    2.1.5
+ENV COMPOSER_HASH       be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 
-ENV OPENRESTY_VERSION   1.19.3.2
-ENV OPENRESTY_HASH      ce40e764990fbbeb782e496eb63e214bf19b6f301a453d13f70c4f363d1e5bb9
+ENV OPENRESTY_VERSION   1.19.9.1
+ENV OPENRESTY_HASH      576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
 
 COPY ./dockerfiles/charescape__web/runapp.sh  /etc/my_init.d/
 
@@ -158,7 +158,6 @@ mplayer \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
 \
-&& sed -i 's/dl.bintray.com\/boostorg\/release/boostorg.jfrog.io\/artifactory\/main\/release/' /usr/local/src/mysql-${MYSQL_VERSION}/cmake/boost.cmake \
 \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
