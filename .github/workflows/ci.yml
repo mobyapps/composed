@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: [ master ]
 
+
 jobs:
   hello:
     name: "hello on ubuntu-20.04"
