@@ -15,7 +15,7 @@ ENV COMPOSER_HASH       72524ccebcb071968eb83284507225fdba59f223719b2b3f333d76c8
 ENV OPENRESTY_VERSION   1.19.9.1
 ENV OPENRESTY_HASH      576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
 
-COPY ./dockerfiles/charescape__web/runapp.sh  /etc/my_init.d/
+COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini                 /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf                  /usr/local/src/
@@ -122,7 +122,7 @@ mplayer \
 && echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
 && echo '' >> /etc/hosts \
 \
-&& chmod +x /etc/my_init.d/runapp.sh \
+&& chmod +x /etc/my_init.d/runapps.sh \
 \
 && cd /usr/local/bin/ \
 && wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
