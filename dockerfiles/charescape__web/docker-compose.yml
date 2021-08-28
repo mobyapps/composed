@@ -11,10 +11,11 @@ services:
     # in an error.
     container_name: "web510jar"
 
-    # TODO: Add mysql, php-fpm and nginx logs support
     volumes:
       - "./repos:/var/www/repos"
       - "./nginxconf:/var/www/nginxconf"
+      - "./nginxlogs:/usr/local/openresty/nginx/logs"
+      - "./phplogs:/usr/local/php/var/log"
       - "./syslogs:/var/log"
 
     ports:
