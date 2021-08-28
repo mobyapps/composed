@@ -202,9 +202,16 @@ mplayer \
 && sleep 3s \
 && /usr/local/mysql/support-files/mysql.server restart \
 && sleep 3s \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.user SET Host='%' WHERE User='root' AND Host='localhost';" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.db   SET Host='%' WHERE User='root' AND Host='localhost';" \
+&& /usr/local/mysql/support-files/mysql.server restart \
+&& sleep 3s \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb0;" \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb1;" \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb2;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test0db;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test1db;" \
+&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test2db;" \
 && sleep 3s \
 && /usr/local/mysql/support-files/mysql.server stop \
 \
@@ -330,6 +337,7 @@ mplayer \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
+&& ls -l /usr/local/mysql \
 && rm -rf /usr/local/src/*
 
 EXPOSE 80 443 9000 3306

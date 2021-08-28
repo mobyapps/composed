@@ -11933,7 +11933,7 @@ namespace Tqdev\PhpCrudApi {
       'port' => '3306',
       'username' => 'root',
       'password' => 'root12345',
-      'database' => 'testdb0',
+      'database' => 'test0db',
       'cacheType' => 'NoCache',
       'debug' => true,
     ], $externalConfig));
