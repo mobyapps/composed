@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   web:
-    image: "charescape/web:5.1.0"
+    image: "charescape/web:5.2.0"
 
     # Specify a custom container name, rather than a generated default name.
     #
