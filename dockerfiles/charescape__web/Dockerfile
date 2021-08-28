@@ -338,6 +338,10 @@ mplayer \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && ls -l /usr/local/mysql \
+&& du -h --max-depth=1 /usr/local/mysql \
+&& du -h --max-depth=1 /usr/local/php \
+&& du -h --max-depth=1 /usr/local/openresty \
+&& du -h --max-depth=2 /var/www \
 && rm -rf /usr/local/src/*
 
 EXPOSE 80 443 9000 3306
