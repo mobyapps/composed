@@ -337,7 +337,6 @@ mplayer \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
-&& ls -l /usr/local/mysql \
 && du -h --max-depth=1 /usr/local/mysql \
 && du -h --max-depth=1 /usr/local/php \
 && du -h --max-depth=1 /usr/local/openresty \
