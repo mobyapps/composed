@@ -192,6 +192,7 @@ mplayer \
 && make install \
 \
 && cd /usr/local/src \
+&& rm -f       /var/www/mysql_conf/my.cnf \
 && cp ./my.cnf /var/www/mysql_conf/my.cnf \
 && chown -R www-data:www-data /var/www \
 && /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
