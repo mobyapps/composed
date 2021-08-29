@@ -15,11 +15,16 @@ chown -R www-data:www-data /usr/local/openresty/
 /usr/local/php/bin/php -v
 /usr/local/php/sbin/php-fpm
 
-if [ -e /var/www/nginx.conf ]
+if [ -f /var/www/nginx-external.conf ]
 then
-  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx.conf -t
-  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx.conf
+  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx-external.conf -t
+  /usr/local/openresty/nginx/sbin/nginx -c /var/www/nginx-external.conf
 else
+  if [ -f /var/www/nginx-override.conf ]; then
+    rm -f                            /usr/local/openresty/nginx/conf/nginx.conf
+    cp /var/www/nginx-override.conf  /usr/local/openresty/nginx/conf/nginx.conf
+  fi
+
   /usr/local/openresty/nginx/sbin/nginx -t
   /usr/local/openresty/nginx/sbin/nginx
 fi
