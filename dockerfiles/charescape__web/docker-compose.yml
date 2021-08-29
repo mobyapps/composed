@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   web:
-    image: "charescape/web:5.2.0"
+    image: "charescape/web:5.2.1"
 
     # Specify a custom container name, rather than a generated default name.
     #
@@ -15,8 +15,9 @@ services:
       - "./repos:/var/www/repos"
       - "./nginxconf:/var/www/nginxconf"
       - "./nginxlogs:/usr/local/openresty/nginx/logs"
+      - "./wwwlogs:/var/www/runlogs"
       - "./phplogs:/usr/local/php/var/log"
-      - "./syslogs:/var/log"
+      - "./oslogs:/var/log"
 
     ports:
       - "80:80"
