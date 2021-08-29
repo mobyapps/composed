@@ -22,7 +22,7 @@ ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cn
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf                /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty_testing.conf  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/ttt/ttt_dbapi.php                   /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/master/ttt/dbapi.php                   /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -164,6 +164,7 @@ mplayer \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
 && mkdir -p /var/www/default_site \
+&& mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
 && mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
@@ -269,9 +270,13 @@ mplayer \
 && make install \
 \
 && cd /usr/local/src \
-&& yes | cp ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
-&& yes | cp ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
-&& yes | cp ./php.ini      /usr/local/php/lib/php.ini \
+&& rm -f /usr/local/php/etc/php-fpm.conf \
+&& rm -f /usr/local/php/etc/php-fpm.d/www.conf \
+&& rm -f /usr/local/php/lib/php.ini \
+\
+&& mv ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
+&& mv ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
+&& mv ./php.ini      /usr/local/php/lib/php.ini \
 \
 && /usr/local/php/bin/php -v \
 && sleep  3s \
@@ -320,7 +325,7 @@ mplayer \
 \
 && mkdir                       /var/www/repos \
 && mkdir -p                    /var/www/repos/ttt/dbapi \
-&& cp ./ttt_dbapi.php          /var/www/repos/ttt/dbapi/index.php \
+&& cp ./dbapi.php          /var/www/repos/ttt/dbapi/index.php \
 && chown -R www-data:www-data  /var/www \
 \
 \
@@ -338,10 +343,10 @@ mplayer \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
-&& du -h --max-depth=1 /usr/local/mysql \
-&& du -h --max-depth=1 /usr/local/php \
-&& du -h --max-depth=1 /usr/local/openresty \
-&& du -h --max-depth=2 /var/www \
+&& du -h --max-depth=2 /usr/local/mysql \
+&& du -h --max-depth=2 /usr/local/php \
+&& du -h --max-depth=2 /usr/local/openresty \
+&& du -h --max-depth=3 /var/www \
 && rm -rf /usr/local/src/*
 
 EXPOSE 80 443 3306
