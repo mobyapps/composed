@@ -325,7 +325,7 @@ mplayer \
 \
 && mkdir                       /var/www/repos \
 && mkdir -p                    /var/www/repos/ttt/dbapi \
-&& cp ./dbapi.php          /var/www/repos/ttt/dbapi/index.php \
+&& cp ./dbapi.php              /var/www/repos/ttt/dbapi/index.php \
 && chown -R www-data:www-data  /var/www \
 \
 \
