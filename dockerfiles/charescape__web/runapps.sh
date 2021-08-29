@@ -23,6 +23,8 @@ else
   if [ -f /var/www/nginx-override.conf ]; then
     rm -f                            /usr/local/openresty/nginx/conf/nginx.conf
     cp /var/www/nginx-override.conf  /usr/local/openresty/nginx/conf/nginx.conf
+
+    chown -R www-data:www-data       /usr/local/openresty/
   fi
 
   /usr/local/openresty/nginx/sbin/nginx -t
