@@ -6,11 +6,11 @@ ENV MYSQL_MAIN_VERSION  8.0
 ENV MYSQL_VERSION       8.0.26
 ENV MYSQL_HASH          a43890b29592ec120b072e68971e7dbf
 
-ENV PHP_VERSION         7.4.23
-ENV PHP_HASH            2aaa481678ad4d2992e7bcf161e0e98c7268f4979f7ca8b3d97dd6de19c205d6
+ENV PHP_VERSION         8.0.14
+ENV PHP_HASH            e67ebd8c4c77247ad1fa88829e5b95d51a19edf3d87814434de261e20a63ea20
 
-ENV COMPOSER_VERSION    2.1.6
-ENV COMPOSER_HASH       72524ccebcb071968eb83284507225fdba59f223719b2b3f333d76c8a9ac6b72
+ENV COMPOSER_VERSION    2.1.14
+ENV COMPOSER_HASH       d44a904520f9aaa766e8b4b05d2d9a766ad9a6f03fa1a48518224aad703061a4
 
 ENV OPENRESTY_VERSION   1.19.9.1
 ENV OPENRESTY_HASH      576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
@@ -133,6 +133,16 @@ mplayer \
 \
 && chmod +x /usr/local/bin/composer.phar \
 && chown www-data:www-data /usr/local/bin/composer.phar \
+\
+&& cd /usr/local \
+&& wget https://curl.se/ca/cacert.pem \
+&& wget https://curl.se/ca/cacert.pem.sha256 \
+&& cat cacert.pem.sha256 | shasum -a 256 --check \
+&& CACERT_HASH_CHECK=$? \
+&& if [ "$CACERT_HASH_CHECK" -ne "0" ]; then echo "cacert.pem hash mismatch." && exit 1; fi \
+\
+&& chown www-data:www-data /usr/local/cacert.pem \
+&& chown www-data:www-data /usr/local/cacert.pem.sha256 \
 \
 && cd /usr/local/src \
 \
@@ -261,8 +271,6 @@ mplayer \
 --with-zip \
 --with-xsl \
 --with-tidy \
---with-xmlrpc \
---with-iconv-dir \
 --with-sodium \
 --with-password-argon2 \
 \
