@@ -1045,7 +1045,7 @@ namespace Psr\Http\Message {
          *     the second or subsequent call to the method.
          */
         public function moveTo($targetPath);
-
+        
         /**
          * Retrieve the file size.
          *
@@ -1056,7 +1056,7 @@ namespace Psr\Http\Message {
          * @return int|null The file size in bytes or null if unknown.
          */
         public function getSize();
-
+        
         /**
          * Retrieve the error associated with the uploaded file.
          *
@@ -1072,7 +1072,7 @@ namespace Psr\Http\Message {
          * @return int One of PHP's UPLOAD_ERR_XXX constants.
          */
         public function getError();
-
+        
         /**
          * Retrieve the filename sent by the client.
          *
@@ -1087,7 +1087,7 @@ namespace Psr\Http\Message {
          *     was provided.
          */
         public function getClientFilename();
-
+        
         /**
          * Retrieve the media type sent by the client.
          *
@@ -1488,8 +1488,10 @@ namespace Nyholm\Psr7\Factory {
     /**
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class Psr17Factory implements RequestFactoryInterface, ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UploadedFileFactoryInterface, UriFactoryInterface
+    class Psr17Factory implements RequestFactoryInterface, ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UploadedFileFactoryInterface, UriFactoryInterface
     {
         public function createRequest(string $method, $uri): RequestInterface
         {
@@ -1513,13 +1515,18 @@ namespace Nyholm\Psr7\Factory {
 
         public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
         {
-            $resource = @\fopen($filename, $mode);
+            try {
+                $resource = @\fopen($filename, $mode);
+            } catch (\Throwable $e) {
+                throw new \RuntimeException(\sprintf('The file "%s" cannot be opened.', $filename));
+            }
+
             if (false === $resource) {
-                if ('' === $mode || false === \in_array($mode[0], ['r', 'w', 'a', 'x', 'c'])) {
-                    throw new \InvalidArgumentException('The mode ' . $mode . ' is invalid.');
+                if ('' === $mode || false === \in_array($mode[0], ['r', 'w', 'a', 'x', 'c'], true)) {
+                    throw new \InvalidArgumentException(\sprintf('The mode "%s" is invalid.', $mode));
                 }
 
-                throw new \RuntimeException('The file ' . $filename . ' cannot be opened.');
+                throw new \RuntimeException(\sprintf('The file "%s" cannot be opened.', $filename));
             }
 
             return Stream::create($resource);
@@ -1603,12 +1610,12 @@ namespace Nyholm\Psr7 {
 
         public function hasHeader($header): bool
         {
-            return isset($this->headerNames[\strtolower($header)]);
+            return isset($this->headerNames[\strtr($header, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]);
         }
 
         public function getHeader($header): array
         {
-            $header = \strtolower($header);
+            $header = \strtr($header, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
             if (!isset($this->headerNames[$header])) {
                 return [];
             }
@@ -1626,7 +1633,7 @@ namespace Nyholm\Psr7 {
         public function withHeader($header, $value): self
         {
             $value = $this->validateAndTrimHeader($header, $value);
-            $normalized = \strtolower($header);
+            $normalized = \strtr($header, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
 
             $new = clone $this;
             if (isset($new->headerNames[$normalized])) {
@@ -1652,7 +1659,7 @@ namespace Nyholm\Psr7 {
 
         public function withoutHeader($header): self
         {
-            $normalized = \strtolower($header);
+            $normalized = \strtr($header, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
             if (!isset($this->headerNames[$normalized])) {
                 return $this;
             }
@@ -1688,8 +1695,13 @@ namespace Nyholm\Psr7 {
         private function setHeaders(array $headers) /*:void*/
         {
             foreach ($headers as $header => $value) {
+                if (\is_int($header)) {
+                    // If a header name was set to a numeric string, PHP will cast the key to an int.
+                    // We must cast it back to a string in order to comply with validation.
+                    $header = (string) $header;
+                }
                 $value = $this->validateAndTrimHeader($header, $value);
-                $normalized = \strtolower($header);
+                $normalized = \strtr($header, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
                 if (isset($this->headerNames[$normalized])) {
                     $header = $this->headerNames[$normalized];
                     $this->headers[$header] = \array_merge($this->headers[$header], $value);
@@ -1760,8 +1772,10 @@ namespace Nyholm\Psr7 {
     /**
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class Request implements RequestInterface
+    class Request implements RequestInterface
     {
         use MessageTrait;
         use RequestTrait;
@@ -1917,8 +1931,10 @@ namespace Nyholm\Psr7 {
      * @author Michael Dowling and contributors to guzzlehttp/psr7
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class Response implements ResponseInterface
+    class Response implements ResponseInterface
     {
         use MessageTrait;
 
@@ -1980,7 +1996,7 @@ namespace Nyholm\Psr7 {
 
             $code = (int) $code;
             if ($code < 100 || $code > 599) {
-                throw new \InvalidArgumentException('Status code has to be an integer between 100 and 599');
+                throw new \InvalidArgumentException(\sprintf('Status code has to be an integer between 100 and 599. A status code of %d was given', $code));
             }
 
             $new = clone $this;
@@ -2004,8 +2020,10 @@ namespace Nyholm\Psr7 {
      * @author Michael Dowling and contributors to guzzlehttp/psr7
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class ServerRequest implements ServerRequestInterface
+    class ServerRequest implements ServerRequestInterface
     {
         use MessageTrait;
         use RequestTrait;
@@ -2160,13 +2178,17 @@ namespace Nyholm\Psr7 {
 namespace Nyholm\Psr7 {
 
     use Psr\Http\Message\StreamInterface;
+    use Symfony\Component\Debug\ErrorHandler as SymfonyLegacyErrorHandler;
+    use Symfony\Component\ErrorHandler\ErrorHandler as SymfonyErrorHandler;
 
     /**
      * @author Michael Dowling and contributors to guzzlehttp/psr7
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class Stream implements StreamInterface
+    class Stream implements StreamInterface
     {
         /** @var resource|null A resource reference */
         private $stream;
@@ -2180,7 +2202,7 @@ namespace Nyholm\Psr7 {
         /** @var bool */
         private $writable;
 
-        /** @var array|mixed|void|null */
+        /** @var array|mixed|void|bool|null */
         private $uri;
 
         /** @var int|null */
@@ -2211,8 +2233,6 @@ namespace Nyholm\Psr7 {
          *
          * @param string|resource|StreamInterface $body
          *
-         * @return StreamInterface
-         *
          * @throws \InvalidArgumentException
          */
         public static function create($body = ''): StreamInterface
@@ -2234,7 +2254,6 @@ namespace Nyholm\Psr7 {
                 $new->seekable = $meta['seekable'] && 0 === \fseek($new->stream, 0, \SEEK_CUR);
                 $new->readable = isset(self::READ_WRITE_HASH['read'][$meta['mode']]);
                 $new->writable = isset(self::READ_WRITE_HASH['write'][$meta['mode']]);
-                $new->uri = $new->getMetadata('uri');
 
                 return $new;
             }
@@ -2250,7 +2269,10 @@ namespace Nyholm\Psr7 {
             $this->close();
         }
 
-        public function __toString(): string
+        /**
+         * @return string
+         */
+        public function __toString()
         {
             try {
                 if ($this->isSeekable()) {
@@ -2258,7 +2280,20 @@ namespace Nyholm\Psr7 {
                 }
 
                 return $this->getContents();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
+                if (\PHP_VERSION_ID >= 70400) {
+                    throw $e;
+                }
+
+                if (\is_array($errorHandler = \set_error_handler('var_dump'))) {
+                    $errorHandler = $errorHandler[0] ?? null;
+                }
+                \restore_error_handler();
+
+                if ($e instanceof \Error || $errorHandler instanceof SymfonyErrorHandler || $errorHandler instanceof SymfonyLegacyErrorHandler) {
+                    return \trigger_error((string) $e, \E_USER_ERROR);
+                }
+
                 return '';
             }
         }
@@ -2287,6 +2322,15 @@ namespace Nyholm\Psr7 {
             return $result;
         }
 
+        private function getUri()
+        {
+            if (false !== $this->uri) {
+                $this->uri = $this->getMetadata('uri') ?? false;
+            }
+
+            return $this->uri;
+        }
+
         public function getSize() /*:?int*/
         {
             if (null !== $this->size) {
@@ -2298,8 +2342,8 @@ namespace Nyholm\Psr7 {
             }
 
             // Clear the stat cache if the stream has a URI
-            if ($this->uri) {
-                \clearstatcache(true, $this->uri);
+            if ($uri = $this->getUri()) {
+                \clearstatcache(true, $uri);
             }
 
             $stats = \fstat($this->stream);
@@ -2338,7 +2382,7 @@ namespace Nyholm\Psr7 {
             }
 
             if (-1 === \fseek($this->stream, $offset, $whence)) {
-                throw new \RuntimeException('Unable to seek to stream position ' . $offset . ' with whence ' . \var_export($whence, true));
+                throw new \RuntimeException('Unable to seek to stream position "' . $offset . '" with whence ' . \var_export($whence, true));
             }
         }
 
@@ -2379,7 +2423,11 @@ namespace Nyholm\Psr7 {
                 throw new \RuntimeException('Cannot read from non-readable stream');
             }
 
-            return \fread($this->stream, $length);
+            if (false === $result = \fread($this->stream, $length)) {
+                throw new \RuntimeException('Unable to read from stream');
+            }
+
+            return $result;
         }
 
         public function getContents(): string
@@ -2421,8 +2469,10 @@ namespace Nyholm\Psr7 {
      * @author Michael Dowling and contributors to guzzlehttp/psr7
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class UploadedFile implements UploadedFileInterface
+    class UploadedFile implements UploadedFileInterface
     {
         /** @var array */
         /*private*/ const ERRORS = [
@@ -2523,9 +2573,11 @@ namespace Nyholm\Psr7 {
                 return $this->stream;
             }
 
-            $resource = \fopen($this->file, 'r');
-
-            return Stream::create($resource);
+            try {
+                return Stream::create(\fopen($this->file, 'r'));
+            } catch (\Throwable $e) {
+                throw new \RuntimeException(\sprintf('The file "%s" cannot be opened.', $this->file));
+            }
         }
 
         public function moveTo($targetPath) /*:void*/
@@ -2544,8 +2596,13 @@ namespace Nyholm\Psr7 {
                     $stream->rewind();
                 }
 
-                // Copy the contents of a stream into another stream until end-of-file.
-                $dest = Stream::create(\fopen($targetPath, 'w'));
+                try {
+                    // Copy the contents of a stream into another stream until end-of-file.
+                    $dest = Stream::create(\fopen($targetPath, 'w'));
+                } catch (\Throwable $e) {
+                    throw new \RuntimeException(\sprintf('The file "%s" cannot be opened.', $targetPath));
+                }
+
                 while (!$stream->eof()) {
                     if (!$dest->write($stream->read(1048576))) {
                         break;
@@ -2556,7 +2613,7 @@ namespace Nyholm\Psr7 {
             }
 
             if (false === $this->moved) {
-                throw new \RuntimeException(\sprintf('Uploaded file could not be moved to %s', $targetPath));
+                throw new \RuntimeException(\sprintf('Uploaded file could not be moved to "%s"', $targetPath));
             }
         }
 
@@ -2595,8 +2652,10 @@ namespace Nyholm\Psr7 {
      * @author Matthew Weier O'Phinney
      * @author Tobias Nyholm <tobias.nyholm@gmail.com>
      * @author Martijn van der Ven <martijn@vanderven.se>
+     *
+     * @final This class should never be extended. See https://github.com/Nyholm/psr7/blob/master/doc/final.md
      */
-    final class Uri implements UriInterface
+    class Uri implements UriInterface
     {
         /*private*/ const SCHEMES = ['http' => 80, 'https' => 443];
 
@@ -2629,13 +2688,13 @@ namespace Nyholm\Psr7 {
         {
             if ('' !== $uri) {
                 if (false === $parts = \parse_url($uri)) {
-                    throw new \InvalidArgumentException("Unable to parse URI: $uri");
+                    throw new \InvalidArgumentException(\sprintf('Unable to parse URI: "%s"', $uri));
                 }
 
                 // Apply parse_url parts to a URI.
-                $this->scheme = isset($parts['scheme']) ? \strtolower($parts['scheme']) : '';
+                $this->scheme = isset($parts['scheme']) ? \strtr($parts['scheme'], 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') : '';
                 $this->userInfo = $parts['user'] ?? '';
-                $this->host = isset($parts['host']) ? \strtolower($parts['host']) : '';
+                $this->host = isset($parts['host']) ? \strtr($parts['host'], 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') : '';
                 $this->port = isset($parts['port']) ? $this->filterPort($parts['port']) : null;
                 $this->path = isset($parts['path']) ? $this->filterPath($parts['path']) : '';
                 $this->query = isset($parts['query']) ? $this->filterQueryAndFragment($parts['query']) : '';
@@ -2710,7 +2769,7 @@ namespace Nyholm\Psr7 {
                 throw new \InvalidArgumentException('Scheme must be a string');
             }
 
-            if ($this->scheme === $scheme = \strtolower($scheme)) {
+            if ($this->scheme === $scheme = \strtr($scheme, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')) {
                 return $this;
             }
 
@@ -2744,7 +2803,7 @@ namespace Nyholm\Psr7 {
                 throw new \InvalidArgumentException('Host must be a string');
             }
 
-            if ($this->host === $host = \strtolower($host)) {
+            if ($this->host === $host = \strtr($host, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')) {
                 return $this;
             }
 
@@ -2941,13 +3000,30 @@ namespace Nyholm\Psr7Server {
 
             $headers = \function_exists('getallheaders') ? getallheaders() : static::getHeadersFromServer($_SERVER);
 
-            return $this->fromArrays($server, $headers, $_COOKIE, $_GET, $_POST, $_FILES, \fopen('php://input', 'r') ?: null);
+            $post = null;
+            if ('POST' === $this->getMethodFromEnv($server)) {
+                foreach ($headers as $headerName => $headerValue) {
+                    if (true === \is_int($headerName) || 'content-type' !== \strtolower($headerName)) {
+                        continue;
+                    }
+                    if (\in_array(
+                        \strtolower(\trim(\explode(';', $headerValue, 2)[0])),
+                        ['application/x-www-form-urlencoded', 'multipart/form-data']
+                    )) {
+                        $post = $_POST;
+
+                        break;
+                    }
+                }
+            }
+
+            return $this->fromArrays($server, $headers, $_COOKIE, $_GET, $post, $_FILES, \fopen('php://input', 'r') ?: null);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function fromArrays(array $server, array $headers = [], array $cookie = [], array $get = [], array $post = [], array $files = [], $body = null): ServerRequestInterface
+        public function fromArrays(array $server, array $headers = [], array $cookie = [], array $get = [], /*?array*/ $post = null, array $files = [], $body = null): ServerRequestInterface
         {
             $method = $this->getMethodFromEnv($server);
             $uri = $this->getUriFromEnvWithHTTP($server);
@@ -2955,6 +3031,11 @@ namespace Nyholm\Psr7Server {
 
             $serverRequest = $this->serverRequestFactory->createServerRequest($method, $uri, $server);
             foreach ($headers as $name => $value) {
+                // Because PHP automatically casts array keys set with numeric strings to integers, we have to make sure
+                // that numeric headers will not be sent along as integers, as withAddedHeader can only accept strings.
+                if (\is_int($name)) {
+                    $name = (string) $name;
+                }
                 $serverRequest = $serverRequest->withAddedHeader($name, $value);
             }
 
@@ -2981,7 +3062,7 @@ namespace Nyholm\Psr7Server {
         }
 
         /**
-         * Implementation from Zend\Diactoros\marshalHeadersFromSapi().
+         * Implementation from Laminas\Diactoros\marshalHeadersFromSapi().
          */
         public static function getHeadersFromServer(array $server): array
         {
@@ -3080,10 +3161,14 @@ namespace Nyholm\Psr7Server {
                 return $this->normalizeNestedFileSpec($value);
             }
 
-            try {
-                $stream = $this->streamFactory->createStreamFromFile($value['tmp_name']);
-            } catch (\RuntimeException $e) {
+            if (UPLOAD_ERR_OK !== $value['error']) {
                 $stream = $this->streamFactory->createStream();
+            } else {
+                try {
+                    $stream = $this->streamFactory->createStreamFromFile($value['tmp_name']);
+                } catch (\RuntimeException $e) {
+                    $stream = $this->streamFactory->createStream();
+                }
             }
 
             return $this->uploadedFileFactory->createUploadedFile(
@@ -3100,8 +3185,6 @@ namespace Nyholm\Psr7Server {
          *
          * Loops through all nested files and returns a normalized array of
          * UploadedFileInterface instances.
-         *
-         * @param array $files
          *
          * @return UploadedFileInterface[]
          */
@@ -3199,7 +3282,7 @@ namespace Nyholm\Psr7Server {
          * @param array                                $headers typically the output of getallheaders() or similar structure
          * @param array                                $cookie  typically $_COOKIE or similar structure
          * @param array                                $get     typically $_GET or similar structure
-         * @param array                                $post    typically $_POST or similar structure
+         * @param array|null                           $post    typically $_POST or similar structure, represents parsed request body
          * @param array                                $files   typically $_FILES or similar structure
          * @param StreamInterface|resource|string|null $body    Typically stdIn
          *
@@ -3209,8 +3292,7 @@ namespace Nyholm\Psr7Server {
             array $server,
             array $headers = [],
             array $cookie = [],
-            array $get = [],
-            array $post = [],
+            array $get = [], /*?array*/ $post = null,
             array $files = [],
             $body = null
         ): ServerRequestInterface;
@@ -3219,8 +3301,6 @@ namespace Nyholm\Psr7Server {
          * Get parsed headers from ($_SERVER) array.
          *
          * @param array $server typically $_SERVER or similar structure
-         *
-         * @return array
          */
         public static function getHeadersFromServer(array $server): array;
     }
@@ -3251,7 +3331,7 @@ namespace Tqdev\PhpCrudApi\Cache\Base {
         {
             return true;
         }
-
+        
         public function ping(): int
         {
             $start = microtime(true);
@@ -6258,7 +6338,7 @@ namespace Tqdev\PhpCrudApi\Database {
                 case 'sqlsrv':
                     return 'SELECT o.name as "TABLE_NAME", o.xtype as "TABLE_TYPE" FROM sysobjects o WHERE o.xtype IN (\'U\', \'V\') ORDER BY "TABLE_NAME"';
                 case 'sqlite':
-                    return 'SELECT t.name as "TABLE_NAME", t.type as "TABLE_TYPE" FROM sqlite_master t WHERE t.type IN (\'table\', \'view\') AND \'\' <> ? ORDER BY "TABLE_NAME"';
+                    return 'SELECT t.name as "TABLE_NAME", t.type as "TABLE_TYPE" FROM sqlite_master t WHERE t.type IN (\'table\', \'view\') AND \'\' IN (\'\', ?) ORDER BY "TABLE_NAME"';
             }
         }
 
@@ -6272,7 +6352,7 @@ namespace Tqdev\PhpCrudApi\Database {
                 case 'sqlsrv':
                     return 'SELECT c.name AS "COLUMN_NAME", c.is_nullable AS "IS_NULLABLE", t.Name AS "DATA_TYPE", (c.max_length/2) AS "CHARACTER_MAXIMUM_LENGTH", c.precision AS "NUMERIC_PRECISION", c.scale AS "NUMERIC_SCALE", \'\' AS "COLUMN_TYPE" FROM sys.columns c INNER JOIN sys.types t ON c.user_type_id = t.user_type_id WHERE c.object_id = OBJECT_ID(?) AND \'\' <> ? ORDER BY c.column_id';
                 case 'sqlite':
-                    return 'SELECT "name" AS "COLUMN_NAME", case when "notnull"==1 then \'no\' else \'yes\' end as "IS_NULLABLE", lower("type") AS "DATA_TYPE", 2147483647 AS "CHARACTER_MAXIMUM_LENGTH", 0 AS "NUMERIC_PRECISION", 0 AS "NUMERIC_SCALE", \'\' AS "COLUMN_TYPE" FROM pragma_table_info(?) WHERE \'\' <> ? ORDER BY "cid"';
+                    return 'SELECT "name" AS "COLUMN_NAME", case when "notnull"==1 then \'no\' else \'yes\' end as "IS_NULLABLE", lower("type") AS "DATA_TYPE", 2147483647 AS "CHARACTER_MAXIMUM_LENGTH", 0 AS "NUMERIC_PRECISION", 0 AS "NUMERIC_SCALE", \'\' AS "COLUMN_TYPE" FROM pragma_table_info(?) WHERE \'\' IN (\'\', ?) ORDER BY "cid"';
             }
         }
 
@@ -6286,7 +6366,7 @@ namespace Tqdev\PhpCrudApi\Database {
                 case 'sqlsrv':
                     return 'SELECT c.NAME as "COLUMN_NAME" FROM sys.key_constraints kc inner join sys.objects t on t.object_id = kc.parent_object_id INNER JOIN sys.index_columns ic ON kc.parent_object_id = ic.object_id and kc.unique_index_id = ic.index_id INNER JOIN sys.columns c ON ic.object_id = c.object_id AND ic.column_id = c.column_id WHERE kc.type = \'PK\' and t.object_id = OBJECT_ID(?) and \'\' <> ?';
                 case 'sqlite':
-                    return 'SELECT "name" as "COLUMN_NAME" FROM pragma_table_info(?) WHERE "pk"=1 AND \'\' <> ?';
+                    return 'SELECT "name" as "COLUMN_NAME" FROM pragma_table_info(?) WHERE "pk"=1 AND \'\' IN (\'\', ?)';
             }
         }
 
@@ -6300,7 +6380,7 @@ namespace Tqdev\PhpCrudApi\Database {
                 case 'sqlsrv':
                     return 'SELECT COL_NAME(fc.parent_object_id, fc.parent_column_id) AS "COLUMN_NAME", OBJECT_NAME (f.referenced_object_id) AS "REFERENCED_TABLE_NAME" FROM sys.foreign_keys AS f INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id WHERE f.parent_object_id = OBJECT_ID(?) and \'\' <> ?';
                 case 'sqlite':
-                    return 'SELECT "from" AS "COLUMN_NAME", "table" AS "REFERENCED_TABLE_NAME" FROM pragma_foreign_key_list(?) WHERE \'\' <> ?';
+                    return 'SELECT "from" AS "COLUMN_NAME", "table" AS "REFERENCED_TABLE_NAME" FROM pragma_foreign_key_list(?) WHERE \'\' IN (\'\', ?)';
             }
         }
 
@@ -8116,7 +8196,7 @@ namespace Tqdev\PhpCrudApi\Middleware {
             }
             return $value;
         }
-
+        
         private function convertJsonRequest($object, array $columnNames) /*: object */
         {
             if (is_array($object)) {
@@ -8268,8 +8348,17 @@ namespace Tqdev\PhpCrudApi\Middleware {
             foreach ($requirements as $field => $values) {
                 if (!empty($values)) {
                     if ($field != 'alg') {
-                        if (!isset($claims[$field]) || !in_array($claims[$field], $values)) {
+                        if (!isset($claims[$field])) {
                             return array();
+                        }
+                        if (is_array($claims[$field])) {
+                            if (!array_intersect($claims[$field], $values)) {
+                                return array();
+                            }
+                        } else {
+                            if (!in_array($claims[$field], $values)) {
+                                return array();
+                            }
                         }
                     }
                 }
@@ -9343,7 +9432,7 @@ namespace Tqdev\PhpCrudApi\OpenApi {
                     }
                     $this->openapi->set("paths|$path|$method|tags|0", "$type");
                     $this->openapi->set("paths|$path|$method|operationId", "$operation" . "_" . "$type");
-                    if ($operation - $type == 'updateTable') {
+                    if ("$operation-$type" == 'update-table') {
                         $this->openapi->set("paths|$path|$method|description", "rename table");
                     } else {
                         $this->openapi->set("paths|$path|$method|description", "$operation $type");
@@ -9374,7 +9463,7 @@ namespace Tqdev\PhpCrudApi\OpenApi {
                     switch ($type) {
                         case 'database':
                             $this->openapi->set("$prefix|properties|tables|type", 'array');
-                            $this->openapi->set("$prefix|properties|tables|items|\$ref", "#/components/schemas/readTable");
+                            $this->openapi->set("$prefix|properties|tables|items|\$ref", "#/components/schemas/read-table");
                             break;
                         case 'table':
                             if ($operation == 'update') {
@@ -9386,7 +9475,7 @@ namespace Tqdev\PhpCrudApi\OpenApi {
                                     $this->openapi->set("$prefix|properties|type|type", 'string');
                                 }
                                 $this->openapi->set("$prefix|properties|columns|type", 'array');
-                                $this->openapi->set("$prefix|properties|columns|items|\$ref", "#/components/schemas/readColumn");
+                                $this->openapi->set("$prefix|properties|columns|items|\$ref", "#/components/schemas/read-column");
                             }
                             break;
                         case 'column':
@@ -11349,13 +11438,12 @@ namespace Tqdev\PhpCrudApi {
                         break;
                     case 'status':
                         new StatusController($router, $responder, $cache, $db);
-                        break;
+                        break;                    
                 }
             }
             foreach ($config->getCustomControllers() as $className) {
                 if (class_exists($className)) {
-                    $records = new RecordService($db, $reflection);
-                    new $className($router, $responder, $records);
+                    new $className($router, $responder, $db, $reflection, $cache);
                 }
             }
             $this->router = $router;
@@ -11365,7 +11453,7 @@ namespace Tqdev\PhpCrudApi {
 
         private function parseBody(string $body) /*: ?object*/
         {
-            $first = substr($body, 0, 1);
+            $first = substr(ltrim($body), 0, 1);
             if ($first == '[' || $first == '{') {
                 $object = json_decode($body);
                 $causeCode = json_last_error();
@@ -11434,11 +11522,11 @@ namespace Tqdev\PhpCrudApi {
     {
         private $values = [
             'driver' => null,
-            'address' => 'localhost',
+            'address' => null,
             'port' => null,
-            'username' => null,
-            'password' => null,
-            'database' => null,
+            'username' => '',
+            'password' => '',
+            'database' => '',
             'tables' => '',
             'middlewares' => 'cors,errors',
             'controllers' => 'records,geojson,openapi,status',
@@ -11920,24 +12008,15 @@ namespace Tqdev\PhpCrudApi {
     use Tqdev\PhpCrudApi\RequestFactory;
     use Tqdev\PhpCrudApi\ResponseUtils;
 
-    $externalConfig = [];
-    foreach ($_GET as $k => $v) {
-      if (is_string($k) && mb_strpos($k, '__') === 0) {
-        $externalConfig[mb_substr($k, 2)] = $v;
-      }
-    }
-
-    $config = new Config(array_merge([
-      'driver' => 'mysql',
-      'address' => '127.0.0.1',
-      'port' => '3306',
-      'username' => 'root',
-      'password' => 'root12345',
-      'database' => 'test0db',
-      'cacheType' => 'NoCache',
-      'debug' => true,
-    ], $externalConfig));
-
+    $config = new Config([
+        // 'driver' => 'mysql',
+        // 'address' => 'localhost',
+        // 'port' => '3306',
+        'username' => 'php-crud-api',
+        'password' => 'php-crud-api',
+        'database' => 'php-crud-api',
+        // 'debug' => false
+    ]);
     $request = RequestFactory::fromGlobals();
     $api = new Api($config);
     $response = $api->handle($request);
