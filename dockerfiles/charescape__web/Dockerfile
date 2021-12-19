@@ -31,6 +31,8 @@ RUN set -eux \
 \
 && apt-get -y update            \
 && apt-get -y upgrade           \
+&& apt -y install --fix-broken  \
+&& apt -y install --fix-missing \
 \
 && echo '' >> ~/.bashrc         \
 \
@@ -59,7 +61,7 @@ libgmp-dev                      \
 libonig-dev                     \
 libreadline-dev                 \
 libsodium-dev                   \
-libargon2-0-dev                 \
+libargon2-dev                   \
 libtidy-dev                     \
 libxslt1-dev                    \
 libpng-dev                      \
@@ -103,8 +105,8 @@ fonts-arphic-gbsn00lp \
 fonts-arphic-gkai00mp \
 fonts-arphic-ukai \
 fonts-arphic-uming \
-ttf-wqy-zenhei \
-ttf-wqy-microhei \
+fonts-wqy-zenhei \
+fonts-wqy-microhei \
 xfonts-wqy \
 \
 fonts-liberation \
@@ -140,9 +142,9 @@ mplayer \
 && cat cacert.pem.sha256 | shasum -a 256 --check \
 && CACERT_HASH_CHECK=$? \
 && if [ "$CACERT_HASH_CHECK" -ne "0" ]; then echo "cacert.pem hash mismatch." && exit 1; fi \
+&& rm cacert.pem.sha256 \
 \
 && chown www-data:www-data /usr/local/cacert.pem \
-&& chown www-data:www-data /usr/local/cacert.pem.sha256 \
 \
 && cd /usr/local/src \
 \
@@ -163,6 +165,7 @@ mplayer \
 \
 && wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb \
 && dpkg -i google-chrome-unstable_current_amd64.deb \
+&& apt     install -y --fix-broken \
 && apt-get install -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
