@@ -176,7 +176,7 @@ mplayer \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
-&& mkdir -p /var/www/default_site \
+&& mkdir -p /var/www/ip_site \
 && mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
