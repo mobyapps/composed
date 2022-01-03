@@ -184,7 +184,7 @@ mplayer \
 \
 && mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+&& cmake .. -LH -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DCMAKE_BUILD_TYPE=Release \
 -DWITH_SYSTEM_LIBS=1 \
 -DMYSQL_DATADIR=/var/www/mysql_data \
