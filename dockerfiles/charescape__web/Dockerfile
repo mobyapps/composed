@@ -9,11 +9,11 @@ ENV MYSQL_HASH          e39fd767f6a6377b58d116ef10f31064
 ENV PHP_VERSION         8.0.14
 ENV PHP_HASH            e67ebd8c4c77247ad1fa88829e5b95d51a19edf3d87814434de261e20a63ea20
 
-ENV COMPOSER_VERSION    2.2.2
-ENV COMPOSER_HASH       7391e020cd3ed1a158fd6cfc0b79d7c005854396536b5499e58fc6eedb544b4e
+ENV COMPOSER_VERSION    2.2.3
+ENV COMPOSER_HASH       721cc27f81c6485fff70e6f56b9f2aadae770a1f8974a384c34e35987a230d8c
 
-ENV OPENRESTY_VERSION   1.19.9.1
-ENV OPENRESTY_HASH      576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
+ENV OPENRESTY_VERSION   1.21.4.1rc1
+ENV OPENRESTY_HASH      48869c45d8d9032d68a6475effdf94a72b0f44e40dcbfe4faea7f931da5f3ff2
 
 COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
 
@@ -85,6 +85,8 @@ libldap2-dev                    \
 \
 nodejs \
 npm \
+chromium-chromedriver \
+firefox-geckodriver \
 libgtk2.0-0 \
 libgtk-3-0 \
 libnotify-dev \
@@ -182,6 +184,7 @@ mplayer \
 \
 && mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
+&& cmake .. -LH \
 && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DCMAKE_BUILD_TYPE=Release \
 -DWITH_SYSTEM_LIBS=1 \
@@ -233,6 +236,7 @@ mplayer \
 \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
+&& ./configure --help \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
 --with-fpm-user=www-data \
@@ -299,6 +303,7 @@ mplayer \
 && cd /usr/local/src \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
+&& ./configure --help \
 && ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
