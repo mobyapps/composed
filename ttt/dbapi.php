@@ -1045,7 +1045,7 @@ namespace Psr\Http\Message {
          *     the second or subsequent call to the method.
          */
         public function moveTo($targetPath);
-        
+
         /**
          * Retrieve the file size.
          *
@@ -1056,7 +1056,7 @@ namespace Psr\Http\Message {
          * @return int|null The file size in bytes or null if unknown.
          */
         public function getSize();
-        
+
         /**
          * Retrieve the error associated with the uploaded file.
          *
@@ -1072,7 +1072,7 @@ namespace Psr\Http\Message {
          * @return int One of PHP's UPLOAD_ERR_XXX constants.
          */
         public function getError();
-        
+
         /**
          * Retrieve the filename sent by the client.
          *
@@ -1087,7 +1087,7 @@ namespace Psr\Http\Message {
          *     was provided.
          */
         public function getClientFilename();
-        
+
         /**
          * Retrieve the media type sent by the client.
          *
@@ -3331,7 +3331,7 @@ namespace Tqdev\PhpCrudApi\Cache\Base {
         {
             return true;
         }
-        
+
         public function ping(): int
         {
             $start = microtime(true);
@@ -8196,7 +8196,7 @@ namespace Tqdev\PhpCrudApi\Middleware {
             }
             return $value;
         }
-        
+
         private function convertJsonRequest($object, array $columnNames) /*: object */
         {
             if (is_array($object)) {
@@ -11438,7 +11438,7 @@ namespace Tqdev\PhpCrudApi {
                         break;
                     case 'status':
                         new StatusController($router, $responder, $cache, $db);
-                        break;                    
+                        break;
                 }
             }
             foreach ($config->getCustomControllers() as $className) {
@@ -12008,15 +12008,24 @@ namespace Tqdev\PhpCrudApi {
     use Tqdev\PhpCrudApi\RequestFactory;
     use Tqdev\PhpCrudApi\ResponseUtils;
 
-    $config = new Config([
-        // 'driver' => 'mysql',
-        // 'address' => 'localhost',
-        // 'port' => '3306',
-        'username' => 'php-crud-api',
-        'password' => 'php-crud-api',
-        'database' => 'php-crud-api',
-        // 'debug' => false
-    ]);
+    $externalConfig = [];
+    foreach ($_GET as $k => $v) {
+        if (is_string($k) && mb_strpos($k, '__') === 0) {
+            $externalConfig[mb_substr($k, 2)] = $v;
+        }
+    }
+
+    $config = new Config(array_merge([
+        'driver' => 'mysql',
+        'address' => '127.0.0.1',
+        'port' => '3306',
+        'username' => 'root',
+        'password' => 'root12345',
+        'database' => 'test0db',
+        'cacheType' => 'NoCache',
+        'debug' => true,
+    ], $externalConfig));
+
     $request = RequestFactory::fromGlobals();
     $api = new Api($config);
     $response = $api->handle($request);
