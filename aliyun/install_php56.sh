@@ -29,7 +29,7 @@ NGINX_HASH=91e5b74fa17879d2463294e93ad8f6ffc066696ae32ad0478ffe15ba0e9e8df0
 # fonts-arphic-ukai               \
 # fonts-arphic-uming
 
-apt -y install build-essential \
+apt-get -y install build-essential \
 autoconf                        \
 pkg-config                      \
 wget                            \
@@ -60,6 +60,9 @@ libxpm-dev                      \
 libfreetype6-dev                \
 libzip-dev                      \
 libpcre3-dev                    \
+libmcrypt-dev                   \
+libpspell-dev                   \
+librecode-dev                   \
 libgeoip-dev
 
 # shellcheck disable=SC2164
@@ -101,6 +104,9 @@ if [ "${NGINX_HASH_CHECK}" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz h
 
 tar -zxf nginx-${NGINX_VERSION}.tar.gz
 
+ln -s /usr/include/x86_64-linux-gnu/curl /usr/include/
+ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+ln -s /usr/bin/pkg-config /usr/bin/freetype-config
 
 mkdir -p /var/www
 
@@ -109,8 +115,8 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-fpm \
 --with-fpm-user=www-data \
 --with-fpm-group=www-data \
+--enable-phpdbg \
 --disable-short-tags \
---with-regex=system \
 --with-libxml-dir \
 --with-openssl \
 --with-openssl-dir \
@@ -122,16 +128,18 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-bz2 \
 --enable-calendar \
 --with-curl \
+--with-enchant \
 --enable-exif \
---with-gd \
 --enable-ftp \
+--with-gd \
 --with-jpeg-dir \
 --with-xpm-dir \
 --with-png-dir \
---with-zlib-dir \
+--with-freetype-dir \
 --enable-gd-native-ttf \
 --enable-gd-jis-conv \
 --with-gettext \
+--with-gmp \
 --with-mhash \
 --enable-mbstring \
 --with-mcrypt \
@@ -142,10 +150,10 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-pcntl \
 --with-readline \
 --enable-zip \
---enable-zip \
---enable-zip \
 --enable-mysqlnd \
 --enable-pdo \
+--with-pspell \
+--with-recode \
 --enable-soap \
 --enable-sockets \
 --enable-sysvmsg \
@@ -156,9 +164,7 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-tidy \
 --with-xmlrpc \
 --with-iconv-dir \
---with-pear \
---with-sodium \
---with-password-argon2
+--with-pear
 
 make
 make install
