@@ -48,7 +48,6 @@ libgmp-dev                      \
 libonig-dev                     \
 libreadline-dev                 \
 libsodium-dev                   \
-libargon2-0-dev                 \
 libtidy-dev                     \
 libxslt1-dev                    \
 libpng-dev                      \
