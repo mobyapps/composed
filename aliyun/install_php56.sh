@@ -2,9 +2,7 @@
 
 set -eux
 
-apt -y update
-
-apt -y upgrade
+apt-get -y update && apt-get -y upgrade
 
 PHP_VERSION=5.6.40
 PHP_HASH=56fb9878d12fdd921f6a0897e919f4e980d930160e154cbde2cc6d9206a27cac
@@ -63,6 +61,7 @@ libpcre3-dev                    \
 libmcrypt-dev                   \
 libpspell-dev                   \
 librecode-dev                   \
+libenchant-dev                  \
 libgeoip-dev
 
 # shellcheck disable=SC2164
@@ -106,7 +105,6 @@ tar -zxf nginx-${NGINX_VERSION}.tar.gz
 
 ln -s /usr/include/x86_64-linux-gnu/curl /usr/include/
 ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
-ln -s /usr/bin/pkg-config /usr/bin/freetype-config
 
 mkdir -p /var/www
 
@@ -152,6 +150,8 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-zip \
 --enable-mysqlnd \
 --enable-pdo \
+--enable-intl \
+--with-icu-dir=/usr \
 --with-pspell \
 --with-recode \
 --enable-soap \
