@@ -7,11 +7,11 @@ apt-get -y update && apt-get -y upgrade
 PHP_VERSION=5.6.40
 PHP_HASH=56fb9878d12fdd921f6a0897e919f4e980d930160e154cbde2cc6d9206a27cac
 
-COMPOSER_VERSION=1.10.15
-COMPOSER_HASH=a69df12e86a0a18fbedfc91a33d5f9acc5cf939576e0258326074fc1b2ee1aea
+COMPOSER_VERSION=1.10.25
+COMPOSER_HASH=6b089bd8b78b00c3c15d7b13353fbcbdf16a3f5248203c9a3e76f13948f2de92
 
-NGINX_VERSION=1.19.3
-NGINX_HASH=91e5b74fa17879d2463294e93ad8f6ffc066696ae32ad0478ffe15ba0e9e8df0
+OPENRESTY_VERSION=1.19.9.1
+OPENRESTY_HASH=576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
 
 # apt -y install build-essential \
 # zlib1g-dev                      \
@@ -92,15 +92,15 @@ if [ "${PHP_HASH_CHECK}" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mi
 tar -zxf php-${PHP_VERSION}.tar.gz
 
 
-wget https://mirrors.sohu.com/nginx/nginx-${NGINX_VERSION}.tar.gz
+wget https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz
 
-echo "${NGINX_HASH} *nginx-${NGINX_VERSION}.tar.gz" | shasum -a 256 --check
+echo "${OPENRESTY_HASH} *nginx-${OPENRESTY_VERSION}.tar.gz" | shasum -a 256 --check
 
-NGINX_HASH_CHECK=$?
+OPENRESTY_HASH_CHECK=$?
 
-if [ "${NGINX_HASH_CHECK}" -ne "0" ]; then echo "nginx-${NGINX_VERSION}.tar.gz hash mismatch." && exit 1; fi
+if [ "${OPENRESTY_HASH_CHECK}" -ne "0" ]; then echo "nginx-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi
 
-tar -zxf nginx-${NGINX_VERSION}.tar.gz
+tar -zxf nginx-${OPENRESTY_VERSION}.tar.gz
 
 ln -s /usr/include/x86_64-linux-gnu/curl /usr/include/
 ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
@@ -194,7 +194,7 @@ chown -R www-data:www-data /usr/local/php
 
 
 # shellcheck disable=SC2164
-cd /usr/local/src/nginx-${NGINX_VERSION}
+cd /usr/local/src/nginx-${OPENRESTY_VERSION}
 ./configure --prefix=/usr/local/nginx \
 --with-threads \
 --with-file-aio \
