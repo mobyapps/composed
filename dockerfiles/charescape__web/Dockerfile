@@ -52,6 +52,8 @@ p7zip-full                      \
 socat                           \
 zstd                            \
 libtool                         \
+imagemagick                     \
+wkhtmltopdf                     \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
@@ -135,8 +137,9 @@ mplayer \
 && COMPOSER_HASH_CHECK=$? \
 && if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
 \
-&& chmod +x /usr/local/bin/composer.phar \
-&& chown www-data:www-data /usr/local/bin/composer.phar \
+&& mv /usr/local/bin/composer.phar /usr/local/bin/composer \
+&& chmod +x /usr/local/bin/composer \
+&& chown www-data:www-data /usr/local/bin/composer \
 \
 && cd /usr/local \
 && wget https://curl.se/ca/cacert.pem \
