@@ -293,6 +293,8 @@ mplayer \
 && mv ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && mv ./php.ini      /usr/local/php/lib/php.ini \
 \
+&& chown -R www-data:www-data /usr/local/php \
+\
 && /usr/local/php/bin/php -v \
 && sleep  3s \
 && /usr/local/php/sbin/php-fpm \
