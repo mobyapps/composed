@@ -29,14 +29,14 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
-&& apt-get -y update            \
-&& apt-get -y upgrade           \
+&& apt -y update            \
+&& apt -y upgrade           \
 && apt -y install --fix-broken  \
 && apt -y install --fix-missing \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt-get -y install sudo build-essential \
+&& apt -y install sudo build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -171,7 +171,7 @@ mplayer \
 && wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb \
 && dpkg -i google-chrome-unstable_current_amd64.deb \
 && apt     install -y --fix-broken \
-&& apt-get install -y --fix-missing \
+&& apt install -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
@@ -361,7 +361,7 @@ mplayer \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
-&& apt-get clean \
+&& apt clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && du -h --max-depth=2 /usr/local/mysql \
