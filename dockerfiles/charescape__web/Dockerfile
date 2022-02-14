@@ -243,6 +243,7 @@ mplayer \
 --enable-fpm \
 --with-fpm-user=www-data \
 --with-fpm-group=www-data \
+--enable-phpdbg \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
