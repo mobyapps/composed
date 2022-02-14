@@ -168,8 +168,8 @@ mplayer \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb \
-&& dpkg -i google-chrome-unstable_current_amd64.deb \
+&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+&& dpkg -i google-chrome-stable_current_amd64.deb \
 && apt     install -y --fix-broken \
 && apt-get install -y --fix-missing \
 \
