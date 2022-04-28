@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Build image
         run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:6.0.0 .
