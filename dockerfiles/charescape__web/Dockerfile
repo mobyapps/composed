@@ -343,7 +343,7 @@ mplayer \
 \
 && cd /usr/local/src \
 && rm -f                        /usr/local/openresty/nginx/conf/nginx.conf \
-&& cp ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
+&& mv ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
 \
 && mkdir                       /var/www/repos \
