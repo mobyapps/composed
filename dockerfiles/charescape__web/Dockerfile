@@ -31,6 +31,7 @@ RUN set -eux \
 \
 && apt -y update            \
 && apt -y upgrade           \
+&& apt -y autoremove           \
 && apt -y install --fix-broken  \
 && apt -y install --fix-missing \
 \
