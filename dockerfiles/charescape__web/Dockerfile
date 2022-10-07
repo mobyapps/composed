@@ -203,6 +203,7 @@ mplayer \
 -DWITH_JEMALLOC=1 \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
+-DWITH_FIDO=bundled \
 -DWITH_UNIT_TESTS=0 \
 \
 && make -j$CPUS_COUNT \
