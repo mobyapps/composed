@@ -78,7 +78,6 @@ libgeoip-dev                    \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
-libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
@@ -89,7 +88,7 @@ libldap2-dev                    \
 nodejs \
 npm \
 chromium-chromedriver \
-firefox-geckodriver \
+firefox \
 libgtk2.0-0 \
 libgtk-3-0 \
 libnotify-dev \
