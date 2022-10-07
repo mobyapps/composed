@@ -10,10 +10,10 @@ on:
 
 jobs:
   hello:
-    name: "hello on ubuntu-20.04"
+    name: "hello on ubuntu-22.04"
     if: "contains(github.event.head_commit.message, 'build hello')"
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
@@ -35,10 +35,10 @@ jobs:
 
 
   web:
-    name: web on ubuntu-20.04
+    name: web on ubuntu-22.04
     if: "contains(github.event.head_commit.message, 'build web')"
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
