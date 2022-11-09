@@ -43,8 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check OS Environment
+        run: |
+          localectl status
+
       - name: Build image
-        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:6.1.1 .
+        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:6.1.2 .
 
       - name: List images
         run: docker image ls
@@ -53,4 +57,4 @@ jobs:
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
       - name: Push image
-        run: docker push charescape/web:6.1.1
+        run: docker push charescape/web:6.1.2
