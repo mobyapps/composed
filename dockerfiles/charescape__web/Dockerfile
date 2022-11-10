@@ -6,11 +6,11 @@ ENV MYSQL_MAIN_VERSION  8.0
 ENV MYSQL_VERSION       8.0.31
 ENV MYSQL_HASH          a6ae947b3c757c7cee2f934e768091ba
 
-ENV PHP_VERSION         8.0.24
-ENV PHP_HASH            6020843a2f1ce36745d958b3ca17f3fdc42e78a43899f552ab5dbc509ff19232
+ENV PHP_VERSION         8.0.25
+ENV PHP_HASH            349a2b5a01bfccbc9af8afdf183e57bed3349706a084f3c4694aa4c7ff7cb2e9
 
-ENV COMPOSER_VERSION    2.4.2
-ENV COMPOSER_HASH       8fe98a01050c92cc6812b8ead3bd5b6e0bcdc575ce7a93b242bde497a31d7732
+ENV COMPOSER_VERSION    2.4.4
+ENV COMPOSER_HASH       c252c2a2219956f88089ffc242b42c8cb9300a368fd3890d63940e4fc9652345
 
 ENV OPENRESTY_VERSION   1.21.4.1
 ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99
@@ -49,7 +49,7 @@ curl                            \
 re2c                            \
 bison                           \
 zip                             \
-p7zip-full                      \
+p7zip                           \
 socat                           \
 zstd                            \
 libtool                         \

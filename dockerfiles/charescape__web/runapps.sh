@@ -5,7 +5,7 @@ set -eux
 
 # find /var/www -not \( -path "*/node_modules/*" -o -path "*/\.git/*" \) -exec chown www-data:www-data {} \;
 
-chown -R www-data:www-data /var/www/
+# chown -R www-data:www-data /var/www/
 chown -R www-data:www-data /usr/local/mysql/
 chown -R www-data:www-data /usr/local/php/
 chown -R www-data:www-data /usr/local/openresty/
