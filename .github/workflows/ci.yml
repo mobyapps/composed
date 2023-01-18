@@ -11,7 +11,7 @@ on:
 jobs:
   hello:
     name: "hello on ubuntu-22.04"
-    if: "contains(github.event.head_commit.message, 'build hello')"
+    if: "contains(github.event.head_commit.message, 'Build Hello')"
 
     runs-on: ubuntu-22.04
 
@@ -36,7 +36,7 @@ jobs:
 
   web:
     name: web on ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'build web')"
+    if: "contains(github.event.head_commit.message, 'Build Web')"
 
     runs-on: ubuntu-22.04
 
@@ -48,7 +48,7 @@ jobs:
           localectl status
 
       - name: Build image
-        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:6.2.0 .
+        run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:6.2.1 .
 
       - name: List images
         run: docker image ls
@@ -57,4 +57,4 @@ jobs:
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
       - name: Push image
-        run: docker push charescape/web:6.2.0
+        run: docker push charescape/web:6.2.1
