@@ -101,6 +101,7 @@ libasound2 \
 libxtst6 \
 xauth \
 xvfb \
+libu2f-udev \
 \
 fontconfig \
 fonts-noto-color-emoji \
