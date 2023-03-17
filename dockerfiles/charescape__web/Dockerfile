@@ -366,7 +366,9 @@ mplayer \
 && echo '' >> ~/.bashrc \
 \
 && apt clean \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+&& rm -rf /var/lib/apt/lists/* \
+&& rm -rf /tmp/* \
+&& rm -rf /var/tmp/* \
 && rm -rf /usr/local/mysql/mysql-test/* \
 && du -h --max-depth=2 /usr/local/mysql \
 && du -h --max-depth=2 /usr/local/php \
