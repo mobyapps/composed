@@ -1,9 +1,9 @@
 # Install Docker
 ```
-sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list \
-&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.aliyun.com/' /etc/apt/sources.list
+sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/http:\/\/security.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/archive.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list \
+&& sed -i 's/https:\/\/security.ubuntu.com/https:\/\/mirrors.cloud.tencent.com/' /etc/apt/sources.list
 
 apt -y update && apt -y upgrade
 
