@@ -78,7 +78,6 @@ libgeoip-dev                    \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
-libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
