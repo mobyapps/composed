@@ -204,7 +204,6 @@ mplayer \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
---with-pcre-jit \
 --with-zlib \
 --with-zlib-dir \
 --enable-bcmath \
@@ -214,6 +213,7 @@ mplayer \
 --enable-exif \
 --enable-gd \
 --with-freetype \
+--with-avif \
 --with-webp \
 --with-jpeg \
 --with-xpm \
