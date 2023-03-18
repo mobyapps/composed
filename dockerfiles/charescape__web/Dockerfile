@@ -17,12 +17,12 @@ ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d
 
 COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
 
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php.ini                 /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/my.cnf                  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/php-fpm.conf            /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/www.conf                /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/configfiles/openresty_testing.conf  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/master/ttt/dbapi.php                       /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php.ini                 /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/my.cnf                  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php-fpm.conf            /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/www.conf                /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/openresty_testing.conf  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/ttt/dbapi.php                       /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -85,7 +85,6 @@ libldap2-dev                    \
 \
 \
 libvulkan1                      \
-\
 \
 \
 nodejs \
@@ -195,7 +194,6 @@ mplayer \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --help \
-&& exit 1 \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
 --with-fpm-user=www-data \
@@ -225,7 +223,7 @@ mplayer \
 --enable-mbstring \
 --enable-mysqlnd \
 --enable-pdo \
---with-mysqli=mysqlnd \
+--with-mysqli \
 --with-pdo-mysql=mysqlnd \
 --enable-pcntl \
 --with-readline \
@@ -244,6 +242,7 @@ mplayer \
 && make -j$CPUS_COUNT \
 && sleep 3s \
 && make install \
+&& exit 1 \
 \
 && cd /usr/local/src \
 && rm -f /usr/local/php/etc/php-fpm.conf \
