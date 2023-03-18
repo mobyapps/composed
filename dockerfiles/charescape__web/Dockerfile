@@ -272,7 +272,7 @@ mplayer \
 --enable-mbstring \
 --enable-mysqlnd \
 --enable-pdo \
---with-mysqli=mysqlnd \
+--with-mysqli \
 --with-pdo-mysql=mysqlnd \
 --enable-pcntl \
 --with-readline \
