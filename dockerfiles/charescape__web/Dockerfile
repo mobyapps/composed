@@ -193,6 +193,7 @@ mplayer \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
 && ./configure --help \
+&& exit 0 \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
 --with-fpm-user=www-data \
