@@ -82,44 +82,12 @@ libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
+libavif-dev                     \
 \
 \
 libvulkan1                      \
 \
 \
-nodejs \
-npm \
-chromium-chromedriver \
-firefox \
-libgtk2.0-0 \
-libgtk-3-0 \
-libnotify-dev \
-libgconf-2-4 \
-libgbm-dev \
-libnss3 \
-libxss1 \
-libasound2 \
-libxtst6 \
-xauth \
-xvfb \
-libu2f-udev \
-\
-fontconfig \
-fonts-noto-color-emoji \
-fonts-arphic-bkai00mp \
-fonts-arphic-bsmi00lp \
-fonts-arphic-gbsn00lp \
-fonts-arphic-gkai00mp \
-fonts-arphic-ukai \
-fonts-arphic-uming \
-fonts-wqy-zenhei \
-fonts-wqy-microhei \
-xfonts-wqy \
-\
-fonts-liberation \
-libappindicator3-1 \
-xdg-utils \
-mplayer \
 \
 \
 \
@@ -170,11 +138,6 @@ mplayer \
 && echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
-\
-&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-&& dpkg -i google-chrome-stable_current_amd64.deb \
-&& apt     install -y --fix-broken \
-&& apt     install -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
