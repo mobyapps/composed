@@ -84,6 +84,9 @@ libsasl2-dev                    \
 libldap2-dev                    \
 \
 \
+libvulkan1                      \
+\
+\
 \
 nodejs \
 npm \
