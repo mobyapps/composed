@@ -82,6 +82,7 @@ libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
+libavif-dev                     \
 \
 \
 libvulkan1                      \
