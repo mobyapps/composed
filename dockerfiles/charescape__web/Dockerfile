@@ -1,4 +1,4 @@
-FROM phusion/baseimage:focal-1.2.0
+FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
@@ -6,8 +6,8 @@ ENV MYSQL_MAIN_VERSION  8.0
 ENV MYSQL_VERSION       8.0.32
 ENV MYSQL_HASH          0514a811eb2170b526b39c539f791bf1
 
-ENV PHP_VERSION         8.0.28
-ENV PHP_HASH            7432184eae01e4e8e39f03f80e8ec0ca2c8bfebc56e9a7b983541ca8805df22f
+ENV PHP_VERSION         8.1.17
+ENV PHP_HASH            ef270156291d90a80ce83d68eee812f301cf5e48836a0ff6fd2931913f8e25c5
 
 ENV COMPOSER_VERSION    2.5.4
 ENV COMPOSER_HASH       91ce6cbf9463eae86ae9d5c21d42faa601a519f3fbb2b623a55ee24678079bd3
@@ -78,12 +78,13 @@ libgeoip-dev                    \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
-libeditline-dev                 \
 libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
 \
+\
+libvulkan1                      \
 \
 \
 nodejs \
@@ -250,7 +251,6 @@ mplayer \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
---with-pcre-jit \
 --with-zlib \
 --with-zlib-dir \
 --enable-bcmath \
@@ -260,6 +260,7 @@ mplayer \
 --enable-exif \
 --enable-gd \
 --with-freetype \
+--with-avif \
 --with-webp \
 --with-jpeg \
 --with-xpm \

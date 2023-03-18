@@ -2,10 +2,10 @@ name: ci2
 
 on:
   push:
-    branches: [ master ]
+    branches: [ ubuntu22-php81-mysql80 ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ ubuntu22-php81-mysql80 ]
 
 
 jobs:
