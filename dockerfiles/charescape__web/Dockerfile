@@ -55,6 +55,7 @@ zstd                            \
 libtool                         \
 imagemagick                     \
 wkhtmltopdf                     \
+supervisor                      \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
