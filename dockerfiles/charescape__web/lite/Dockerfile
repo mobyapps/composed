@@ -309,7 +309,7 @@ mplayer \
 && du -h --max-depth=3 /var/www \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 3306
+EXPOSE 80 443
 
 CMD ["/sbin/my_init"]
 
