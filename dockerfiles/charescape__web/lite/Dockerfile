@@ -2,10 +2,6 @@ FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.32
-ENV MYSQL_HASH          0514a811eb2170b526b39c539f791bf1
-
 ENV PHP_VERSION         8.2.4
 ENV PHP_HASH            cee7748015a2ddef1739d448b980b095dccd09ed589cf1b6c6ee2d16f5e73c50
 
@@ -18,7 +14,6 @@ ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d
 COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php.ini                 /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/my.cnf                  /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php-fpm.conf            /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/www.conf                /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/openresty_testing.conf  /usr/local/src/
@@ -168,79 +163,18 @@ mplayer \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
-&& echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
-&& MYSQL_HASH_CHECK=$? \
-&& if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
-\
 && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
 && apt     install -y --fix-broken \
 && apt     install -y --fix-missing \
 \
-&& tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
 \
 \
-&& mkdir -p /var/www/mysql_data \
-&& mkdir -p /var/www/mysql_conf \
-&& mkdir -p /var/www/mysql_temp \
 && mkdir -p /var/www/ip_site \
 && mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
-\
-&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cmake .. -LH -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DCMAKE_BUILD_TYPE=Release \
--DWITH_SYSTEM_LIBS=1 \
--DMYSQL_DATADIR=/var/www/mysql_data \
--DSYSCONFDIR=/var/www/mysql_conf \
--DTMPDIR=/var/www/mysql_temp \
--DDEFAULT_CHARSET=utf8mb4 \
--DDEFAULT_COLLATION=utf8mb4_unicode_ci \
--DDOWNLOAD_BOOST=1 \
--DWITH_BOOST=/usr/local/boostcxx \
--DENABLED_LOCAL_INFILE=1 \
--DMYSQL_TCP_PORT=3306 \
--DMYSQL_UNIX_ADDR=/var/www/mysql.sock \
--DWITH_JEMALLOC=1 \
--DWITH_RAPIDJSON=bundled \
--DWITH_PROTOBUF=bundled \
--DWITH_FIDO=bundled \
--DWITH_UNIT_TESTS=0 \
-\
-&& make -j$CPUS_COUNT \
-&& sleep 3s \
-&& make install \
-\
-&& cd /usr/local/src \
-&& rm -f       /var/www/mysql_conf/my.cnf \
-&& cp ./my.cnf /var/www/mysql_conf/my.cnf \
-&& chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
-\
-&& chown -R www-data:www-data /usr/local/mysql \
-&& chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/support-files/mysql.server start \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
-&& sleep 3s \
-&& /usr/local/mysql/support-files/mysql.server restart \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.user SET Host='%' WHERE User='root' AND Host='localhost';" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.db   SET Host='%' WHERE User='root' AND Host='localhost';" \
-&& /usr/local/mysql/support-files/mysql.server restart \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb0;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb1;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb2;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test0db;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test1db;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test2db;" \
-&& sleep 3s \
-&& /usr/local/mysql/support-files/mysql.server stop \
 \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
@@ -365,21 +299,18 @@ mplayer \
 && echo '' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
 && apt clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/* \
 && rm -rf /var/tmp/* \
-&& rm -rf /usr/local/mysql/mysql-test/* \
-&& du -h --max-depth=2 /usr/local/mysql \
 && du -h --max-depth=2 /usr/local/php \
 && du -h --max-depth=2 /usr/local/openresty \
 && du -h --max-depth=3 /var/www \
 && rm -rf /usr/local/src/*
 
-EXPOSE 80 443 3306
+EXPOSE 80 443
 
 CMD ["/sbin/my_init"]
 
