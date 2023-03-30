@@ -5,13 +5,13 @@ LABEL maintainer="charescape@outlook.com"
 ENV PHP_VERSION         8.2.4
 ENV PHP_HASH            cee7748015a2ddef1739d448b980b095dccd09ed589cf1b6c6ee2d16f5e73c50
 
-ENV COMPOSER_VERSION    2.5.4
-ENV COMPOSER_HASH       91ce6cbf9463eae86ae9d5c21d42faa601a519f3fbb2b623a55ee24678079bd3
+ENV COMPOSER_VERSION    2.5.5
+ENV COMPOSER_HASH       566a6d1cf4be1cc3ac882d2a2a13817ffae54e60f5aa7c9137434810a5809ffc
 
 ENV OPENRESTY_VERSION   1.21.4.1
 ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99
 
-COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
+COPY ./dockerfiles/charescape__web/lite/runapps.sh  /etc/my_init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php.ini                 /usr/local/src/
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php-fpm.conf            /usr/local/src/
@@ -301,6 +301,7 @@ mplayer \
 && echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
+&& apt -y autoremove \
 && apt clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/* \
