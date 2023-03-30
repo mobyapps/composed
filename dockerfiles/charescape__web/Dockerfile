@@ -49,7 +49,7 @@ curl                            \
 re2c                            \
 bison                           \
 zip                             \
-p7zip                           \
+p7zip-full                      \
 socat                           \
 zstd                            \
 libtool                         \
