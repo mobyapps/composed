@@ -245,6 +245,7 @@ mplayer \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
 && cd /usr/local/src \
+&& git clone https://github.com/google/ngx_brotli.git \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
@@ -274,6 +275,7 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
+--add-module=/usr/local/src/ngx_brotli \
 \
 && make -j$CPUS_COUNT \
 && sleep  3s \
