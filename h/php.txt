@@ -1,4 +1,4 @@
-`configure' configures PHP 8.2.4 to adapt to many kinds of systems.
+`configure' configures PHP 8.2.12 to adapt to many kinds of systems.
 
 Usage: ./configure [OPTION]... [VAR=VALUE]...
 
@@ -329,6 +329,8 @@ PEAR:
 Zend:
 
   --disable-zend-signals  whether to enable zend signal handling
+  --enable-zend-max-execution-timers
+                          whether to enable zend max execution timers
 
 TSRM:
 
