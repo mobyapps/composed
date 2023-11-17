@@ -2,14 +2,14 @@ FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV PHP_VERSION         8.2.4
-ENV PHP_HASH            cee7748015a2ddef1739d448b980b095dccd09ed589cf1b6c6ee2d16f5e73c50
+ENV PHP_VERSION         8.2.12
+ENV PHP_HASH            b2b74a91f5fac14ce10ece0ac210f6f5d72f4367a3cb638e80d117d183750a21
 
-ENV COMPOSER_VERSION    2.5.5
-ENV COMPOSER_HASH       566a6d1cf4be1cc3ac882d2a2a13817ffae54e60f5aa7c9137434810a5809ffc
+ENV COMPOSER_VERSION    2.6.5
+ENV COMPOSER_HASH       9a18e1a3aadbcb94c1bafd6c4a98ff931f4b43a456ef48575130466e19f05dd6
 
-ENV OPENRESTY_VERSION   1.21.4.1
-ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99
+ENV OPENRESTY_VERSION   1.21.4.3
+ENV OPENRESTY_HASH      33a84c63cfd9e46b0e5c62eb2ddc7b8068bda2e1686314343b89fc3ffd24cdd3
 
 COPY ./dockerfiles/charescape__web/lite/runapps.sh  /etc/my_init.d/
 
@@ -163,6 +163,8 @@ mplayer \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
+&& git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli --verbose \
+\
 && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
 && apt     install -y --fix-broken \
@@ -247,8 +249,21 @@ mplayer \
 \
 && cd /usr/local/src \
 \
+&& cd /usr/local/src/ngx_brotli/deps/brotli \
+&& mkdir out \
+&& cd out \
+&& cmake -DCMAKE_BUILD_TYPE=Release \
+-DBUILD_SHARED_LIBS=OFF \
+-DCMAKE_C_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-DCMAKE_CXX_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-DCMAKE_INSTALL_PREFIX=./installed .. \
+\
+&& cmake --build . --config Release --target brotlienc \
+\
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
+&& export CFLAGS="-m64 -march=native -mtune=native -Ofast -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+&& export LDFLAGS="-m64 -Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections" \
 && ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
@@ -275,19 +290,20 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
+--add-module=/usr/local/src/ngx_brotli \
 \
-&& make -j$CPUS_COUNT \
+&& gmake -j$CPUS_COUNT \
 && sleep  3s \
-&& make install \
+&& gmake install \
 \
 && cd /usr/local/src \
 && rm -f                        /usr/local/openresty/nginx/conf/nginx.conf \
 && mv ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
 \
-&& mkdir                       /var/www/repos \
-&& mkdir -p                    /var/www/repos/ttt/dbapi \
-&& cp ./dbapi.php              /var/www/repos/ttt/dbapi/index.php \
+&& mkdir                       /repos \
+&& mkdir -p                    /repos/ttt/dbapi \
+&& cp ./dbapi.php              /repos/ttt/dbapi/index.php \
 && chown -R www-data:www-data  /var/www \
 \
 \
