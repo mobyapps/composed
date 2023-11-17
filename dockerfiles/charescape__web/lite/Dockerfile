@@ -119,16 +119,6 @@ xdg-utils \
 mplayer \
 \
 \
-\
-&& echo '' >> /etc/hosts \
-&& echo '127.0.0.1 dbapi.ttt.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.symfonytest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.slimtest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
-&& echo '' >> /etc/hosts \
-\
 && chmod +x /etc/my_init.d/runapps.sh \
 \
 && cd /usr/local/bin/ \
