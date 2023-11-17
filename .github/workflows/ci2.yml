@@ -48,7 +48,7 @@ jobs:
           localectl status
 
       - name: build image
-        run: docker build -f ./dockerfiles/charescape__web/lite/Dockerfile -t charescape/web:ubuntu22-php82.rv2 .
+        run: docker build -f ./dockerfiles/charescape__web/lite/Dockerfile -t charescape/web:ubuntu22-php82.rv2 --add-host dbapi.ttt.com:127.0.0.1 --add-host app.yiitest.com:127.0.0.1 --add-host app.laraveltest.com:127.0.0.1 --add-host app.symfonytest.com:127.0.0.1 .
 
       - name: list images
         run: docker image ls
