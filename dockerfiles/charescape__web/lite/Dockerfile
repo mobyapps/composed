@@ -26,14 +26,6 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
-&& date -d "1 day ago" \
-&& ls -l /usr/share/zoneinfo/ \
-&& ls -l /usr/share/zoneinfo/Asia/ \
-&& echo "${TZ}" > /etc/timezone \
-&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
-&& cat /etc/timezone \
-&& date -d "1 day ago" \
-\
 && apt -y update            \
 && apt -y upgrade           \
 && apt -y autoremove           \
@@ -127,6 +119,15 @@ fonts-liberation \
 libappindicator3-1 \
 xdg-utils \
 mplayer \
+\
+\
+&& date -d "1 day ago" \
+&& ls -l /usr/share/zoneinfo/ \
+&& ls -l /usr/share/zoneinfo/Asia/ \
+&& echo "${TZ}" > /etc/timezone \
+&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+&& cat /etc/timezone \
+&& date -d "1 day ago" \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
