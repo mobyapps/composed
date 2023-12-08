@@ -249,6 +249,28 @@ mplayer \
 --enable-fpm \
 --with-fpm-user=www-data \
 --with-fpm-group=www-data \
+\
+\
+--enable-opcache \
+--enable-ipv6 \
+--enable-ctype \
+--enable-dom \
+--enable-fileinfo \
+--enable-filter \
+--enable-mbregex \
+--enable-huge-code-pages \
+--enable-opcache-jit \
+--enable-pdo \
+--enable-phar \
+--enable-posix \
+--enable-session \
+--enable-simplexml \
+--enable-tokenizer \
+--enable-xml \
+--enable-xmlreader \
+--enable-xmlwriter \
+\
+\
 --enable-phpdbg \
 --disable-short-tags \
 --with-openssl \
