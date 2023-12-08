@@ -36,7 +36,7 @@ jobs:
 
   build_lite_image:
     name: build lite image on ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'release ubuntu22-php82.rv2')"
+    if: "contains(github.event.head_commit.message, 'release ubuntu22-php82.rv3')"
 
     runs-on: ubuntu-22.04
 
@@ -48,7 +48,7 @@ jobs:
           localectl status
 
       - name: build image
-        run: docker build -f ./dockerfiles/charescape__web/lite/Dockerfile -t charescape/web:ubuntu22-php82.rv2 --add-host dbapi.ttt.com:127.0.0.1 --add-host app.yiitest.com:127.0.0.1 --add-host app.laraveltest.com:127.0.0.1 --add-host app.symfonytest.com:127.0.0.1 .
+        run: docker build -f ./dockerfiles/charescape__web/lite/Dockerfile -t charescape/web:ubuntu22-php82.rv3 --add-host dbapi.ttt.com:127.0.0.1 --add-host app.yiitest.com:127.0.0.1 --add-host app.laraveltest.com:127.0.0.1 --add-host app.symfonytest.com:127.0.0.1 .
 
       - name: list images
         run: docker image ls
@@ -57,4 +57,4 @@ jobs:
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
       - name: push image
-        run: docker push charescape/web:ubuntu22-php82.rv2
+        run: docker push charescape/web:ubuntu22-php82.rv3
