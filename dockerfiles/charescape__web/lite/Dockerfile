@@ -26,10 +26,10 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
+&& cat /usr/share/zoneinfo/${TZ} \
 && echo "${TZ}" > /etc/timezone \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
 && cat /etc/timezone \
-&& cat /etc/localtime \
 \
 && apt -y update            \
 && apt -y upgrade           \
