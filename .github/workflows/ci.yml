@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Docker Build
         run: docker build -f ./dockerfiles/charescape__hello/Dockerfile -t charescape/hello:$GITHUB_RUN_ID .
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: check os env
         run: |
