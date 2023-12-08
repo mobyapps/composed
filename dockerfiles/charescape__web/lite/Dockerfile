@@ -30,16 +30,10 @@ RUN set -eux \
 && apt -y install --fix-broken  \
 && apt -y install --fix-missing \
 \
-&& cat /etc/timezone \
-&& timedatectl \
-&& timedatectl list-timezones \
-&& timedatectl set-timezone Asia/Shanghai \
-&& cat /etc/timezone \
-&& timedatectl \
-\
+&& whoami \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo build-essential \
+&& apt -y install sudo timedatectl build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -124,6 +118,14 @@ fonts-liberation \
 libappindicator3-1 \
 xdg-utils \
 mplayer \
+\
+\
+&& cat /etc/timezone \
+&& timedatectl \
+&& timedatectl list-timezones \
+&& timedatectl set-timezone Asia/Shanghai \
+&& cat /etc/timezone \
+&& timedatectl \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
