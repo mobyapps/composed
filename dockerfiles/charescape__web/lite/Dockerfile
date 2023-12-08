@@ -26,7 +26,8 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
-&& cat /usr/share/zoneinfo/${TZ} \
+&& ll /usr/share/zoneinfo/ \
+&& ll /usr/share/zoneinfo/Asia/ \
 && echo "${TZ}" > /etc/timezone \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
 && cat /etc/timezone \
