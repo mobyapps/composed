@@ -129,6 +129,8 @@ mplayer \
 && date -d "1 day ago" \
 && ls -l /usr/share/zoneinfo/ \
 && ls -l /usr/share/zoneinfo/Asia/ \
+\
+\
 && chmod +x /etc/my_init.d/runapps.sh \
 \
 \
