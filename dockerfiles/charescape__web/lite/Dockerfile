@@ -32,7 +32,7 @@ RUN set -eux \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo timedatectl build-essential \
+&& apt -y install sudo systemd build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
