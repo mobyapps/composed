@@ -2,6 +2,8 @@ FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
+ENV TZ                  Asia/Shanghai
+
 ENV PHP_VERSION         8.2.13
 ENV PHP_HASH            6a194038f5a9e46d8f70a9d59c072c3b08d6edbdd8e304096e24ccf2225bcf1b
 
@@ -24,6 +26,12 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
+&& cat /etc/timezone \
+&& echo "${TZ}" > /etc/timezone \
+&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+&& cat /etc/timezone \
+&& cat /etc/localtime \
+\
 && apt -y update            \
 && apt -y upgrade           \
 && apt -y autoremove           \
@@ -32,7 +40,7 @@ RUN set -eux \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo systemd build-essential \
+&& apt -y install sudo tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -117,14 +125,6 @@ fonts-liberation \
 libappindicator3-1 \
 xdg-utils \
 mplayer \
-\
-\
-&& cat /etc/timezone \
-&& timedatectl status \
-&& timedatectl list-timezones \
-&& timedatectl set-timezone Asia/Shanghai \
-&& cat /etc/timezone \
-&& timedatectl status \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
