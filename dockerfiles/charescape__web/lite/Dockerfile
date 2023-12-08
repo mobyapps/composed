@@ -30,7 +30,6 @@ RUN set -eux \
 && apt -y install --fix-broken  \
 && apt -y install --fix-missing \
 \
-&& whoami \
 && cat /etc/timezone \
 && timedatectl \
 && timedatectl list-timezones \
