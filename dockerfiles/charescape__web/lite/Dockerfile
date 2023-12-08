@@ -2,8 +2,8 @@ FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV PHP_VERSION         8.2.12
-ENV PHP_HASH            b2b74a91f5fac14ce10ece0ac210f6f5d72f4367a3cb638e80d117d183750a21
+ENV PHP_VERSION         8.2.13
+ENV PHP_HASH            6a194038f5a9e46d8f70a9d59c072c3b08d6edbdd8e304096e24ccf2225bcf1b
 
 ENV COMPOSER_VERSION    2.6.5
 ENV COMPOSER_HASH       9a18e1a3aadbcb94c1bafd6c4a98ff931f4b43a456ef48575130466e19f05dd6
