@@ -30,7 +30,6 @@ RUN set -eux \
 && apt -y install --fix-broken  \
 && apt -y install --fix-missing \
 \
-&& whoami \
 && echo '' >> ~/.bashrc         \
 \
 && apt -y install sudo timedatectl build-essential \
@@ -121,11 +120,11 @@ mplayer \
 \
 \
 && cat /etc/timezone \
-&& timedatectl \
+&& timedatectl status \
 && timedatectl list-timezones \
 && timedatectl set-timezone Asia/Shanghai \
 && cat /etc/timezone \
-&& timedatectl \
+&& timedatectl status \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
