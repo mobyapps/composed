@@ -140,7 +140,7 @@ mplayer \
 \
 \
 && cd /usr/local/bin/ \
-&& wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
+&& wget --no-verbose https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
 && echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
 && COMPOSER_HASH_CHECK=$? \
 && if [ "$COMPOSER_HASH_CHECK" -ne "0" ]; then echo "composer.phar hash mismatch." && exit 1; fi \
@@ -150,8 +150,8 @@ mplayer \
 && chown www-data:www-data /usr/local/bin/composer \
 \
 && cd /usr/local \
-&& wget https://curl.se/ca/cacert.pem \
-&& wget https://curl.se/ca/cacert.pem.sha256 \
+&& wget --no-verbose https://curl.se/ca/cacert.pem \
+&& wget --no-verbose https://curl.se/ca/cacert.pem.sha256 \
 && cat cacert.pem.sha256 | shasum -a 256 --check \
 && CACERT_HASH_CHECK=$? \
 && if [ "$CACERT_HASH_CHECK" -ne "0" ]; then echo "cacert.pem hash mismatch." && exit 1; fi \
@@ -161,24 +161,24 @@ mplayer \
 \
 && cd /usr/local/src \
 \
-&& wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
+&& wget --no-verbose https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && echo "${PHP_HASH} *php-${PHP_VERSION}.tar.gz" | shasum -a 256 --check \
 && PHP_HASH_CHECK=$? \
 && if [ "$PHP_HASH_CHECK" -ne "0" ]; then echo "php-${PHP_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz \
+&& wget --no-verbose https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz \
 && echo "${OPENRESTY_HASH} *openresty-${OPENRESTY_VERSION}.tar.gz" | shasum -a 256 --check \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
+&& wget --no-verbose https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
 && echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli --verbose \
 \
-&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+&& wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
 && apt     install -y --fix-broken \
 && apt     install -y --fix-missing \
