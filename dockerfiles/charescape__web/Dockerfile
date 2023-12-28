@@ -2,18 +2,20 @@ FROM phusion/baseimage:jammy-1.0.1
 
 LABEL maintainer="charescape@outlook.com"
 
+ENV TZ                  Asia/Shanghai
+
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.32
-ENV MYSQL_HASH          0514a811eb2170b526b39c539f791bf1
+ENV MYSQL_VERSION       8.0.35
+ENV MYSQL_HASH          825afed06344b52faa8d9dcd52d7e696
 
-ENV PHP_VERSION         8.2.4
-ENV PHP_HASH            cee7748015a2ddef1739d448b980b095dccd09ed589cf1b6c6ee2d16f5e73c50
+ENV PHP_VERSION         8.2.14
+ENV PHP_HASH            4c1fbb55a10ece7f4532feba9f3f88b9b211c11320742977588738374c03255f
 
-ENV COMPOSER_VERSION    2.5.4
-ENV COMPOSER_HASH       91ce6cbf9463eae86ae9d5c21d42faa601a519f3fbb2b623a55ee24678079bd3
+ENV COMPOSER_VERSION    2.6.6
+ENV COMPOSER_HASH       72600201c73c7c4b218f1c0511b36d8537963e36aafa244757f52309f885b314
 
-ENV OPENRESTY_VERSION   1.21.4.1
-ENV OPENRESTY_HASH      0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99
+ENV OPENRESTY_VERSION   1.21.4.3
+ENV OPENRESTY_HASH      33a84c63cfd9e46b0e5c62eb2ddc7b8068bda2e1686314343b89fc3ffd24cdd3
 
 COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
 
@@ -29,6 +31,11 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 && export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
+&& date -d "1 day ago" \
+&& echo "${TZ}" > /etc/timezone \
+&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+&& cat /etc/timezone \
+\
 && apt -y update            \
 && apt -y upgrade           \
 && apt -y autoremove           \
@@ -37,7 +44,7 @@ RUN set -eux \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo build-essential \
+&& apt -y install sudo tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -124,17 +131,13 @@ xdg-utils \
 mplayer \
 \
 \
+&& date -d "1 day ago" \
+&& ls -l /usr/share/zoneinfo/ \
+&& ls -l /usr/share/zoneinfo/Asia/ \
 \
-&& echo '' >> /etc/hosts \
-&& echo '127.0.0.1 dbapi.ttt.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.laraveltest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.yiitest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.symfonytest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.slimtest.com' >> /etc/hosts \
-&& echo '127.0.0.1 app.cakephptest.com' >> /etc/hosts \
-&& echo '' >> /etc/hosts \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
+\
 \
 && cd /usr/local/bin/ \
 && wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
@@ -172,6 +175,8 @@ mplayer \
 && echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli --verbose \
 \
 && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
@@ -335,8 +340,21 @@ mplayer \
 \
 && cd /usr/local/src \
 \
+&& cd /usr/local/src/ngx_brotli/deps/brotli \
+&& mkdir out \
+&& cd out \
+&& cmake -DCMAKE_BUILD_TYPE=Release \
+-DBUILD_SHARED_LIBS=OFF \
+-DCMAKE_C_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-DCMAKE_CXX_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-DCMAKE_INSTALL_PREFIX=./installed .. \
+\
+&& cmake --build . --config Release --target brotlienc \
+\
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
+&& export CFLAGS="-m64 -march=native -mtune=native -Ofast -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+&& export LDFLAGS="-m64 -Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections" \
 && ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
@@ -363,19 +381,20 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
+--add-module=/usr/local/src/ngx_brotli \
 \
-&& make -j$CPUS_COUNT \
+&& gmake -j$CPUS_COUNT \
 && sleep  3s \
-&& make install \
+&& gmake install \
 \
 && cd /usr/local/src \
 && rm -f                        /usr/local/openresty/nginx/conf/nginx.conf \
 && mv ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
 \
-&& mkdir                       /var/www/repos \
-&& mkdir -p                    /var/www/repos/ttt/dbapi \
-&& cp ./dbapi.php              /var/www/repos/ttt/dbapi/index.php \
+&& mkdir                       /repos \
+&& mkdir -p                    /repos/ttt/dbapi \
+&& cp ./dbapi.php              /repos/ttt/dbapi/index.php \
 && chown -R www-data:www-data  /var/www \
 \
 \
@@ -390,6 +409,7 @@ mplayer \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
+&& apt -y autoremove \
 && apt clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/* \
