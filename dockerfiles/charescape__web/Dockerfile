@@ -36,15 +36,15 @@ RUN set -eux \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
 && cat /etc/timezone \
 \
-&& apt -y update            \
-&& apt -y upgrade           \
-&& apt -y autoremove           \
-&& apt -y install --fix-broken  \
-&& apt -y install --fix-missing \
+&& apt-get -y update            \
+&& apt-get -y upgrade           \
+&& apt-get -y autoremove           \
+&& apt-get -y install --fix-broken  \
+&& apt-get -y install --fix-missing \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo tzdata build-essential \
+&& apt-get -y install sudo tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -180,8 +180,8 @@ mplayer \
 \
 && wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
-&& apt     install -y --fix-broken \
-&& apt     install -y --fix-missing \
+&& apt-get     install -y --fix-broken \
+&& apt-get     install -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
@@ -409,8 +409,8 @@ mplayer \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
-&& apt -y autoremove \
-&& apt clean \
+&& apt-get -y autoremove \
+&& apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/* \
 && rm -rf /var/tmp/* \
