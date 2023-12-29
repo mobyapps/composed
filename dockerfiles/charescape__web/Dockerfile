@@ -39,12 +39,12 @@ RUN set -eux \
 && apt-get -y update            \
 && apt-get -y upgrade           \
 && apt-get -y autoremove           \
-&& apt-get -y install --fix-broken  \
-&& apt-get -y install --fix-missing \
+&& apt-get -y install --no-install-recommends --fix-broken  \
+&& apt-get -y install --no-install-recommends --fix-missing \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt-get -y install sudo tzdata build-essential \
+&& apt-get -y install --no-install-recommends sudo tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -180,8 +180,8 @@ mplayer \
 \
 && wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
-&& apt-get     install -y --fix-broken \
-&& apt-get     install -y --fix-missing \
+&& apt-get     install --no-install-recommends -y --fix-broken \
+&& apt-get     install --no-install-recommends -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
