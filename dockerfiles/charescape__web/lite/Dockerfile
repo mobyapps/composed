@@ -55,6 +55,7 @@ p7zip-full                      \
 socat                           \
 zstd                            \
 libtool                         \
+dnsutils                        \
 imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
