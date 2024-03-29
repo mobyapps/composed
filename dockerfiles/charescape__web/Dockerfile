@@ -54,8 +54,6 @@ RUN set -eux \
 \
 \
 \
-\
-\
 && echo '' >> ~/.bashrc         \
 \
 && apt-get -y install --no-install-recommends sudo tzdata build-essential \
