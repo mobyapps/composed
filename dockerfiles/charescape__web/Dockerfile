@@ -347,7 +347,7 @@ mplayer \
 && ls -l /usr/local/php/bin \
 && ls -l /usr/local/php/sbin \
 && /usr/local/php/bin/pecl install memcached \
-&& /usr/local/php/bin/php -m | grep -r memcached \
+&& /usr/local/php/bin/php -m \
 \
 \
 && cd /usr/local/src \
