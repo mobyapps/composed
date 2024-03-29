@@ -60,6 +60,8 @@ imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
 memcached                       \
+libmemcached-tools              \
+libmemcached-dev                \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
