@@ -21,6 +21,7 @@ jobs:
       - name: check os env
         run: |
           localectl status
+          cat /proc/cpuinfo
 
       - name: build image
         run: docker build -f ./dockerfiles/charescape__web/Dockerfile -t charescape/web:ubuntu22-php82-mysql80.rv3 .
@@ -46,6 +47,7 @@ jobs:
       - name: check os env
         run: |
           localectl status
+          cat /proc/cpuinfo
 
       - name: build image
         run: docker build -f ./dockerfiles/charescape__web/lite/Dockerfile -t charescape/web:ubuntu22-php82.rv3 --add-host dbapi.ttt.com:127.0.0.1 --add-host app.yiitest.com:127.0.0.1 --add-host app.laraveltest.com:127.0.0.1 --add-host app.symfonytest.com:127.0.0.1 .
