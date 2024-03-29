@@ -59,6 +59,7 @@ dnsutils                        \
 imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
+memcached                       \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
@@ -272,6 +273,11 @@ mplayer \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
+\
+\
+&& pecl install memcached \
+&& php -m | grep -r memcached \
+\
 \
 && cd /usr/local/src \
 \
