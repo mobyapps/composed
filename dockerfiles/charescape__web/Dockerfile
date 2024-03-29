@@ -38,22 +38,9 @@ RUN set -eux \
 \
 && apt-get -y update            \
 && apt-get -y upgrade           \
-&& apt-get -y autoremove           \
+&& apt-get -y autoremove        \
 && apt-get -y install --no-install-recommends --fix-broken  \
 && apt-get -y install --no-install-recommends --fix-missing \
-\
-\
-\
-\
-&& apt-get -y install memcached \
-&& whereis memcached \
-&& memcached -h \
-&& memcached -d -m 512 -p 11211 -l 0.0.0.0 -u root \
-&& ps -ef | grep memcached \
-&& exit 1 \
-\
-\
-\
 \
 && echo '' >> ~/.bashrc         \
 \
@@ -77,6 +64,7 @@ dnsutils                        \
 imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
+memcached                       \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \

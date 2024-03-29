@@ -14,6 +14,7 @@ chown -R www-data:www-data /usr/local/openresty/
 
 /usr/local/php/bin/php -v
 /usr/local/php/sbin/php-fpm
+memcached -d -m 512 -p 11211 -l 0.0.0.0 -u root
 
 if [ -f /repos/nginx-external.conf ]
 then
@@ -34,3 +35,4 @@ fi
 pgrep -l mysql
 pgrep -l php
 pgrep -l nginx
+pgrep -l memcached
