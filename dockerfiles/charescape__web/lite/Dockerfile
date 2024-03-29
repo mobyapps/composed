@@ -252,6 +252,7 @@ mplayer \
 --with-tidy \
 --with-sodium \
 --with-password-argon2 \
+--with-pear \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
