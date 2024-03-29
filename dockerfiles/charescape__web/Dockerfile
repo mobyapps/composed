@@ -49,7 +49,7 @@ RUN set -eux \
 && whereis memcached \
 && memcached -h \
 && memcached -d -m 512 -p 11211 -l 0.0.0.0 -u root \
-&& pgrep -l memcached \
+&& ps -ef | grep memcached \
 && exit 1 \
 \
 \
