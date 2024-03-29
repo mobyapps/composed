@@ -276,6 +276,8 @@ mplayer \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
 \
+&& ls -l /usr/local/php/bin \
+&& ls -l /usr/local/php/sbin \
 && pecl install memcached \
 && php -m | grep -r memcached \
 \
