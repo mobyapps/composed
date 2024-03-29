@@ -1,4 +1,4 @@
-FROM phusion/baseimage:jammy-1.0.1
+FROM phusion/baseimage:jammy-1.0.2
 
 LABEL maintainer="charescape@outlook.com"
 
@@ -65,6 +65,8 @@ imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
 memcached                       \
+libmemcached-tools              \
+libmemcached-dev                \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
@@ -318,6 +320,7 @@ mplayer \
 --with-tidy \
 --with-sodium \
 --with-password-argon2 \
+--with-pear \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
@@ -339,6 +342,13 @@ mplayer \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
+\
+\
+&& ls -l /usr/local/php/bin \
+&& ls -l /usr/local/php/sbin \
+&& /usr/local/php/bin/pecl install memcached \
+&& /usr/local/php/bin/php -m | grep -r memcached \
+\
 \
 && cd /usr/local/src \
 \
