@@ -42,6 +42,20 @@ RUN set -eux \
 && apt-get -y install --no-install-recommends --fix-broken  \
 && apt-get -y install --no-install-recommends --fix-missing \
 \
+\
+\
+\
+&& apt-get -y install memcached \
+&& whereis memcached \
+&& memcached -h \
+&& memcached -d -m 512 -p 11211 -l 0.0.0.0 -u root \
+&& pgrep -l memcached \
+\
+\
+\
+\
+\
+\
 && echo '' >> ~/.bashrc         \
 \
 && apt-get -y install --no-install-recommends sudo tzdata build-essential \
