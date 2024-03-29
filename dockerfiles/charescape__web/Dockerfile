@@ -50,6 +50,7 @@ RUN set -eux \
 && memcached -h \
 && memcached -d -m 512 -p 11211 -l 0.0.0.0 -u root \
 && pgrep -l memcached \
+&& exit 1 \
 \
 \
 \
