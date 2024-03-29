@@ -1,4 +1,4 @@
-FROM phusion/baseimage:jammy-1.0.1
+FROM phusion/baseimage:jammy-1.0.2
 
 LABEL maintainer="charescape@outlook.com"
 
@@ -278,8 +278,8 @@ mplayer \
 \
 && ls -l /usr/local/php/bin \
 && ls -l /usr/local/php/sbin \
-&& pecl install memcached \
-&& php -m | grep -r memcached \
+&& /usr/local/php/bin/pecl install memcached \
+&& /usr/local/php/bin/php -m | grep -r memcached \
 \
 \
 && cd /usr/local/src \
