@@ -22,7 +22,6 @@ jobs:
 
       - run: git clone https://github.com/nomic-ai/gpt4all.git
       - run: cd gpt4all/gpt4all-api
-      - run:
 
       - name: build image
         run: DOCKER_BUILDKIT=1 docker build -t charescape/web:gpt4all_api.rv0 --progress plain -f gpt4all_api/Dockerfile.buildkit .
