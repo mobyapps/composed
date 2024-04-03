@@ -1,0 +1,37 @@
+name: gpt4all_api
+
+on:
+  push:
+
+
+jobs:
+  build_image:
+    name: build image on ubuntu-22.04
+    if: "contains(github.event.head_commit.message, 'release gpt4all_api.rv0')"
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: check os env
+        run: |
+          localectl status
+          cat /proc/cpuinfo
+          free -m
+
+      - run: git clone https://github.com/nomic-ai/gpt4all.git
+      - run: cd gpt4all/gpt4all-api
+      - run:
+
+      - name: build image
+        run: DOCKER_BUILDKIT=1 docker build -t charescape/web:gpt4all_api.rv0 --progress plain -f gpt4all_api/Dockerfile.buildkit .
+
+      - name: list images
+        run: docker image ls
+
+      - name: login to dockerhub
+        run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
+
+      - name: push image
+        run: docker push charescape/web:gpt4all_api.rv0
