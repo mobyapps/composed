@@ -95,6 +95,7 @@ liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
 libavif-dev                     \
+libcapstone-dev                 \
 \
 \
 libvulkan1                      \
@@ -280,7 +281,6 @@ mplayer \
 --enable-xmlwriter \
 \
 \
---enable-phpdbg \
 --disable-short-tags \
 --with-openssl \
 --with-openssl-dir \
@@ -321,6 +321,7 @@ mplayer \
 --with-sodium \
 --with-password-argon2 \
 --with-pear \
+--with-capstone \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
