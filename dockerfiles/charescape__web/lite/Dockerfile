@@ -15,11 +15,11 @@ ENV OPENRESTY_HASH      32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a
 
 COPY ./dockerfiles/charescape__web/lite/runapps.sh  /etc/my_init.d/
 
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php.ini                 /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php-fpm.conf            /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/www.conf                /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/openresty_testing.conf  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/ttt/dbapi.php                       /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/configfiles/php.ini                 /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/configfiles/php-fpm.conf            /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/configfiles/www.conf                /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/configfiles/openresty_testing.conf  /usr/local/src/
+ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/ttt/dbapi.php                       /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
