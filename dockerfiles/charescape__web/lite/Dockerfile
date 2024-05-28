@@ -307,6 +307,7 @@ mplayer \
 --with-file-aio \
 --with-http_ssl_module \
 --with-http_v2_module \
+--with-http_v3_module \
 --with-http_realip_module \
 --with-http_addition_module \
 --with-http_sub_module \
@@ -345,6 +346,7 @@ mplayer \
 && chown -R www-data:www-data  /var/www \
 \
 \
+&& chown -R www-data:www-data  /usr/local/openresty \
 && /usr/local/openresty/nginx/sbin/nginx -t \
 && /usr/local/openresty/nginx/sbin/nginx \
 && sleep 3s \
