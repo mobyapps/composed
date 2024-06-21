@@ -108,11 +108,10 @@ ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 mkdir -p /var/www
 
 cd /usr/local/src/php-${PHP_VERSION}
-./configure --prefix=/usr/local/php \
+./configure --prefix=/usr/local/php54 \
 --enable-fpm \
 --with-fpm-user=www-data \
 --with-fpm-group=www-data \
---enable-phpdbg \
 --disable-short-tags \
 --with-libxml-dir \
 --with-openssl \
@@ -143,7 +142,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-mysql \
 --with-mysqli \
 --with-pdo-mysql \
---enable-opcache \
 --enable-pcntl \
 --with-readline \
 --enable-zip \
