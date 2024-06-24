@@ -13,6 +13,8 @@ ENV COMPOSER_HASH       049b8e0ed9f264d770a0510858cffbc35401510759edc9a784b3a5c6
 ENV OPENRESTY_VERSION   1.25.3.1
 ENV OPENRESTY_HASH      32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
 
+ENV NVM_VERSION   0.39.7
+
 COPY ./dockerfiles/charescape__web/lite/runapps.sh  /etc/my_init.d/
 
 ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu24-php83-mysql80/configfiles/php.ini                 /usr/local/src/
@@ -96,8 +98,6 @@ libcapstone-dev                 \
 libvulkan1                      \
 \
 \
-nodejs \
-npm \
 chromium-chromedriver \
 firefox \
 libgtk2.0-0 \
@@ -129,6 +129,9 @@ fonts-liberation \
 libappindicator3-1 \
 xdg-utils \
 mplayer \
+\
+\
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
 \
 \
 && date -d "1 day ago" \
