@@ -155,7 +155,7 @@ mplayer \
 \
 && mv /usr/local/bin/composer.phar /usr/local/bin/composer \
 && chmod +x /usr/local/bin/composer \
-&& chown www-data:www-data /usr/local/bin/composer \
+&& chown w3web:w3web /usr/local/bin/composer \
 \
 && cd /usr/local \
 && wget --no-verbose https://curl.se/ca/cacert.pem \
@@ -165,7 +165,7 @@ mplayer \
 && if [ "$CACERT_HASH_CHECK" -ne "0" ]; then echo "cacert.pem hash mismatch." && exit 1; fi \
 && rm cacert.pem.sha256 \
 \
-&& chown www-data:www-data /usr/local/cacert.pem \
+&& chown w3web:w3web /usr/local/cacert.pem \
 \
 && cd /usr/local/src \
 \
@@ -201,7 +201,7 @@ mplayer \
 && mkdir -p /var/www/mysql_temp \
 && mkdir -p /var/www/ip_site \
 && mkdir -p /var/www/runlogs \
-&& chown -R www-data:www-data /var/www \
+&& chown -R w3web:w3web /var/www \
 \
 && mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
@@ -231,11 +231,11 @@ mplayer \
 && cd /usr/local/src \
 && rm -f       /var/www/mysql_conf/my.cnf \
 && cp ./my.cnf /var/www/mysql_conf/my.cnf \
-&& chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
+&& chown -R w3web:w3web /var/www \
+&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=w3web \
 \
-&& chown -R www-data:www-data /usr/local/mysql \
-&& chown -R www-data:www-data /var/www \
+&& chown -R w3web:w3web /usr/local/mysql \
+&& chown -R w3web:w3web /var/www \
 && /usr/local/mysql/support-files/mysql.server start \
 && sleep 3s \
 && /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
@@ -260,8 +260,8 @@ mplayer \
 && ./configure --help \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
---with-fpm-user=www-data \
---with-fpm-group=www-data \
+--with-fpm-user=w3web \
+--with-fpm-group=w3web \
 \
 \
 --enable-opcache \
@@ -339,7 +339,7 @@ mplayer \
 && mv ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && mv ./php.ini      /usr/local/php/lib/php.ini \
 \
-&& chown -R www-data:www-data /usr/local/php \
+&& chown -R w3web:w3web /usr/local/php \
 \
 && /usr/local/php/bin/php -v \
 && sleep  3s \
@@ -412,10 +412,10 @@ mplayer \
 && mkdir                       /repos \
 && mkdir -p                    /repos/ttt/dbapi \
 && cp ./dbapi.php              /repos/ttt/dbapi/index.php \
-&& chown -R www-data:www-data  /var/www \
+&& chown -R w3web:w3web  /var/www \
 \
 \
-&& chown -R www-data:www-data  /usr/local/openresty \
+&& chown -R w3web:w3web  /usr/local/openresty \
 && /usr/local/openresty/nginx/sbin/nginx -t \
 && /usr/local/openresty/nginx/sbin/nginx \
 && sleep 3s \
