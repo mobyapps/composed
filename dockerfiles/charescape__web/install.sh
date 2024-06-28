@@ -175,6 +175,16 @@ cmake .. -LH -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DWITH_FIDO=bundled \
 -DWITH_UNIT_TESTS=0
 
+make
+make install
+
+vim /var/w3web/mysql_conf/my.cnf
+chown -R w3web:w3web /var/w3web
+/usr/local/mysql/bin/mysqld --defaults-file=/var/w3web/mysql_conf/my.cnf --initialize-insecure --user=w3web
+
+chown -R w3web:w3web /usr/local/mysql
+chown -R w3web:w3web /var/w3web
+/usr/local/mysql/support-files/mysql.server start
 
 chown -R w3web:w3web /usr/local/php
 chown -R w3web:w3web /usr/local/nginx
