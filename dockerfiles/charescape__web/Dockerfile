@@ -161,8 +161,6 @@ mplayer \
 && if [ "$CACERT_HASH_CHECK" -ne "0" ]; then echo "cacert.pem hash mismatch." && exit 1; fi \
 && rm cacert.pem.sha256 \
 \
-&& chown www-data:www-data /usr/local/cacert.pem \
-\
 && cd /usr/local/src \
 \
 && wget --no-verbose https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz \
