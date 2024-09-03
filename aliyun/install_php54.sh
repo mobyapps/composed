@@ -20,7 +20,7 @@ YACC=/usr/local/bison264/bin/bison ./configure  --prefix=/usr/local/php54 \
 --with-bz2 \
 --enable-calendar \
 --with-curl \
---with-enchant=/usr/local/enchant16 \
+--with-enchant=/usr/local/enchant161 \
 --enable-exif \
 --enable-ftp \
 --with-gd \
@@ -60,7 +60,8 @@ YACC=/usr/local/bison264/bin/bison ./configure  --prefix=/usr/local/php54 \
 --with-pear
 
 wget https://github.com/rrthomas/enchant/releases/download/enchant-1-6-1/enchant-1.6.1.tar.gz
-./configure  --prefix=/usr/local/enchant16
+apt install libhunspell-dev
+./configure  --prefix=/usr/local/enchant161
 
 wget https://jaist.dl.sourceforge.net/project/freetype/freetype2/2.13.3/freetype-2.13.3.tar.gz
 ./configure --prefix=/usr/local/freetype2133 --enable-freetype-config
