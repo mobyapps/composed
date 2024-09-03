@@ -70,7 +70,13 @@ ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 # https://blog.hanhans.net/2020/06/08/php-compile-with-focal/
 ./runConfigureICU Linux --prefix=/usr/local/icu60
 
-ln -s /usr/local/icu60/lib/libicudata.so.60 /usr/lib/x86_64-linux-gnu/libicudata.so.60
+ln -s /usr/local/icu60/lib/libicudata.so.60    /usr/lib/x86_64-linux-gnu/libicudata.so.60
+ln -s /usr/local/icu60/lib/libicui18n.so.60    /usr/lib/x86_64-linux-gnu/libicui18n.so.60
+ln -s /usr/local/icu60/lib/libicuio.so.60    /usr/lib/x86_64-linux-gnu/libicuio.so.60
+ln -s /usr/local/icu60/lib/libicutest.so.60    /usr/lib/x86_64-linux-gnu/libicutest.so.60
+ln -s /usr/local/icu60/lib/libicutu.so.60    /usr/lib/x86_64-linux-gnu/libicutu.so.60
+ln -s /usr/local/icu60/lib/libicuuc.so.60    /usr/lib/x86_64-linux-gnu/libicuuc.so.60
+
 
 # OpenSSL问题
 # https://www.cnblogs.com/anekec/articles/17473186.html
@@ -107,7 +113,6 @@ imagemagick
 
 
 ln -s /usr/include/x86_64-linux-gnu/curl /usr/include/
-
 
 ./configure --prefix=/usr/local/php54 \
 --enable-fpm \
