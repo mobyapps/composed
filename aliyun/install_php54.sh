@@ -68,6 +68,7 @@ apt install libpng-dev
 ./configure --prefix=/usr/local/freetype2133 --enable-freetype-config
 
 ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+ln -s /usr/lib/x86_64-linux-gnu/libXpm.a /usr/lib/libXpm.a
 
 # https://blog.hanhans.net/2020/06/08/php-compile-with-focal/
 ./runConfigureICU Linux --prefix=/usr/local/icu60
