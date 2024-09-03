@@ -6,8 +6,8 @@ echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
 
 YACC=/usr/local/bison264/bin/bison ./configure  --prefix=/usr/local/php54 \
 --enable-fpm \
---with-fpm-user=www \
---with-fpm-group=www \
+--with-fpm-user=www-data \
+--with-fpm-group=www-data \
 --disable-short-tags \
 --with-libxml-dir \
 --with-openssl=/usr/local/openssl102u \
