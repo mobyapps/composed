@@ -27,7 +27,7 @@ YACC=/usr/local/bison264/bin/bison ./configure  --prefix=/usr/local/php54 \
 --with-jpeg-dir \
 --with-xpm-dir \
 --with-png-dir \
---with-freetype-dir=/usr/local/freetype210 \
+--with-freetype-dir=/usr/local/freetype2133 \
 --enable-gd-native-ttf \
 --enable-gd-jis-conv \
 --with-gettext \
@@ -64,6 +64,7 @@ apt install libhunspell-dev
 ./configure  --prefix=/usr/local/enchant161
 
 wget https://jaist.dl.sourceforge.net/project/freetype/freetype2/2.13.3/freetype-2.13.3.tar.gz
+apt install libpng-dev
 ./configure --prefix=/usr/local/freetype2133 --enable-freetype-config
 
 ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
