@@ -1,5 +1,9 @@
+wget http://ftp.gnu.org/gnu/bison/bison-2.6.4.tar.gz
 
-'./configure'  '--prefix=/usr/local/php54' \
+sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+
+YACC=/usr/local/bison264/bin/bison './configure'  '--prefix=/usr/local/php54' \
 '--enable-fpm' \
 '--with-fpm-user=www' \
 '--with-fpm-group=www' \
@@ -71,13 +75,34 @@ ln -s /usr/local/icu60/lib/libicudata.so.60 /usr/lib/x86_64-linux-gnu/libicudata
 # https://www.cnblogs.com/anekec/articles/17473186.html
 # https://openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz
 
-apt install libcurl4-gnutls-dev libcurl4-openssl-dev \
+apt install libcurl4-gnutls-dev \
+libcurl4-openssl-dev \
 libmcrypt-dev \
 libpspell-dev \
 librecode-dev \
-libenchant-dev \
 libenchant-2-dev \
-libxpm-dev
+libxpm-dev \
+\
+\
+build-essential \
+tzdata \
+cmake                           \
+autoconf                        \
+pkg-config                      \
+wget                            \
+perl                            \
+git                             \
+git-lfs                         \
+curl                            \
+re2c                            \
+bison                           \
+zip                             \
+p7zip-full                      \
+socat                           \
+zstd                            \
+libtool                         \
+dnsutils                        \
+imagemagick
 
 
 ln -s /usr/include/x86_64-linux-gnu/curl /usr/include/
