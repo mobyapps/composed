@@ -62,6 +62,7 @@ supervisor                      \
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
+libc6-dev                     \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
@@ -167,8 +168,6 @@ mplayer \
 && echo "${OPENRESTY_HASH} *openresty-${OPENRESTY_VERSION}.tar.gz" | shasum -a 256 --check \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
-\
-&& git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli --verbose \
 \
 && wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
@@ -283,22 +282,14 @@ mplayer \
 \
 \
 && cd /usr/local/src \
-\
-&& cd /usr/local/src/ngx_brotli/deps/brotli \
-&& mkdir out \
-&& cd out \
-&& cmake -DCMAKE_BUILD_TYPE=Release \
--DBUILD_SHARED_LIBS=OFF \
--DCMAKE_C_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
--DCMAKE_CXX_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
--DCMAKE_INSTALL_PREFIX=./installed .. \
-\
-&& cmake --build . --config Release --target brotlienc \
+&& git clone --depth 1 --branch master  git@github.com:vozlt/nginx-module-vts.git \
+&& git clone --depth 1 --branch v1.2.11 git@github.com:winshining/nginx-http-flv-module.git \
+&& git clone --depth 1 --branch v1.3.6  git@github.com:slact/nchan.git \
+&& git clone --depth 1 --branch master  git@github.com:leev/ngx_http_geoip2_module.git \
+&& git clone --depth 1 --branch 1.3.0   git@github.com:evanmiller/mod_zip.git \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
-&& export CFLAGS="-m64 -march=native -mtune=native -Ofast -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-&& export LDFLAGS="-m64 -Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections" \
 && ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
@@ -314,6 +305,7 @@ mplayer \
 --with-http_secure_link_module \
 --with-http_slice_module \
 --with-http_stub_status_module \
+--with-http_iconv_module \
 --without-mail_pop3_module \
 --without-mail_imap_module \
 --without-mail_smtp_module \
@@ -325,7 +317,11 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
---add-module=/usr/local/src/ngx_brotli \
+--add-dynamic-module=/usr/local/src/nginx-module-vts \
+--add-dynamic-module=/usr/local/src/nginx-http-flv-module \
+--add-dynamic-module=/usr/local/src/nchan \
+--add-dynamic-module=/usr/local/src/ngx_http_geoip2_module \
+--add-dynamic-module=/usr/local/src/mod_zip \
 \
 && gmake -j$CPUS_COUNT \
 && sleep  3s \
