@@ -284,7 +284,6 @@ mplayer \
 && cd /usr/local/src \
 && git clone --depth 1 --branch master  git@github.com:vozlt/nginx-module-vts.git \
 && git clone --depth 1 --branch v1.2.11 git@github.com:winshining/nginx-http-flv-module.git \
-&& git clone --depth 1 --branch v1.3.6  git@github.com:slact/nchan.git \
 && git clone --depth 1 --branch master  git@github.com:leev/ngx_http_geoip2_module.git \
 && git clone --depth 1 --branch 1.3.0   git@github.com:evanmiller/mod_zip.git \
 \
@@ -319,7 +318,6 @@ mplayer \
 --with-http_xslt_module=dynamic \
 --add-dynamic-module=/usr/local/src/nginx-module-vts \
 --add-dynamic-module=/usr/local/src/nginx-http-flv-module \
---add-dynamic-module=/usr/local/src/nchan \
 --add-dynamic-module=/usr/local/src/ngx_http_geoip2_module \
 --add-dynamic-module=/usr/local/src/mod_zip \
 \
