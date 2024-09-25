@@ -60,6 +60,23 @@ libmaxminddb-dev                        \
 libpcre3-dev                    \
 libxslt1-dev                    \
 libgeoip-dev                    \
+libcapstone-dev                    \
+libsqlite3-dev                  \
+libbz2-dev                      \
+libcurl4-openssl-dev            \
+libpng-dev                      \
+libavif-dev                     \
+libwebp-dev                     \
+libjpeg-dev                     \
+libxpm-dev                      \
+libfreetype6-dev                \
+libgmp-dev                      \
+libonig-dev                     \
+libreadline-dev                 \
+libsodium-dev                   \
+libargon2-dev                   \
+libtidy-dev                     \
+libzip-dev                      \
                         \
                         \
                         \
@@ -73,21 +90,6 @@ libmemcached-dev                \
 libc6-dev                     \
 libxml2-dev                     \
 libssl-dev                      \
-libcurl4-openssl-dev            \
-libsqlite3-dev                  \
-libbz2-dev                      \
-libgmp-dev                      \
-libonig-dev                     \
-libreadline-dev                 \
-libsodium-dev                   \
-libargon2-dev                   \
-libtidy-dev                     \
-libpng-dev                      \
-libwebp-dev                     \
-libjpeg-dev                     \
-libxpm-dev                      \
-libfreetype6-dev                \
-libzip-dev                      \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
@@ -95,7 +97,6 @@ libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
-libavif-dev                     \
 \
 \
 libvulkan1                      \
@@ -256,7 +257,6 @@ mplayer \
 --with-tidy \
 --with-sodium \
 --with-password-argon2 \
---with-pear \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
