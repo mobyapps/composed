@@ -39,7 +39,7 @@ RUN set -eux \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt -y install sudo tzdata build-essential \
+&& apt -y install tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -56,12 +56,16 @@ socat                           \
 zstd                            \
 libtool                         \
 dnsutils                        \
+                        \
+                        \
+                        \
+                        \
 imagemagick                     \
-wkhtmltopdf                     \
 supervisor                      \
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
+                \
 libc6-dev                     \
 libxml2-dev                     \
 libssl-dev                      \
