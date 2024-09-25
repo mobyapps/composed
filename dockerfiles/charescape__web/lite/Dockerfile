@@ -56,6 +56,10 @@ socat                           \
 zstd                            \
 libtool                         \
 dnsutils                        \
+libmaxminddb-dev                        \
+libpcre3-dev                    \
+libxslt1-dev                    \
+libgeoip-dev                    \
                         \
                         \
                         \
@@ -78,15 +82,12 @@ libreadline-dev                 \
 libsodium-dev                   \
 libargon2-dev                   \
 libtidy-dev                     \
-libxslt1-dev                    \
 libpng-dev                      \
 libwebp-dev                     \
 libjpeg-dev                     \
 libxpm-dev                      \
 libfreetype6-dev                \
 libzip-dev                      \
-libpcre3-dev                    \
-libgeoip-dev                    \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
