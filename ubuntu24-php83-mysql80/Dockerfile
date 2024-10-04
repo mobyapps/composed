@@ -1,30 +1,28 @@
-FROM phusion/baseimage:jammy-1.0.2
+FROM phusion/baseimage:noble-1.0.0
 
 LABEL maintainer="charescape@outlook.com"
 
 ENV TZ                  Asia/Shanghai
 
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.36
-ENV MYSQL_HASH          08bc8e4307246e77d013267e2cd8fa49
+ENV MYSQL_VERSION       8.0.39
+ENV MYSQL_HASH          9dc05754e91ac7e5b0e20276ab11193e
 
-ENV PHP_VERSION         8.2.17
-ENV PHP_HASH            1d8ab98e1c09518c672c5afcbef0e61f9003173c7638fc686461ae670d12742e
+ENV PHP_VERSION         8.3.12
+ENV PHP_HASH            7090e551e05b26384546345d6a162c71b74550febf75bdfd16dfd1f0cfa8647c
 
-ENV COMPOSER_VERSION    2.7.2
-ENV COMPOSER_HASH       049b8e0ed9f264d770a0510858cffbc35401510759edc9a784b3a5c6e020bcac
+ENV COMPOSER_VERSION    2.8.1
+ENV COMPOSER_HASH       930b376fbd2147a623ea7b704eb9d3b8b0d6072992207aa0535aa21f6f05378e
 
-ENV OPENRESTY_VERSION   1.25.3.1
-ENV OPENRESTY_HASH      32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
+ENV OPENRESTY_VERSION   1.25.3.2
+ENV OPENRESTY_HASH      2d564022b06e33b45f7e5cfaf1e5dc571d38d61803af9fa2754dfff353c28d9c
 
-COPY ./dockerfiles/charescape__web/runapps.sh  /etc/my_init.d/
-
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php.ini                 /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/my.cnf                  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/php-fpm.conf            /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/www.conf                /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/configfiles/openresty_testing.conf  /usr/local/src/
-ADD https://raw.githubusercontent.com/mobyapps/composed/ubuntu22-php82-mysql80/ttt/dbapi.php                       /usr/local/src/
+COPY ./ubuntu24-php83-mysql80/runapps.sh  /etc/my_init.d/
+COPY ./ubuntu24-php83-mysql80/php.ini  /usr/local/src/
+COPY ./ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
+COPY ./ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
+COPY ./ubuntu24-php83-mysql80/www.conf  /usr/local/src/
+COPY ./ubuntu24-php83-mysql80/openresty_testing.conf  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
