@@ -345,6 +345,10 @@ mplayer \
 \
 \
 && cd /usr/local/src \
+&& git clone --depth 1 --branch master  https://github.com/vozlt/nginx-module-vts.git \
+&& git clone --depth 1 --branch v1.2.11 https://github.com/winshining/nginx-http-flv-module.git \
+&& git clone --depth 1 --branch master  https://github.com/leev/ngx_http_geoip2_module.git \
+&& git clone --depth 1 --branch 1.3.0   https://github.com/evanmiller/mod_zip.git \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
@@ -363,6 +367,7 @@ mplayer \
 --with-http_secure_link_module \
 --with-http_slice_module \
 --with-http_stub_status_module \
+--with-http_iconv_module \
 --without-mail_pop3_module \
 --without-mail_imap_module \
 --without-mail_smtp_module \
@@ -374,6 +379,10 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
+--add-dynamic-module=/usr/local/src/nginx-module-vts \
+--add-dynamic-module=/usr/local/src/nginx-http-flv-module \
+--add-dynamic-module=/usr/local/src/ngx_http_geoip2_module \
+--add-dynamic-module=/usr/local/src/mod_zip \
 \
 && gmake -j$CPUS_COUNT \
 && sleep  3s \
@@ -384,7 +393,6 @@ mplayer \
 && mv ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
 \
-&& mkdir                       /repos \
 && mkdir -p                    /repos/ttt/dbapi \
 && cp ./dbapi.php              /repos/ttt/dbapi/index.php \
 && chown -R www-data:www-data  /var/www \
