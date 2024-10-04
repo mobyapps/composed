@@ -368,6 +368,7 @@ mplayer \
 --with-stream_ssl_module \
 --with-stream_realip_module \
 --with-stream_ssl_preread_module \
+--with-pcre \
 --with-pcre-jit \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
