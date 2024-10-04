@@ -306,6 +306,8 @@ mplayer \
 --with-sodium \
 --with-password-argon2 \
 --enable-ftp \
+--with-capstone \
+--with-pear \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
