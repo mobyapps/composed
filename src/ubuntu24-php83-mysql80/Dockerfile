@@ -23,6 +23,7 @@ COPY src/ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/www.conf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/openresty_testing.conf  /usr/local/src/
+COPY src/php-crud-api.php  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
@@ -387,8 +388,8 @@ mplayer \
 && mv ./openresty_testing.conf  /usr/local/openresty/nginx/conf/nginx.conf \
 \
 \
-&& mkdir -p                    /repos/ttt/dbapi \
-&& cp ./dbapi.php              /repos/ttt/dbapi/index.php \
+&& mkdir -p                    /repos/php-crud-api \
+&& cp ./php-crud-api.php       /repos/php-crud-api/index.php \
 && chown -R www-data:www-data  /var/www \
 \
 \
