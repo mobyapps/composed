@@ -109,7 +109,6 @@ libnotify-dev \
 libgbm-dev \
 libnss3 \
 libxss1 \
-libasound2 \
 libxtst6 \
 xauth \
 xvfb \
