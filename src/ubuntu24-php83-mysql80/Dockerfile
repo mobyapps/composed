@@ -87,13 +87,14 @@ libsodium-dev                   \
 libargon2-dev                   \
 libtidy-dev                     \
 libzip-dev                      \
-libjemalloc-dev                 \
 libzstd-dev                     \
+libtirpc-dev                    \
 libedit-dev                     \
 libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
+libjemalloc-dev                 \
 \
 \
 libvulkan1                      \
