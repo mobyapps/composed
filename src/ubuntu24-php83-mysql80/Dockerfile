@@ -34,15 +34,13 @@ RUN set -eux \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
 && cat /etc/timezone \
 \
-&& apt-get -y update            \
-&& apt-get -y upgrade           \
-&& apt-get -y autoremove        \
-&& apt-get -y install --no-install-recommends --fix-broken  \
-&& apt-get -y install --no-install-recommends --fix-missing \
+&& apt -y update            \
+&& apt -y upgrade           \
+&& apt -y autoremove        \
 \
 && echo '' >> ~/.bashrc         \
 \
-&& apt-get -y install --no-install-recommends sudo tzdata build-essential \
+&& apt -y install tzdata build-essential \
 cmake                           \
 autoconf                        \
 pkg-config                      \
@@ -68,8 +66,20 @@ libmemcached-dev                \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
+libmaxminddb-dev                \
+libpcre3-dev                    \
+libxslt1-dev                    \
+libgeoip-dev                    \
+libcapstone-dev                 \
 libsqlite3-dev                  \
 libbz2-dev                      \
+libcurl4-openssl-dev            \
+libpng-dev                      \
+libavif-dev                     \
+libwebp-dev                     \
+libjpeg-dev                     \
+libxpm-dev                      \
+libfreetype6-dev                \
 libgmp-dev                      \
 libonig-dev                     \
 libreadline-dev                 \
@@ -180,8 +190,6 @@ mplayer \
 \
 && wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
-&& apt-get     install --no-install-recommends -y --fix-broken \
-&& apt-get     install --no-install-recommends -y --fix-missing \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
@@ -417,8 +425,8 @@ mplayer \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
 \
-&& apt-get -y autoremove \
-&& apt-get clean \
+&& apt -y autoremove \
+&& apt clean \
 && rm -rf /var/lib/apt/lists/* \
 && rm -rf /tmp/* \
 && rm -rf /var/tmp/* \
