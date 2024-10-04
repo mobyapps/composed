@@ -189,7 +189,7 @@ mplayer \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
-&& mkdir -p /var/www/ip_site \
+&& mkdir -p /repos/emptydir \
 && mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
@@ -314,7 +314,7 @@ mplayer \
 --with-tidy \
 --with-sodium \
 --with-password-argon2 \
---with-pear \
+--enable-ftp \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
