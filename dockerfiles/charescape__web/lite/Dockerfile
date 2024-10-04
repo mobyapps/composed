@@ -77,6 +77,7 @@ libsodium-dev                   \
 libargon2-dev                   \
 libtidy-dev                     \
 libzip-dev                      \
+libssl-dev                      \
                         \
                         \
                         \
@@ -89,7 +90,6 @@ libmemcached-dev                \
                 \
 libc6-dev                     \
 libxml2-dev                     \
-libssl-dev                      \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
@@ -257,6 +257,7 @@ mplayer \
 --with-tidy \
 --with-sodium \
 --with-password-argon2 \
+--enable-ftp \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
