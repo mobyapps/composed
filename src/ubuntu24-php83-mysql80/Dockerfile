@@ -17,12 +17,12 @@ ENV COMPOSER_HASH       930b376fbd2147a623ea7b704eb9d3b8b0d6072992207aa0535aa21f
 ENV OPENRESTY_VERSION   1.25.3.2
 ENV OPENRESTY_HASH      2d564022b06e33b45f7e5cfaf1e5dc571d38d61803af9fa2754dfff353c28d9c
 
-COPY ./ubuntu24-php83-mysql80/runapps.sh  /etc/my_init.d/
-COPY ./ubuntu24-php83-mysql80/php.ini  /usr/local/src/
-COPY ./ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
-COPY ./ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
-COPY ./ubuntu24-php83-mysql80/www.conf  /usr/local/src/
-COPY ./ubuntu24-php83-mysql80/openresty_testing.conf  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/runapps.sh  /etc/my_init.d/
+COPY src/ubuntu24-php83-mysql80/php.ini  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/www.conf  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/openresty_testing.conf  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
