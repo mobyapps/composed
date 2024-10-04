@@ -86,15 +86,7 @@ libreadline-dev                 \
 libsodium-dev                   \
 libargon2-dev                   \
 libtidy-dev                     \
-libxslt1-dev                    \
-libpng-dev                      \
-libwebp-dev                     \
-libjpeg-dev                     \
-libxpm-dev                      \
-libfreetype6-dev                \
 libzip-dev                      \
-libpcre3-dev                    \
-libgeoip-dev                    \
 libjemalloc-dev                 \
 libzstd-dev                     \
 libedit-dev                     \
@@ -102,7 +94,6 @@ libevent-dev                    \
 liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
-libavif-dev                     \
 \
 \
 libvulkan1                      \
@@ -186,7 +177,6 @@ mplayer \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli --verbose \
 \
 && wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 && dpkg -i google-chrome-stable_current_amd64.deb \
@@ -356,21 +346,8 @@ mplayer \
 \
 && cd /usr/local/src \
 \
-&& cd /usr/local/src/ngx_brotli/deps/brotli \
-&& mkdir out \
-&& cd out \
-&& cmake -DCMAKE_BUILD_TYPE=Release \
--DBUILD_SHARED_LIBS=OFF \
--DCMAKE_C_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
--DCMAKE_CXX_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
--DCMAKE_INSTALL_PREFIX=./installed .. \
-\
-&& cmake --build . --config Release --target brotlienc \
-\
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
-&& export CFLAGS="-m64 -march=native -mtune=native -Ofast -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-&& export LDFLAGS="-m64 -Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections" \
 && ./configure --prefix=/usr/local/openresty \
 --with-threads \
 --with-file-aio \
@@ -397,7 +374,6 @@ mplayer \
 --with-http_geoip_module=dynamic \
 --with-stream_geoip_module=dynamic \
 --with-http_xslt_module=dynamic \
---add-module=/usr/local/src/ngx_brotli \
 \
 && gmake -j$CPUS_COUNT \
 && sleep  3s \
