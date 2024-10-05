@@ -93,41 +93,8 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 \
-\
-libvulkan1                      \
-\
-\
 nodejs \
 npm \
-chromium-chromedriver \
-firefox \
-libgtk2.0-0 \
-libgtk-3-0 \
-libnotify-dev \
-libgbm-dev \
-libnss3 \
-libxss1 \
-libxtst6 \
-xauth \
-xvfb \
-libu2f-udev \
-\
-fontconfig \
-fonts-noto-color-emoji \
-fonts-arphic-bkai00mp \
-fonts-arphic-bsmi00lp \
-fonts-arphic-gbsn00lp \
-fonts-arphic-gkai00mp \
-fonts-arphic-ukai \
-fonts-arphic-uming \
-fonts-wqy-zenhei \
-fonts-wqy-microhei \
-xfonts-wqy \
-\
-fonts-liberation \
-libappindicator3-1 \
-xdg-utils \
-mplayer \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
@@ -173,9 +140,6 @@ mplayer \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-\
-&& wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-&& dpkg -i google-chrome-stable_current_amd64.deb \
 \
 && tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
