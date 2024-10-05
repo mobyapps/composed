@@ -32,6 +32,10 @@ else
   /usr/local/openresty/nginx/sbin/nginx
 fi
 
+chown -R www-data:www-data /usr/local/mysql/
+chown -R www-data:www-data /usr/local/php/
+chown -R www-data:www-data /usr/local/openresty/
+
 pgrep -l mysql
 pgrep -l php
 pgrep -l nginx
