@@ -263,7 +263,7 @@ mplayer \
 && make install \
 \
 && sleep 3s \
-&& /usr/local/php/bin/pecl install memcached \
+&& /usr/local/php/bin/pecl install memcached-3.3.0RC1 \
 \
 && cd /usr/local/src \
 && tree /usr/local/php \
@@ -274,6 +274,8 @@ mplayer \
 && mv ./php-fpm.conf /usr/local/php/etc/php-fpm.conf \
 && mv ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && mv ./php.ini      /usr/local/php/lib/php.ini \
+\
+&& mkdir -p /usr/local/php/fpm-pools/www/log \
 \
 && chown -R www-data:www-data /usr/local/php \
 \
