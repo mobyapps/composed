@@ -53,6 +53,7 @@ socat                           \
 zstd                            \
 libtool                         \
 dnsutils                        \
+tree                            \
 imagemagick                     \
 wkhtmltopdf                     \
 supervisor                      \
@@ -316,6 +317,7 @@ mplayer \
 && /usr/local/php/bin/pecl install memcached-3.3.0RC1 \
 \
 && cd /usr/local/src \
+&& tree /usr/local/php \
 && rm -f /usr/local/php/etc/php-fpm.conf \
 && rm -f /usr/local/php/etc/php-fpm.d/www.conf \
 && rm -f /usr/local/php/lib/php.ini \
