@@ -262,6 +262,9 @@ mplayer \
 && sleep 3s \
 && make install \
 \
+&& sleep 3s \
+&& /usr/local/php/bin/pecl install memcached \
+\
 && cd /usr/local/src \
 && tree /usr/local/php \
 && rm -f /usr/local/php/etc/php-fpm.conf \
@@ -275,16 +278,10 @@ mplayer \
 && chown -R www-data:www-data /usr/local/php \
 \
 && /usr/local/php/bin/php -v \
-&& sleep  3s \
+&& /usr/local/php/bin/php -m \
 && /usr/local/php/sbin/php-fpm \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
-\
-\
-&& ls -l /usr/local/php/bin \
-&& ls -l /usr/local/php/sbin \
-&& /usr/local/php/bin/pecl install memcached \
-&& /usr/local/php/bin/php -m \
 \
 \
 && cd /usr/local/src \
