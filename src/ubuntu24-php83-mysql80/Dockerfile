@@ -132,6 +132,11 @@ mplayer \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
 \
+&& cd /usr/local/src \
+&& git clone --depth 1 --branch master  https://github.com/vozlt/nginx-module-vts.git \
+&& git clone --depth 1 --branch v1.2.11 https://github.com/winshining/nginx-http-flv-module.git \
+&& git clone --depth 1 --branch master  https://github.com/leev/ngx_http_geoip2_module.git \
+&& git clone --depth 1 --branch 1.3.0   https://github.com/evanmiller/mod_zip.git \
 \
 && cd /usr/local/bin/ \
 && wget --no-verbose https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
@@ -336,12 +341,6 @@ mplayer \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
-\
-&& cd /usr/local/src \
-&& git clone --depth 1 --branch master  https://github.com/vozlt/nginx-module-vts.git \
-&& git clone --depth 1 --branch v1.2.11 https://github.com/winshining/nginx-http-flv-module.git \
-&& git clone --depth 1 --branch master  https://github.com/leev/ngx_http_geoip2_module.git \
-&& git clone --depth 1 --branch 1.3.0   https://github.com/evanmiller/mod_zip.git \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
