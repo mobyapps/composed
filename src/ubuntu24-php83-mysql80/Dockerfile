@@ -386,3 +386,4 @@ EXPOSE 80 443 3306
 CMD ["/sbin/my_init"]
 
 # source ~/.bashrc
+
