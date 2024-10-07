@@ -56,13 +56,6 @@ dnsutils                        \
 tree                            \
 supervisor                      \
 \
-imagemagick                     \
-libvips42t64                    \
-libvips-dev                     \
-\
-memcached                       \
-libmemcached-tools              \
-libmemcached-dev                \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
@@ -73,7 +66,6 @@ libgeoip-dev                    \
 libcapstone-dev                 \
 libsqlite3-dev                  \
 libbz2-dev                      \
-libcurl4-openssl-dev            \
 libpng-dev                      \
 libavif-dev                     \
 libwebp-dev                     \
@@ -96,9 +88,17 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 \
+imagemagick                     \
+libvips42t64                    \
+libvips-dev                     \
+\
+\
+memcached                       \
+libmemcached-tools              \
+libmemcached-dev                \
+\
 nodejs                          \
 npm                             \
-wkhtmltopdf                     \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
