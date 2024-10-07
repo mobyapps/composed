@@ -10,14 +10,23 @@ jobs:
 
     runs-on: ubuntu-24.04
 
+    env:
+      GIT_MSG: ${{ github.event.head_commit.message }}
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.x"
 
       - name: Check os env
         run: |
           localectl status
           cat /proc/cpuinfo
           free -m
+
+      - run: php src/ubuntu24-php83-mysql80/replace.php
 
       - name: Build image
         run: docker build -f src/ubuntu24-php83-mysql80/Dockerfile -t charescape/web:ubuntu24-php83-mysql80.rv4 .
