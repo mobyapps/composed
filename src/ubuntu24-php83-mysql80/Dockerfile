@@ -92,7 +92,6 @@ imagemagick                     \
 libvips42t64                    \
 libvips-dev                     \
 \
-\
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
