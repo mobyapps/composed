@@ -54,9 +54,12 @@ zstd                            \
 libtool                         \
 dnsutils                        \
 tree                            \
-imagemagick                     \
-wkhtmltopdf                     \
 supervisor                      \
+\
+imagemagick                     \
+libvips42t64                    \
+libvips-dev                     \
+\
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
@@ -93,8 +96,9 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 \
-nodejs \
-npm \
+nodejs                          \
+npm                             \
+wkhtmltopdf                     \
 \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
