@@ -5,11 +5,11 @@ if (str_contains($_SERVER['GIT_MSG'] ?? '', ' --lite')) {
 
     $dockerfile = preg_replace(
         [
-            '#^imagemagick #',
-            '#^libvips42t64 #',
-            '#^libvips-dev #',
-            '#^nodejs #',
-            '#^npm #',
+            '#^imagemagick #m',
+            '#^libvips42t64 #m',
+            '#^libvips-dev #m',
+            '#^nodejs #m',
+            '#^npm #m',
         ],
         ' ',
         $dockerfile
