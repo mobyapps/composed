@@ -14,8 +14,8 @@ ENV PHP_HASH            7090e551e05b26384546345d6a162c71b74550febf75bdfd16dfd1f0
 ENV COMPOSER_VERSION    2.8.1
 ENV COMPOSER_HASH       930b376fbd2147a623ea7b704eb9d3b8b0d6072992207aa0535aa21f6f05378e
 
-ENV OPENRESTY_VERSION   1.25.3.2
-ENV OPENRESTY_HASH      2d564022b06e33b45f7e5cfaf1e5dc571d38d61803af9fa2754dfff353c28d9c
+ENV OPENRESTY_VERSION   1.27.1.1
+ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
 
 COPY src/ubuntu24-php83-mysql80/runapps.sh  /etc/my_init.d/
 COPY src/ubuntu24-php83-mysql80/php.ini  /usr/local/src/
@@ -316,6 +316,7 @@ npm                             \
 --with-file-aio \
 --with-http_ssl_module \
 --with-http_v2_module \
+--with-http_v3_module \
 --with-http_realip_module \
 --with-http_addition_module \
 --with-http_sub_module \
