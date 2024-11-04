@@ -87,6 +87,7 @@ liblz4-dev                      \
 libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
+libpq-dev                       \
 \
 imagemagick                     \
 libvips42t64                    \
@@ -280,6 +281,7 @@ npm                             \
 --enable-ftp \
 --with-capstone \
 --with-pear \
+--with-pdo-pgsql \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
