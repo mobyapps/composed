@@ -160,57 +160,6 @@ npm                             \
 && mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
-&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DCMAKE_BUILD_TYPE=Release \
--DWITH_SYSTEM_LIBS=1 \
--DMYSQL_DATADIR=/var/www/mysql_data \
--DSYSCONFDIR=/var/www/mysql_conf \
--DTMPDIR=/var/www/mysql_temp \
--DDEFAULT_CHARSET=utf8mb4 \
--DDEFAULT_COLLATION=utf8mb4_unicode_ci \
--DDOWNLOAD_BOOST=1 \
--DWITH_BOOST=/usr/local/boostcxx \
--DENABLED_LOCAL_INFILE=1 \
--DMYSQL_TCP_PORT=3306 \
--DMYSQL_UNIX_ADDR=/var/www/mysql.sock \
--DWITH_JEMALLOC=1 \
--DWITH_RAPIDJSON=bundled \
--DWITH_PROTOBUF=bundled \
--DWITH_FIDO=bundled \
--DWITH_UNIT_TESTS=0 \
-\
-&& make -j$CPUS_COUNT \
-&& sleep 3s \
-&& make install \
-\
-&& cd /usr/local/src \
-&& rm -f       /var/www/mysql_conf/my.cnf \
-&& cp ./my.cnf /var/www/mysql_conf/my.cnf \
-&& chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
-\
-&& chown -R www-data:www-data /usr/local/mysql \
-&& chown -R www-data:www-data /var/www \
-&& /usr/local/mysql/support-files/mysql.server start \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -u root --skip-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root12345';" \
-&& sleep 3s \
-&& /usr/local/mysql/support-files/mysql.server restart \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.user SET Host='%' WHERE User='root' AND Host='localhost';" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.db   SET Host='%' WHERE User='root' AND Host='localhost';" \
-&& /usr/local/mysql/support-files/mysql.server restart \
-&& sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb0;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb1;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb2;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test0db;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test1db;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test2db;" \
-&& sleep 3s \
-&& /usr/local/mysql/support-files/mysql.server stop \
 \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
