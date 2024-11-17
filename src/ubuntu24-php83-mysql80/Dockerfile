@@ -90,13 +90,13 @@ libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 \
-imagemagick                     \
-libvips42t64                    \
-libvips-dev                     \
-\
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
+\
+imagemagick                     \
+libvips42t64                    \
+libvips-dev                     \
 \
 nodejs                          \
 npm                             \
