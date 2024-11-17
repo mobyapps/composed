@@ -260,7 +260,7 @@ npm                             \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
 && echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
-&& source ~/.bashrc \
+&& export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin" \
 \
 && /usr/local/php/bin/pecl install memcached-3.3.0 \
 \
