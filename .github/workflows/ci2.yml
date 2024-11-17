@@ -26,7 +26,7 @@ jobs:
           cat /proc/cpuinfo
           free -m
 
-      - run: php src/ubuntu24-php83-mysql80/replace.php
+      - run: php src/ubuntu24-php83-mysql80/lite.php
 
       - name: Build image
         run: docker build -f src/ubuntu24-php83-mysql80/Dockerfile -t charescape/web:ubuntu24-php83-mysql80.rv6 .
