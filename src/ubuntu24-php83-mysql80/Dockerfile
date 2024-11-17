@@ -35,6 +35,7 @@ RUN set -eux \
 && apt -y autoremove        \
 \
 && echo '' >> ~/.bashrc         \
+&& echo '' >> ~/.bashrc         \
 \
 && apt -y install tzdata build-essential \
 cmake                           \
@@ -309,6 +310,9 @@ npm                             \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
+&& echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
+&& source ~/.bashrc \
+\
 && /usr/local/php/bin/pecl install memcached-3.3.0 \
 \
 && cd /usr/local/src/phpy \
@@ -374,8 +378,6 @@ npm                             \
 && sleep 3s \
 && /usr/local/openresty/nginx/sbin/nginx -s stop \
 \
-&& echo '' >> ~/.bashrc \
-&& echo 'export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/openresty/nginx/sbin"' >> ~/.bashrc \
 && echo 'export PATH="$PATH:/usr/local/mysql/bin"' >> ~/.bashrc \
 && echo '' >> ~/.bashrc \
