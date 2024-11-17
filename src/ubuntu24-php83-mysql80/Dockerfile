@@ -23,6 +23,7 @@ COPY src/ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/www.conf  /usr/local/src/
 COPY src/ubuntu24-php83-mysql80/openresty.conf  /usr/local/src/
+COPY src/ubuntu24-php83-mysql80/install.php  /usr/local/src/
 COPY src/php-crud-api.php  /usr/local/src/
 
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
