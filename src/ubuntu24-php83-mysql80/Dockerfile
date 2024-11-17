@@ -59,6 +59,7 @@ supervisor                      \
 libxml2-dev                     \
 libssl-dev                      \
 libcurl4-openssl-dev            \
+libnss3-tools                   \
 libmaxminddb-dev                \
 libpcre3-dev                    \
 libxslt1-dev                    \
@@ -108,6 +109,7 @@ npm                             \
 && git clone --depth 1 --branch v1.2.11 https://github.com/winshining/nginx-http-flv-module.git \
 && git clone --depth 1 --branch master  https://github.com/leev/ngx_http_geoip2_module.git \
 && git clone --depth 1 --branch 1.3.0   https://github.com/evanmiller/mod_zip.git \
+&& git clone --depth 1 --branch main    https://github.com/swoole/phpy.git \
 \
 && cd /usr/local/bin/ \
 && wget --no-verbose https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
@@ -287,9 +289,6 @@ npm                             \
 && sleep 3s \
 && make install \
 \
-&& sleep 3s \
-&& /usr/local/php/bin/pecl install memcached-3.3.0RC1 \
-\
 && cd /usr/local/src \
 && tree /usr/local/php \
 && rm -f /usr/local/php/etc/php-fpm.conf \
@@ -310,6 +309,15 @@ npm                             \
 && sleep  3s \
 && kill -INT `cat /usr/local/php/var/run/php-fpm.pid` \
 \
+&& /usr/local/php/bin/pecl install memcached-3.3.0 \
+\
+&& cd /usr/local/src/phpy \
+&& /usr/local/php/bin/phpize \
+&& ./configure --with-python-config=python3.12-config \
+&& make \
+&& make install \
+\
+&& /usr/local/php/bin/php /usr/local/src/install.php \
 \
 && cd /usr/local/src/openresty-${OPENRESTY_VERSION} \
 && ./configure --help \
