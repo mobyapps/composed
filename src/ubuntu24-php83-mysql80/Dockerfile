@@ -90,6 +90,7 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
+python3-dev                     \
 \
 memcached                       \
 libmemcached-tools              \
