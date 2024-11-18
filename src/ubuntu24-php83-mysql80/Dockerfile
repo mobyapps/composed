@@ -41,6 +41,8 @@ RUN set -eux \
 \
 && apt -y install tzdata build-essential \
 cmake                           \
+make                            \
+gcc                             \
 autoconf                        \
 pkg-config                      \
 wget                            \
@@ -97,6 +99,10 @@ python3-dev                     \
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
+\
+gfortran                        \
+libopenblas-dev                 \
+liblapacke-dev                  \
 \
 imagemagick                     \
 libvips42t64                    \
