@@ -97,6 +97,7 @@ libpq-dev                       \
 python3-dev                     \
 python3-venv                    \
 python3-pip                     \
+pipx                            \
 \
 memcached                       \
 libmemcached-tools              \
@@ -113,6 +114,9 @@ libvips-dev                     \
 nodejs                          \
 npm                             \
 \
+\
+\
+&& pipx ensurepath \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
 \
