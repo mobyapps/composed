@@ -94,7 +94,6 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
-python3-full                    \
 python3-dev                     \
 python3-venv                    \
 python3-pip                     \
