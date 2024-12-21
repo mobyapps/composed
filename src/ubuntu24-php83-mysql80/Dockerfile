@@ -95,6 +95,8 @@ libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 python3-dev                     \
+python3-venv                    \
+python3-pip                     \
 \
 memcached                       \
 libmemcached-tools              \
