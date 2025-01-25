@@ -264,7 +264,6 @@ npm                             \
 --enable-phpdbg \
 --disable-short-tags \
 --with-openssl \
---with-openssl-argon2 \
 --with-ftp-ssl \
 --with-zlib \
 --enable-bcmath \
