@@ -10,6 +10,11 @@ if (str_contains($_SERVER['GIT_MSG'] ?? '', ' --lite')) {
             '#^libvips-dev #m',
             '#^nodejs #m',
             '#^npm #m',
+
+            // tensor
+            '#^gfortran #m',
+            '#^libopenblas-dev #m',
+            '#^liblapacke-dev #m',
         ],
         ' ',
         $dockerfile
