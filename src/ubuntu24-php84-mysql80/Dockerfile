@@ -98,6 +98,7 @@ libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
+libexpat1-dev                   \
 python3-dev                     \
 pipx                            \
 \
