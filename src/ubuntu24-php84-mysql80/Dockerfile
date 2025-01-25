@@ -175,7 +175,7 @@ npm                             \
 && mkdir -p /var/www/mysql_data \
 && mkdir -p /var/www/mysql_conf \
 && mkdir -p /var/www/mysql_temp \
-&& mkdir -p /repos/emptydir \
+&& mkdir -p /repos/ip_site \
 && mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
