@@ -319,7 +319,7 @@ npm                             \
 && mv ./www.conf     /usr/local/php/etc/php-fpm.d/www.conf \
 && mv ./php.ini      /usr/local/php/lib/php.ini \
 \
-&& mkdir -p /usr/local/php/fpm-pools/www/log \
+&& mkdir -p /usr/local/php/fpm_pools/www/log \
 \
 && chown -R www-data:www-data /usr/local/php \
 \
