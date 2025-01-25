@@ -263,9 +263,9 @@ npm                             \
 --enable-phpdbg \
 --disable-short-tags \
 --with-openssl \
---with-openssl-dir \
+--with-openssl-argon2 \
+--with-ftp-ssl \
 --with-zlib \
---with-zlib-dir \
 --enable-bcmath \
 --with-bz2 \
 --enable-calendar \
