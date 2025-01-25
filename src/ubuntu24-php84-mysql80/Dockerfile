@@ -5,25 +5,25 @@ LABEL maintainer="charescape@outlook.com"
 ENV TZ                  Asia/Shanghai
 
 ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.39
-ENV MYSQL_HASH          9dc05754e91ac7e5b0e20276ab11193e
+ENV MYSQL_VERSION       8.0.41
+ENV MYSQL_HASH          5ea07b3e0e4c82af2b41553a32c26c62
 
-ENV PHP_VERSION         8.3.13
-ENV PHP_HASH            ffe34317d2688ed3161809c90ca4135c84ebfdfd12a46880a264d7d1e1d7739a
+ENV PHP_VERSION         8.4.3
+ENV PHP_HASH            45b88555b31487401b42c8bd36f2c45d84992bc93ae4c1a23d93bb3347984ecb
 
-ENV COMPOSER_VERSION    2.8.2
-ENV COMPOSER_HASH       9ed076041e269820c6c4223d66c5325fcaddc7f4b4317b3ba936812a965857ed
+ENV COMPOSER_VERSION    2.8.5
+ENV COMPOSER_HASH       9cef18212e222351aeb476b81de7b2a5383f775336474467bf5c7ccfe84ab0cc
 
 ENV OPENRESTY_VERSION   1.27.1.1
 ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
 
-COPY src/ubuntu24-php83-mysql80/runapps.sh  /etc/my_init.d/
-COPY src/ubuntu24-php83-mysql80/php.ini  /usr/local/src/
-COPY src/ubuntu24-php83-mysql80/my.cnf  /usr/local/src/
-COPY src/ubuntu24-php83-mysql80/php-fpm.conf  /usr/local/src/
-COPY src/ubuntu24-php83-mysql80/www.conf  /usr/local/src/
-COPY src/ubuntu24-php83-mysql80/openresty.conf  /usr/local/src/
-COPY src/ubuntu24-php83-mysql80/install.php  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/runapps.sh  /etc/my_init.d/
+COPY src/ubuntu24-php84-mysql80/php.ini  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/my.cnf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/php-fpm.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/www.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/openresty.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql80/install.php  /usr/local/src/
 COPY src/php-crud-api.php  /usr/local/src/
 
 
@@ -39,7 +39,11 @@ RUN set -eux \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
 \
+&& mkdir -p /repos/bin/pipx              \
+&& chown -R www-data:www-data /repos/bin \
+\
 && apt -y install tzdata build-essential \
+sudo                            \
 cmake                           \
 make                            \
 gcc                             \
@@ -95,8 +99,6 @@ libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 python3-dev                     \
-python3-venv                    \
-python3-pip                     \
 pipx                            \
 \
 memcached                       \
@@ -117,6 +119,8 @@ npm                             \
 \
 \
 && pipx ensurepath \
+&& PIPX_BIN_DIR=/repos/bin/pipx pipx install markitdown \
+&& chown -R www-data:www-data /repos/bin \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
 \
