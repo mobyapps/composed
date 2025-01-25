@@ -39,7 +39,11 @@ RUN set -eux \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
 \
+&& mkdir -p /repos/bin/pipx              \
+&& chown -R www-data:www-data /repos/bin \
+\
 && apt -y install tzdata build-essential \
+sudo                            \
 cmake                           \
 make                            \
 gcc                             \
@@ -95,8 +99,6 @@ libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 python3-dev                     \
-python3-venv                    \
-python3-pip                     \
 pipx                            \
 \
 memcached                       \
@@ -117,6 +119,8 @@ npm                             \
 \
 \
 && pipx ensurepath \
+&& PIPX_BIN_DIR=/repos/bin/pipx pipx install markitdown \
+&& chown -R www-data:www-data /repos/bin \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
 \
