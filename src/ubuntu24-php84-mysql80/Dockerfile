@@ -256,6 +256,7 @@ npm                             \
 --enable-simplexml \
 --enable-tokenizer \
 --enable-xml \
+--with-expat \
 --enable-xmlreader \
 --enable-xmlwriter \
 \
@@ -284,6 +285,7 @@ npm                             \
 --enable-intl \
 --enable-mbstring \
 --enable-mysqlnd \
+--with-mysqlnd-ssl \
 --enable-pdo \
 --with-mysqli \
 --with-pdo-mysql=mysqlnd \
@@ -304,6 +306,7 @@ npm                             \
 --with-capstone \
 --with-pear \
 --with-pdo-pgsql \
+--enable-zend-max-execution-timers \
 \
 && make -j$CPUS_COUNT \
 && sleep 3s \
