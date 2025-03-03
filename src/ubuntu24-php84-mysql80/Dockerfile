@@ -209,6 +209,7 @@ npm                             \
 && rm -f       /var/www/mysql_conf/my.cnf \
 && cp ./my.cnf /var/www/mysql_conf/my.cnf \
 && chown -R www-data:www-data /var/www \
+&& chown -R www-data:www-data /usr/local/mysql \
 && /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
 \
 && chown -R www-data:www-data /usr/local/mysql \
