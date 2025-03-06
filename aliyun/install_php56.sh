@@ -106,11 +106,6 @@ ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 mkdir -p /var/www
 
---with-openssl=/opt/openssl102 \
-  --with-openssl-dir=/opt/openssl102 \
-  CFLAGS="-I/opt/openssl102/include" \
-  LDFLAGS="-L/opt/openssl102/lib"
-
 cd /usr/local/src/php-${PHP_VERSION}
 ./configure --prefix=/usr/local/php56 \
 --enable-fpm \
@@ -167,8 +162,8 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-xmlrpc \
 --with-iconv-dir \
 --with-pear \
-CFLAGS="-I/usr/include/freetype2 -I/opt/icu55/include -I/opt/openssl102/include" \
-LDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/opt/icu55/lib -L/opt/openssl102/lib"
+CFLAGS="-I/usr/include/freetype2 -I/opt/openssl102/include -I/opt/icu55/include" \
+LDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/opt/openssl102/lib -L/opt/icu55/lib -Wl,-rpath=/opt/icu55/lib"
 
 make
 make install
