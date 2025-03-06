@@ -60,7 +60,6 @@ libpcre3-dev                    \
 libmcrypt-dev                   \
 libpspell-dev                   \
 librecode-dev                   \
-libenchant-dev                  \
 libgeoip-dev
 
 # shellcheck disable=SC2164
@@ -107,16 +106,21 @@ ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 mkdir -p /var/www
 
+--with-openssl=/opt/openssl102 \
+  --with-openssl-dir=/opt/openssl102 \
+  CFLAGS="-I/opt/openssl102/include" \
+  LDFLAGS="-L/opt/openssl102/lib"
+
 cd /usr/local/src/php-${PHP_VERSION}
-./configure --prefix=/usr/local/php \
+./configure --prefix=/usr/local/php56 \
 --enable-fpm \
 --with-fpm-user=www-data \
 --with-fpm-group=www-data \
 --enable-phpdbg \
 --disable-short-tags \
 --with-libxml-dir \
---with-openssl \
---with-openssl-dir \
+--with-openssl=/opt/openssl102 \
+--with-openssl-dir=/opt/openssl102 \
 --with-pcre-regex \
 --with-pcre-dir \
 --with-zlib \
@@ -125,7 +129,6 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-bz2 \
 --enable-calendar \
 --with-curl \
---with-enchant \
 --enable-exif \
 --enable-ftp \
 --with-gd \
@@ -150,7 +153,7 @@ cd /usr/local/src/php-${PHP_VERSION}
 --enable-mysqlnd \
 --enable-pdo \
 --enable-intl \
---with-icu-dir=/usr \
+--with-icu-dir=/opt/icu55 \
 --with-pspell \
 --with-recode \
 --enable-soap \
@@ -163,7 +166,9 @@ cd /usr/local/src/php-${PHP_VERSION}
 --with-tidy \
 --with-xmlrpc \
 --with-iconv-dir \
---with-pear
+--with-pear \
+CFLAGS="-I/usr/include/freetype2 -I/opt/icu55/include -I/opt/openssl102/include" \
+LDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/opt/icu55/lib -L/opt/openssl102/lib"
 
 make
 make install
