@@ -94,6 +94,7 @@ libtirpc-dev                    \
 libedit-dev                     \
 libevent-dev                    \
 liblz4-dev                      \
+liblzma-dev                     \
 libsasl2-dev                    \
 libldap2-dev                    \
 libjemalloc-dev                 \
