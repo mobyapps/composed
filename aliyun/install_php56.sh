@@ -168,6 +168,9 @@ LDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/opt/openssl102/lib -L/opt/icu55/lib -Wl,
 make
 make install
 
+# 运行时候用这条命令
+LD_LIBRARY_PATH=/opt/icu55/lib:$LD_LIBRARY_PATH /usr/local/php56/bin/php -v
+
 # shellcheck disable=SC2164
 cd /usr/local/src
 
