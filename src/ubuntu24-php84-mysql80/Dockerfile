@@ -30,7 +30,6 @@ COPY src/php-crud-api.php  /usr/local/src/
 # see http://www.ruanyifeng.com/blog/2017/11/bash-set.html
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
-&& export CPUS_COUNT=`cat /proc/cpuinfo | grep processor | wc -l` \
 \
 && apt -y update            \
 && apt -y upgrade           \
@@ -202,7 +201,7 @@ npm                             \
 -DWITH_FIDO=bundled \
 -DWITH_UNIT_TESTS=0 \
 \
-&& make -j$CPUS_COUNT \
+&& make -j$(nproc --all) \
 && sleep 3s \
 && make install \
 \
@@ -310,7 +309,7 @@ npm                             \
 --with-pdo-pgsql \
 --enable-zend-max-execution-timers \
 \
-&& make -j$CPUS_COUNT \
+&& make -j$(nproc --all) \
 && sleep 3s \
 && make install \
 \
@@ -383,7 +382,7 @@ npm                             \
 --add-dynamic-module=/usr/local/src/ngx_http_geoip2_module \
 --add-dynamic-module=/usr/local/src/mod_zip \
 \
-&& gmake -j$CPUS_COUNT \
+&& gmake -j$(nproc --all) \
 && sleep  3s \
 && gmake install \
 \
