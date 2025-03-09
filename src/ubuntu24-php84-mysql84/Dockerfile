@@ -38,6 +38,7 @@ RUN set -eux \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
 \
+&& mkdir -p /var/www              \
 && mkdir -p /repos/bin/pipx              \
 && chown -R www-data:www-data /repos/bin \
 \
