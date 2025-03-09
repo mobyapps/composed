@@ -219,7 +219,7 @@ libvips-dev                     \
 -DWITH_SYSTEM_LIBS=0 \
 -DDOWNLOAD_BOOST=1 \
 -DWITH_BOOST=/usr/local/boostcxx \
--DWITH_CURL=bundled \
+-DWITH_CURL=system \
 -DCURL_ZSTD=1 \
 -DWITH_EDITLINE=bundled \
 -DWITH_ICU=bundled \
