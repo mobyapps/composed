@@ -182,6 +182,9 @@ npm                             \
 && mkdir -p /repos/ip_site \
 && chown -R www-data:www-data /var/www \
 \
+&& apt -y install libkrb5-dev \
+&& apt -y install libsasl2-dev libsasl2-modules-gssapi-mit \
+\
 && mkdir /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
 && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
@@ -208,6 +211,7 @@ npm                             \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_SSL=system \
+-DWITH_LDAP=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
