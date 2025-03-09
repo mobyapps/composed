@@ -133,7 +133,7 @@ libvips-dev                     \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
 \
-&& PIPX_BIN_DIR=/repos/bin/pipx pipx install markitdown \
+&& PIPX_BIN_DIR=/repos/bin/pipx pipx install 'markitdown[all]' \
 && chown -R www-data:www-data /repos/bin \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
