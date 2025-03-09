@@ -217,6 +217,8 @@ libvips-dev                     \
 -DDEB_CODENAME="${CMAKE_DEB_CODENAME}" \
 -DDEB_RELEASE="${CMAKE_DEB_RELEASE}" \
 -DWITH_SYSTEM_LIBS=0 \
+-DDOWNLOAD_BOOST=1 \
+-DWITH_BOOST=/usr/local/boostcxx \
 -DWITH_CURL=bundled \
 -DCURL_ZSTD=1 \
 -DWITH_EDITLINE=bundled \
@@ -229,6 +231,7 @@ libvips-dev                     \
 -DWITH_ZSTD=bundled \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
+-DWITH_FIDO=bundled \
 -DWITH_SSL=system \
 -DWITH_LDAP=0 \
 -DWITH_DEBUG=0 \
