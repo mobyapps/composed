@@ -37,7 +37,7 @@ RUN set -eux \
 && apt -y upgrade           \
 && apt -y autoremove        \
 \
-&& apt -y curl \
+&& apt -y install curl \
 && curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.1/install.sh | bash \
 && nvm install 20 \
 && nvm use 20 \
