@@ -8,15 +8,14 @@ ENV CMAKE_DEB_ID           "Ubuntu"
 ENV CMAKE_DEB_RELEASE      "24.04"
 ENV CMAKE_DEB_CODENAME     "noble"
 
-ENV MYSQL_MAIN_VERSION  "8.4"
-ENV MYSQL_VERSION       "8.4.3-3"
-ENV MYSQL_HASH          dfb5b46fccd8284ad3a09054f9a62d0a6423a2b703b6fb86d186cec09cee660a
+ENV MYSQL_MAIN_VERSION  "8.0"
+ENV MYSQL_VERSION       "8.0.41-32"
 
-ENV PHP_VERSION         "8.4.3"
-ENV PHP_HASH            45b88555b31487401b42c8bd36f2c45d84992bc93ae4c1a23d93bb3347984ecb
+ENV PHP_VERSION         "8.4.4"
+ENV PHP_HASH            719551f50a81961f802aa9102bf4a1a0b5a315074330ab37bc8035a15f4be71b
 
-ENV COMPOSER_VERSION    "2.8.5"
-ENV COMPOSER_HASH       9cef18212e222351aeb476b81de7b2a5383f775336474467bf5c7ccfe84ab0cc
+ENV COMPOSER_VERSION    "2.8.6"
+ENV COMPOSER_HASH       becc28b909d2cca563e7caee1e488063312af36b1f2e31db64f417723b8c4026
 
 ENV OPENRESTY_VERSION   "1.27.1.1"
 ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
@@ -177,7 +176,8 @@ libvips-dev                     \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz \
-&& echo "${MYSQL_HASH} *percona-server-${MYSQL_VERSION}.tar.gz" | shasum -a 256 --check \
+&& wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz.sha256sum \
+&& cat percona-server-${MYSQL_VERSION}.tar.gz.sha256sum | shasum -a 256 --check \
 && MYSQL_HASH_CHECK=$? \
 && if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "percona-server-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \

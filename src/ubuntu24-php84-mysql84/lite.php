@@ -8,6 +8,7 @@ if (str_contains($_SERVER['GIT_MSG'] ?? '', ' --lite')) {
             '#^imagemagick #m',
             '#^libvips42t64 #m',
             '#^libvips-dev #m',
+
             '#^nodejs #m',
             '#^npm #m',
 
