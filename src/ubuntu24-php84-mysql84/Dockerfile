@@ -38,14 +38,8 @@ RUN set -eux \
 && free -m            \
 \
 && apt -y update            \
-&& apt -yq upgrade          \
+&& apt -y upgrade          \
 && apt -y autoremove        \
-\
-&& echo '' >> ~/.bashrc         \
-&& echo '' >> ~/.bashrc         \
-\
-&& apt -y install curl \
-&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.1/install.sh | bash \
 \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
@@ -54,7 +48,7 @@ RUN set -eux \
 && mkdir -p /repos/bin/pipx              \
 && chown -R www-data:www-data /repos/bin \
 \
-&& apt -yq install tzdata build-essential \
+&& apt -y install tzdata build-essential \
 sudo                            \
 cmake                           \
 make                            \
