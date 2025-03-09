@@ -222,12 +222,12 @@ libvips-dev                     \
 -DWITH_ZSTD=bundled \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
+-DWITH_FIDO=bundled \
 -DWITH_SSL=system \
 -DDEB_ID="${P_DEB_ID}" \
 -DDEB_CODENAME="${P_DEB_CODENAME}" \
 -DDEB_RELEASE="${P_DEB_VERSION}" \
 -DWITH_LDAP=0 \
--DWITH_FIDO=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
