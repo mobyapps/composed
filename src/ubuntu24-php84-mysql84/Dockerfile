@@ -185,6 +185,7 @@ npm                             \
 \
 && apt -y install libkrb5-dev \
 && apt -y install libsasl2-dev libsasl2-modules-gssapi-mit \
+&& apt -y install libudev-dev \
 \
 && mkdir /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
@@ -214,6 +215,7 @@ npm                             \
 -DWITH_SSL=system \
 -DDEB_RELEASE="${UBUNTU_VERSION}" \
 -DWITH_LDAP=0 \
+-DWITH_FIDO=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
