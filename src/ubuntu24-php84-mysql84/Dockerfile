@@ -35,6 +35,8 @@ COPY src/php-crud-api.php  /usr/local/src/
 RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 \
+&& free -m            \
+\
 && apt -y update            \
 && apt -yq upgrade          \
 && apt -y autoremove        \
@@ -124,7 +126,9 @@ imagemagick                     \
 libvips42t64                    \
 libvips-dev                     \
 \
-\
+&& lsb_release -rs \
+&& lsb_release -cs \
+&& lsb_release -is \
 \
 && pipx ensurepath \
 \
