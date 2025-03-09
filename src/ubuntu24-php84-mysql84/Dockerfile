@@ -121,6 +121,9 @@ imagemagick                     \
 libvips42t64                    \
 libvips-dev                     \
 \
+nodejs                          \
+npm                             \
+\
 && lsb_release -rs \
 && lsb_release -cs \
 && lsb_release -is \
