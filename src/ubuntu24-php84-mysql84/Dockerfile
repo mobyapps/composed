@@ -200,6 +200,7 @@ libvips-dev                     \
 && apt -y install libsasl2-dev libsasl2-modules-gssapi-mit \
 && apt -y install libudev-dev \
 && apt -y install libldap2-dev \
+&& apt -y install lsb-core \
 \
 && mkdir /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
 && cd /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
