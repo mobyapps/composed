@@ -4,17 +4,19 @@ LABEL maintainer="charescape@outlook.com"
 
 ENV TZ                  Asia/Shanghai
 
-ENV MYSQL_MAIN_VERSION  8.4
-ENV MYSQL_VERSION       8.4.3-3
+ENV UBUNTU_VERSION      "24.04"
+
+ENV MYSQL_MAIN_VERSION  "8.4"
+ENV MYSQL_VERSION       "8.4.3-3"
 ENV MYSQL_HASH          dfb5b46fccd8284ad3a09054f9a62d0a6423a2b703b6fb86d186cec09cee660a
 
-ENV PHP_VERSION         8.4.3
+ENV PHP_VERSION         "8.4.3"
 ENV PHP_HASH            45b88555b31487401b42c8bd36f2c45d84992bc93ae4c1a23d93bb3347984ecb
 
-ENV COMPOSER_VERSION    2.8.5
+ENV COMPOSER_VERSION    "2.8.5"
 ENV COMPOSER_HASH       9cef18212e222351aeb476b81de7b2a5383f775336474467bf5c7ccfe84ab0cc
 
-ENV OPENRESTY_VERSION   1.27.1.1
+ENV OPENRESTY_VERSION   "1.27.1.1"
 ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
 
 COPY src/ubuntu24-php84-mysql80/runapps.sh  /etc/my_init.d/
@@ -96,7 +98,6 @@ libevent-dev                    \
 liblz4-dev                      \
 liblzma-dev                     \
 libsasl2-dev                    \
-libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 libexpat1-dev                   \
@@ -211,6 +212,7 @@ npm                             \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_SSL=system \
+-DDEB_RELEASE="${UBUNTU_VERSION}" \
 -DWITH_LDAP=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
