@@ -233,7 +233,6 @@ libvips-dev                     \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_FIDO=bundled \
--DWITH_LDAP=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
