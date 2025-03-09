@@ -4,7 +4,9 @@ LABEL maintainer="charescape@outlook.com"
 
 ENV TZ                  Asia/Shanghai
 
-ENV UBUNTU_VERSION      "24.04"
+ENV P_DEB_ID           "Ubuntu"
+ENV P_DEB_VERSION      "24.04"
+ENV P_DEB_CODENAME     "noble"
 
 ENV MYSQL_MAIN_VERSION  "8.4"
 ENV MYSQL_VERSION       "8.4.3-3"
@@ -220,7 +222,9 @@ libvips-dev                     \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_SSL=system \
--DDEB_RELEASE="${UBUNTU_VERSION}" \
+-DDEB_ID="${P_DEB_ID}" \
+-DDEB_CODENAME="${P_DEB_CODENAME}" \
+-DDEB_RELEASE="${P_DEB_VERSION}" \
 -DWITH_LDAP=0 \
 -DWITH_FIDO=0 \
 -DWITH_DEBUG=0 \
