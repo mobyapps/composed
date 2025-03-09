@@ -38,8 +38,14 @@ RUN set -eux \
 && free -m            \
 \
 && apt -y update            \
-&& apt -y upgrade          \
+&& apt -yq upgrade          \
 && apt -y autoremove        \
+\
+&& echo '' >> ~/.bashrc         \
+&& echo '' >> ~/.bashrc         \
+\
+&& apt -y install curl \
+&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.1/install.sh | bash \
 \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
@@ -48,7 +54,7 @@ RUN set -eux \
 && mkdir -p /repos/bin/pipx              \
 && chown -R www-data:www-data /repos/bin \
 \
-&& apt -y install tzdata build-essential \
+&& apt -yq install tzdata build-essential \
 sudo                            \
 cmake                           \
 make                            \
@@ -102,8 +108,6 @@ libevent-dev                    \
 liblz4-dev                      \
 liblzma-dev                     \
 libsasl2-dev                    \
-libldap2-dev                    \
-libjemalloc-dev                 \
 libpq-dev                       \
 libexpat1-dev                   \
 python3-dev                     \
@@ -120,9 +124,6 @@ liblapacke-dev                  \
 imagemagick                     \
 libvips42t64                    \
 libvips-dev                     \
-\
-nodejs                          \
-npm                             \
 \
 && lsb_release -rs \
 && lsb_release -cs \
