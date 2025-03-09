@@ -37,6 +37,9 @@ RUN set -eux \
 && apt -y upgrade           \
 && apt -y autoremove        \
 \
+&& echo '' >> ~/.bashrc         \
+&& echo '' >> ~/.bashrc         \
+\
 && apt -y install curl \
 && curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.1/install.sh | bash \
 \
@@ -122,6 +125,10 @@ libvips-dev                     \
 \
 \
 && pipx ensurepath \
+\
+&& echo '' >> ~/.bashrc         \
+&& echo '' >> ~/.bashrc         \
+\
 && PIPX_BIN_DIR=/repos/bin/pipx pipx install markitdown \
 && chown -R www-data:www-data /repos/bin \
 \
