@@ -36,7 +36,7 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 \
 && apt -y update            \
-&& apt -yq upgrade          \
+&& apt -yqq upgrade          \
 && apt -y autoremove        \
 \
 && echo '' >> ~/.bashrc         \
