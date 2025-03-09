@@ -11,7 +11,7 @@ libsnappy-dev \
 -DSYSCONFDIR=/var/www/mariadb_conf \
 -DTMPDIR=/var/www/mariadb_temp \
 -DDEFAULT_CHARSET=utf8mb4 \
--DDEFAULT_COLLATION=utf8mb4_unicode_ci \
+-DDEFAULT_COLLATION=utf8mb4_0900_ai_ci \
 -DDOWNLOAD_BOOST=1 \
 -DWITH_BOOST=/usr/local/boostcxx_build_1_87_0 \
 -DENABLED_LOCAL_INFILE=1 \

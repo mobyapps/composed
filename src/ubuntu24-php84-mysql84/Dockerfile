@@ -4,9 +4,9 @@ LABEL maintainer="charescape@outlook.com"
 
 ENV TZ                  Asia/Shanghai
 
-ENV MYSQL_MAIN_VERSION  8.0
-ENV MYSQL_VERSION       8.0.41
-ENV MYSQL_HASH          5ea07b3e0e4c82af2b41553a32c26c62
+ENV MYSQL_MAIN_VERSION  8.4
+ENV MYSQL_VERSION       8.4.3-3
+ENV MYSQL_HASH          dfb5b46fccd8284ad3a09054f9a62d0a6423a2b703b6fb86d186cec09cee660a
 
 ENV PHP_VERSION         8.4.3
 ENV PHP_HASH            45b88555b31487401b42c8bd36f2c45d84992bc93ae4c1a23d93bb3347984ecb
@@ -162,43 +162,52 @@ npm                             \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
-&& wget --no-verbose https://cdn.mysql.com/Downloads/MySQL-${MYSQL_MAIN_VERSION}/mysql-${MYSQL_VERSION}.tar.gz \
-&& echo "${MYSQL_HASH} *mysql-${MYSQL_VERSION}.tar.gz" | md5sum --check \
+&& wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz \
+&& echo "${MYSQL_HASH} *percona-server-${MYSQL_VERSION}.tar.gz" | shasum -a 256 --check \
 && MYSQL_HASH_CHECK=$? \
-&& if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "mysql-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+&& if [ "$MYSQL_HASH_CHECK" -ne "0" ]; then echo "percona-server-${MYSQL_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 \
-&& tar -zxf mysql-${MYSQL_VERSION}.tar.gz \
+&& tar -zxf percona-server-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
 \
 \
-&& mkdir -p /var/www/mysql_data \
-&& mkdir -p /var/www/mysql_conf \
-&& mkdir -p /var/www/mysql_temp \
+&& mkdir /var/www/mysql_server \
+&& mkdir /var/www/mysql_server/datadir \
+&& mkdir /var/www/mysql_server/sysconfdir \
+&& mkdir /var/www/mysql_server/tmpdir \
+\
 && mkdir -p /repos/ip_site \
-&& mkdir -p /var/www/runlogs \
 && chown -R www-data:www-data /var/www \
 \
-&& mkdir /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
-&& cd /usr/local/src/mysql-${MYSQL_VERSION}/build_tmp_dir \
+&& mkdir /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
+&& cd /usr/local/src/percona-server-${MYSQL_VERSION}/build_tmp_dir \
 && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DCMAKE_BUILD_TYPE=Release \
--DWITH_SYSTEM_LIBS=1 \
--DMYSQL_DATADIR=/var/www/mysql_data \
--DSYSCONFDIR=/var/www/mysql_conf \
--DTMPDIR=/var/www/mysql_temp \
+-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+-DMYSQL_DATADIR=/var/www/mysql_server/datadir \
+-DSYSCONFDIR=/var/www/mysql_server/sysconfdir \
+-DTMPDIR=/var/www/mysql_server/tmpdir \
 -DDEFAULT_CHARSET=utf8mb4 \
--DDEFAULT_COLLATION=utf8mb4_unicode_ci \
--DDOWNLOAD_BOOST=1 \
--DWITH_BOOST=/usr/local/boostcxx \
--DENABLED_LOCAL_INFILE=1 \
+-DDEFAULT_COLLATION=utf8mb4_0900_ai_ci \
 -DMYSQL_TCP_PORT=3306 \
--DMYSQL_UNIX_ADDR=/var/www/mysql.sock \
--DWITH_JEMALLOC=1 \
+-DMYSQL_UNIX_ADDR=/var/www/mysql_server/mysql.sock \
+-DMYSQLX_TCP_PORT=33060 \
+-DMYSQLX_UNIX_ADDR=/var/www/mysql_server/mysqlx.sock \
+-DWITH_SYSTEM_LIBS=0 \
+-DWITH_CURL=bundled \
+-DWITH_EDITLINE=bundled \
+-DWITH_ICU=bundled \
+-DWITH_LIBEVENT=bundled \
+-DWITH_LZ4=bundled \
+-DWITH_LZMA=bundled \
+-DWITH_RE2=bundled \
+-DWITH_ZLIB=bundled \
+-DWITH_ZSTD=bundled \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
--DWITH_FIDO=bundled \
+-DWITH_SSL=system \
+-DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
 && make -j$(nproc --all) \
@@ -206,11 +215,11 @@ npm                             \
 && make install \
 \
 && cd /usr/local/src \
-&& rm -f       /var/www/mysql_conf/my.cnf \
-&& cp ./my.cnf /var/www/mysql_conf/my.cnf \
+&& rm -f       /var/www/mysql_server/sysconfdir/my.cnf \
+&& cp ./my.cnf /var/www/mysql_server/sysconfdir/my.cnf \
 && chown -R www-data:www-data /var/www \
 && chown -R www-data:www-data /usr/local/mysql \
-&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_conf/my.cnf --initialize-insecure --user=www-data \
+&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_server/sysconfdir/my.cnf --initialize-insecure --user=www-data \
 \
 && chown -R www-data:www-data /usr/local/mysql \
 && chown -R www-data:www-data /var/www \
@@ -224,9 +233,6 @@ npm                             \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "UPDATE mysql.db   SET Host='%' WHERE User='root' AND Host='localhost';" \
 && /usr/local/mysql/support-files/mysql.server restart \
 && sleep 3s \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb0;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb1;" \
-&& /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE testdb2;" \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test0db;" \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test1db;" \
 && /usr/local/mysql/bin/mysql -uroot -proot12345 -e "CREATE DATABASE test2db;" \
