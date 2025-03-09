@@ -19,13 +19,13 @@ ENV COMPOSER_HASH       9cef18212e222351aeb476b81de7b2a5383f775336474467bf5c7ccf
 ENV OPENRESTY_VERSION   "1.27.1.1"
 ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
 
-COPY src/ubuntu24-php84-mysql80/runapps.sh  /etc/my_init.d/
-COPY src/ubuntu24-php84-mysql80/php.ini  /usr/local/src/
-COPY src/ubuntu24-php84-mysql80/my.cnf  /usr/local/src/
-COPY src/ubuntu24-php84-mysql80/php-fpm.conf  /usr/local/src/
-COPY src/ubuntu24-php84-mysql80/www.conf  /usr/local/src/
-COPY src/ubuntu24-php84-mysql80/openresty.conf  /usr/local/src/
-COPY src/ubuntu24-php84-mysql80/install.php  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/runapps.sh  /etc/my_init.d/
+COPY src/ubuntu24-php84-mysql84/php.ini  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/my.cnf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/php-fpm.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/www.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/openresty.conf  /usr/local/src/
+COPY src/ubuntu24-php84-mysql84/install.php  /usr/local/src/
 COPY src/php-crud-api.php  /usr/local/src/
 
 
