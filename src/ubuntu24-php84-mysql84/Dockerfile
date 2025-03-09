@@ -102,6 +102,7 @@ libevent-dev                    \
 liblz4-dev                      \
 liblzma-dev                     \
 libsasl2-dev                    \
+libldap2-dev                    \
 libjemalloc-dev                 \
 libpq-dev                       \
 libexpat1-dev                   \
