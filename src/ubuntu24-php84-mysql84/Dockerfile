@@ -4,9 +4,9 @@ LABEL maintainer="charescape@outlook.com"
 
 ENV TZ                 "Asia/Shanghai"
 
-ENV P_DEB_ID           "Ubuntu"
-ENV P_DEB_VERSION      "24.04"
-ENV P_DEB_CODENAME     "noble"
+ENV CMAKE_DEB_ID           "Ubuntu"
+ENV CMAKE_DEB_RELEASE      "24.04"
+ENV CMAKE_DEB_CODENAME     "noble"
 
 ENV MYSQL_MAIN_VERSION  "8.4"
 ENV MYSQL_VERSION       "8.4.3-3"
@@ -210,8 +210,12 @@ libvips-dev                     \
 -DMYSQL_UNIX_ADDR=/var/www/mysql_server/mysql.sock \
 -DMYSQLX_TCP_PORT=33060 \
 -DMYSQLX_UNIX_ADDR=/var/www/mysql_server/mysqlx.sock \
+-DDEB_ID="${CMAKE_DEB_ID}" \
+-DDEB_CODENAME="${CMAKE_DEB_CODENAME}" \
+-DDEB_RELEASE="${CMAKE_DEB_RELEASE}" \
 -DWITH_SYSTEM_LIBS=0 \
 -DWITH_CURL=bundled \
+-DCURL_ZSTD=1 \
 -DWITH_EDITLINE=bundled \
 -DWITH_ICU=bundled \
 -DWITH_LIBEVENT=bundled \
@@ -223,9 +227,6 @@ libvips-dev                     \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
 -DWITH_SSL=system \
--DDEB_ID="${P_DEB_ID}" \
--DDEB_CODENAME="${P_DEB_CODENAME}" \
--DDEB_RELEASE="${P_DEB_VERSION}" \
 -DWITH_LDAP=0 \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
