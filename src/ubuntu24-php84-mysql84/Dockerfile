@@ -2,7 +2,7 @@ FROM phusion/baseimage:noble-1.0.0
 
 LABEL maintainer="charescape@outlook.com"
 
-ENV TZ                  Asia/Shanghai
+ENV TZ                 "Asia/Shanghai"
 
 ENV P_DEB_ID           "Ubuntu"
 ENV P_DEB_VERSION      "24.04"
