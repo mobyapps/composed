@@ -24,3 +24,4 @@ if (str_contains($_SERVER['GIT_MSG'] ?? '', ' --lite')) {
 
     file_put_contents(__DIR__ . '/Dockerfile', $dockerfile, LOCK_EX);
 }
+
