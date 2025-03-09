@@ -34,7 +34,7 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 \
 && apt -y update            \
-&& apt -y upgrade           \
+&& apt -yq upgrade          \
 && apt -y autoremove        \
 \
 && echo '' >> ~/.bashrc         \
@@ -50,7 +50,7 @@ RUN set -eux \
 && mkdir -p /repos/bin/pipx              \
 && chown -R www-data:www-data /repos/bin \
 \
-&& apt -y install tzdata build-essential \
+&& apt -yq install tzdata build-essential \
 sudo                            \
 cmake                           \
 make                            \
