@@ -214,6 +214,9 @@ libvips-dev                     \
 -DMYSQL_UNIX_ADDR=/var/www/mysql_server/mysql.sock \
 -DMYSQLX_TCP_PORT=33060 \
 -DMYSQLX_UNIX_ADDR=/var/www/mysql_server/mysqlx.sock \
+-DDEB_ID="${CMAKE_DEB_ID}" \
+-DDEB_CODENAME="${CMAKE_DEB_CODENAME}" \
+-DDEB_RELEASE="${CMAKE_DEB_RELEASE}" \
 -DWITH_SYSTEM_LIBS=0 \
 -DWITH_CURL=bundled \
 -DCURL_ZSTD=1 \
