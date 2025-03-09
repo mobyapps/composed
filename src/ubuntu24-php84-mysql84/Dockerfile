@@ -231,6 +231,7 @@ libvips-dev                     \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
+\
 && make -j$(nproc --all) \
 && sleep 3s \
 && make install \
