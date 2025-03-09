@@ -25,6 +25,9 @@ socket                               = /var/www/mariadb.sock
 safe-updates                         = 1
 max-allowed-packet                   = 16M
 
+[mysqlshow]
+default-character-set=utf8mb4
+
 [mysqld_safe]
 open-files-limit                     = 65535
 
@@ -42,3 +45,9 @@ bind-address                         = 0.0.0.0
 default-character-set                = utf8mb4
 port                                 = 3307
 socket                               = /var/www/mariadb.sock
+
+[mysqlcheck]
+default-character-set=utf8mb4
+
+[mysql_upgrade]
+default-character-set=utf8mb4
