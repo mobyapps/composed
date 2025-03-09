@@ -36,7 +36,7 @@ RUN set -eux \
 && export DEBIAN_FRONTEND=noninteractive \
 \
 && apt -y update            \
-&& apt -yqq upgrade          \
+&& apt -yq upgrade          \
 && apt -y autoremove        \
 \
 && echo '' >> ~/.bashrc         \
@@ -222,7 +222,6 @@ libvips-dev                     \
 -DWITH_ZSTD=bundled \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
--DWITH_FIDO=bundled \
 -DWITH_SSL=system \
 -DDEB_ID="${P_DEB_ID}" \
 -DDEB_CODENAME="${P_DEB_CODENAME}" \
