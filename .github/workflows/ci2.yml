@@ -38,4 +38,3 @@ jobs:
 
       - name: Push image
         run: docker push charescape/web:ubuntu24-php84-mysql84.rv2
-
