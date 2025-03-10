@@ -223,6 +223,7 @@ libvips-dev                     \
 -DWITH_CURL=system \
 -DWITH_SSL=system \
 -DCURL_ZSTD=1 \
+-DWITH_FIDO=system \
 -DWITH_EDITLINE=bundled \
 -DWITH_ICU=bundled \
 -DWITH_LIBEVENT=bundled \
@@ -233,7 +234,6 @@ libvips-dev                     \
 -DWITH_ZSTD=bundled \
 -DWITH_RAPIDJSON=bundled \
 -DWITH_PROTOBUF=bundled \
--DWITH_FIDO=bundled \
 -DWITH_DEBUG=0 \
 -DWITH_UNIT_TESTS=0 \
 \
