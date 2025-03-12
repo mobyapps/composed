@@ -19,3 +19,8 @@ export HISTTIMEFORMAT="%F %T "
 
 # 忽略重复命令
 export HISTCONTROL=ignoredups
+
+
+export PATH="$PATH:/usr/local/openresty/nginx/sbin"
+export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"
+export PATH="$PATH:/usr/local/mysql/bin"
