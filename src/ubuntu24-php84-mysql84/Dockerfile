@@ -269,6 +269,7 @@ libvips-dev                     \
 \
 \
 && cd /usr/local/src/php-${PHP_VERSION} \
+&& ./buildconf \
 && ./configure --help \
 && ./configure --prefix=/usr/local/php \
 --enable-fpm \
@@ -316,7 +317,6 @@ libvips-dev                     \
 --enable-gd-jis-conv \
 --with-gettext \
 --with-gmp \
---with-mhash \
 --enable-intl \
 --enable-mbstring \
 --enable-mysqlnd \
