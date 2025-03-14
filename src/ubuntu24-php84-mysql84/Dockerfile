@@ -44,7 +44,7 @@ RUN set -eux \
 && echo '' >> ~/.bashrc         \
 \
 && apt -y install curl \
-&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.1/install.sh | bash \
+&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.2/install.sh | bash \
 \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
@@ -128,12 +128,12 @@ libvips-dev                     \
 && lsb_release -cs \
 && lsb_release -is \
 \
-&& pipx ensurepath \
+&& PIPX_BIN_DIR=/repos/bin/pipx  pipx ensurepath \
 \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
 \
-&& PIPX_BIN_DIR=/repos/bin/pipx pipx install 'markitdown[all]' \
+&& PIPX_BIN_DIR=/repos/bin/pipx  pipx install 'markitdown[all]' \
 && chown -R www-data:www-data /repos/bin \
 \
 && chmod +x /etc/my_init.d/runapps.sh \
