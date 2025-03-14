@@ -24,3 +24,4 @@ export HISTCONTROL=ignoredups
 export PATH="$PATH:/usr/local/openresty/nginx/sbin"
 export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"
 export PATH="$PATH:/usr/local/mysql/bin"
+export PATH="$PATH:/usr/local/mysql/support-files"
