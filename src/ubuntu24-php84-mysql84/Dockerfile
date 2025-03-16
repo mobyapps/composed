@@ -203,8 +203,8 @@ libvips-dev                     \
 && tar -zxf percona-server-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
-&& tar -zxf openresty-${LUA_VERSION}.tar.gz \
-&& tar -zxf openresty-${LUAROCKS_VERSION}.tar.gz \
+&& tar -zxf lua-${LUA_VERSION}.tar.gz \
+&& tar -zxf luarocks-${LUAROCKS_VERSION}.tar.gz \
 \
 \
 && cd /usr/local/src/lua-${LUA_VERSION} \
