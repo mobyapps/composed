@@ -20,6 +20,14 @@ ENV COMPOSER_HASH       becc28b909d2cca563e7caee1e488063312af36b1f2e31db64f41772
 ENV OPENRESTY_VERSION   "1.27.1.1"
 ENV OPENRESTY_HASH      79b071e27bdc143d5f401d0dbf504de4420070d867538c5edc2546d0351fd5c0
 
+# install to /usr/local/lua54
+ENV LUA_VERSION         "5.4.7"
+ENV LUA_HASH            9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30
+
+ENV LUAROCKS_VERSION    "3.11.1"
+ENV LUAROCKS_HASH       c3fb3d960dffb2b2fe9de7e3cb004dc4d0b34bb3d342578af84f84325c669102
+
+
 COPY src/ubuntu24-php84-mysql84/runapps.sh  /etc/my_init.d/
 COPY src/ubuntu24-php84-mysql84/php.ini  /usr/local/src/
 COPY src/ubuntu24-php84-mysql84/my.cnf  /usr/local/src/
@@ -175,6 +183,16 @@ libvips-dev                     \
 && OPENRESTY_HASH_CHECK=$? \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
+&& wget --no-verbose https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz \
+&& echo "${LUA_HASH} *luarocks-${LUA_VERSION}.tar.gz" | shasum -a 256 --check \
+&& LUA_HASH_CHECK=$? \
+&& if [ "$LUA_HASH_CHECK" -ne "0" ]; then echo "luarocks-${LUA_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& wget --no-verbose https://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz \
+&& echo "${LUAROCKS_HASH} *luarocks-${LUAROCKS_VERSION}.tar.gz" | shasum -a 256 --check \
+&& LUAROCKS_HASH_CHECK=$? \
+&& if [ "$LUAROCKS_HASH_CHECK" -ne "0" ]; then echo "luarocks-${LUAROCKS_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
 && wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz \
 && wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz.sha256sum \
 && cat percona-server-${MYSQL_VERSION}.tar.gz.sha256sum | shasum -a 256 --check \
@@ -185,6 +203,17 @@ libvips-dev                     \
 && tar -zxf percona-server-${MYSQL_VERSION}.tar.gz \
 && tar -zxf php-${PHP_VERSION}.tar.gz \
 && tar -zxf openresty-${OPENRESTY_VERSION}.tar.gz \
+&& tar -zxf openresty-${LUA_VERSION}.tar.gz \
+&& tar -zxf openresty-${LUAROCKS_VERSION}.tar.gz \
+\
+\
+&& cd /usr/local/src/lua-${LUA_VERSION} \
+&& make all install INSTALL_TOP=/usr/local/lua54 \
+\
+&& cd /usr/local/src/luarocks-${LUAROCKS_VERSION} \
+&& ./configure --prefix=/usr/local/luarocks --with-lua-bin=/usr/local/lua54/bin --with-lua=/usr/local/lua54 \
+&& make \
+&& make install \
 \
 \
 && mkdir /var/www/mysql_server \
