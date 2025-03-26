@@ -129,6 +129,9 @@ libopenblas-dev                 \
 liblapacke-dev                  \
 \
 imagemagick                     \
+libmagickwand-dev               \
+libmagickcore-dev               \
+\
 libvips42t64                    \
 libvips-dev                     \
 \
