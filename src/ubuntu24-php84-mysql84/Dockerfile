@@ -17,6 +17,8 @@ ENV PHP_HASH            f05530d350f1ffe279e097c2af7a8d78cab046ef99d91f6b3151b06f
 ENV COMPOSER_VERSION    "2.8.6"
 ENV COMPOSER_HASH       becc28b909d2cca563e7caee1e488063312af36b1f2e31db64f417723b8c4026
 
+ENV IMAGICK_VERSION     "3.8.0RC2"
+
 ENV OPENRESTY_VERSION   "1.27.1.2"
 ENV OPENRESTY_HASH      74f076f7e364b2a99a6c5f9bb531c27610c78985abe956b442b192a2295f7548
 
@@ -157,6 +159,7 @@ libvips-dev                     \
 && git clone --depth 1 --branch 1.0.11   https://github.com/swoole/phpy.git \
 \
 && cd /usr/local/bin/ \
+&& wget --no-verbose https://github.com/php/pie/releases/latest/download/pie.phar \
 && wget --no-verbose https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
 && echo "${COMPOSER_HASH} *composer.phar" | shasum -a 256 --check \
 && COMPOSER_HASH_CHECK=$? \
@@ -165,6 +168,10 @@ libvips-dev                     \
 && mv /usr/local/bin/composer.phar /usr/local/bin/composer \
 && chmod +x /usr/local/bin/composer \
 && chown www-data:www-data /usr/local/bin/composer \
+\
+&& mv /usr/local/bin/pie.phar /usr/local/bin/pie \
+&& chmod +x /usr/local/bin/pie \
+&& chown www-data:www-data /usr/local/bin/pie \
 \
 && cd /usr/local \
 && wget --no-verbose https://curl.se/ca/cacert.pem \
@@ -394,6 +401,8 @@ libvips-dev                     \
 && mkdir -p /usr/local/php/fpm_pools/www/log \
 \
 && chown -R www-data:www-data /usr/local/php \
+\
+&& /usr/local/php/bin/php  /usr/local/bin/pie  install  "imagick/imagick:^${IMAGICK_VERSION}" \
 \
 && /usr/local/php/bin/php -v \
 && /usr/local/php/bin/php -m \
