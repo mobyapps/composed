@@ -194,9 +194,9 @@ libvips-dev                     \
 && if [ "$OPENRESTY_HASH_CHECK" -ne "0" ]; then echo "openresty-${OPENRESTY_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && wget --no-verbose https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz \
-&& echo "${LUA_HASH} *luarocks-${LUA_VERSION}.tar.gz" | shasum -a 256 --check \
+&& echo "${LUA_HASH} *lua-${LUA_VERSION}.tar.gz" | shasum -a 256 --check \
 && LUA_HASH_CHECK=$? \
-&& if [ "$LUA_HASH_CHECK" -ne "0" ]; then echo "luarocks-${LUA_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+&& if [ "$LUA_HASH_CHECK" -ne "0" ]; then echo "lua-${LUA_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && wget --no-verbose https://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VERSION}.tar.gz \
 && echo "${LUAROCKS_HASH} *luarocks-${LUAROCKS_VERSION}.tar.gz" | shasum -a 256 --check \
