@@ -402,8 +402,6 @@ libvips-dev                     \
 \
 && chown -R www-data:www-data /usr/local/php \
 \
-&& /usr/local/php/bin/php  /usr/local/bin/pie  install  "imagick/imagick:^${IMAGICK_VERSION}" \
-\
 && /usr/local/php/bin/php -v \
 && /usr/local/php/bin/php -m \
 && /usr/local/php/sbin/php-fpm \
