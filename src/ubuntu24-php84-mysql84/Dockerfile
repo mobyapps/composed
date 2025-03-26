@@ -218,6 +218,8 @@ libvips-dev                     \
 && make \
 && make install \
 \
+&& /usr/local/luarocks/bin/luarocks install luafilesystem \
+\
 \
 && mkdir /var/www/mysql_server \
 && mkdir /var/www/mysql_server/datadir \
