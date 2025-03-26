@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build on ubuntu-24.04
-    if: "contains(github.event.head_commit.message, 'release ubuntu24-php84-mysql84.rv2')"
+    if: "contains(github.event.head_commit.message, 'release ubuntu24-php84-mysql84.rv3')"
 
     runs-on: ubuntu-24.04
 
@@ -29,7 +29,7 @@ jobs:
       - run: php src/ubuntu24-php84-mysql84/lite.php
 
       - name: Build image
-        run: docker build -f src/ubuntu24-php84-mysql84/Dockerfile -t charescape/web:ubuntu24-php84-mysql84.rv2 .
+        run: docker build -f src/ubuntu24-php84-mysql84/Dockerfile -t charescape/web:ubuntu24-php84-mysql84.rv3 .
 
       - run: docker image ls
 
@@ -37,4 +37,4 @@ jobs:
         run: echo "${{ secrets.DOCHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCHUB_USERNAME }} --password-stdin
 
       - name: Push image
-        run: docker push charescape/web:ubuntu24-php84-mysql84.rv2
+        run: docker push charescape/web:ubuntu24-php84-mysql84.rv3
