@@ -122,6 +122,13 @@ libexpat1-dev                   \
 python3-dev                     \
 pipx                            \
 \
+fonts-noto-cjk                  \
+fonts-noto-color-emoji          \
+fonts-arphic-ukai               \
+fonts-arphic-uming              \
+fonts-dejavu                    \
+fonts-liberation                \
+\
 memcached                       \
 libmemcached-tools              \
 libmemcached-dev                \
@@ -136,6 +143,9 @@ libmagickcore-dev               \
 \
 libvips42t64                    \
 libvips-dev                     \
+\
+&& fc-cache -fv \
+\
 \
 && lsb_release -rs \
 && lsb_release -cs \
