@@ -122,6 +122,7 @@ libexpat1-dev                   \
 python3-dev                     \
 pipx                            \
 \
+fontconfig                      \
 fonts-noto-cjk                  \
 fonts-noto-color-emoji          \
 fonts-arphic-ukai               \
