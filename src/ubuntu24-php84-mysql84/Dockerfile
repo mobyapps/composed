@@ -495,13 +495,16 @@ libvips-dev                     \
 && apt -y clean \
 && rm -rf /var/lib/apt/lists/* \
 \
+&& rm -rf  /var/cache/fontconfig/* \
 && rm -rf  /var/cache/apt/archives/*.deb \
 && rm -rf  /usr/share/doc/* \
 && rm -rf  /usr/share/man/* \
-&& rm -rf  ~/.cache/* \
 \
 && rm -rf /tmp/* \
 && rm -rf /var/tmp/* \
+\
+&& rm -rf  ~/.cache/* \
+\
 && rm -rf /usr/local/mysql/mysql-test/* \
 && du -h --max-depth=2 /usr/local/mysql \
 && du -h --max-depth=2 /usr/local/php \
