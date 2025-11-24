@@ -54,7 +54,7 @@ RUN set -eux \
 && echo '' >> ~/.bashrc         \
 \
 && apt -y install curl \
-&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.2/install.sh | bash \
+&& curl -o- https://fastly.jsdelivr.net/gh/nvm-sh/nvm@0.40.3/install.sh | bash \
 \
 && echo '' >> ~/.bashrc         \
 && echo '' >> ~/.bashrc         \
