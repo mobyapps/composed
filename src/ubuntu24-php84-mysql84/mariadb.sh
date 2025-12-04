@@ -1,4 +1,5 @@
-mkdir /var/www/mariadb_server \
+mkdir -p /var/www \
+&& mkdir /var/www/mariadb_server \
 && mkdir /var/www/mariadb_server/datadir \
 && mkdir /var/www/mariadb_server/sysconfdir \
 && mkdir /var/www/mariadb_server/tmpdir \
