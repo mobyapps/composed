@@ -48,6 +48,7 @@ libsnappy-dev \
 -DWITH_SSL=system \
 -DCURL_ZSTD=1 \
 -DWITH_FIDO=system \
+-DWITH_LIBFMT=system \
 -DWITH_EDITLINE=bundled \
 -DWITH_ICU=bundled \
 -DWITH_LIBEVENT=bundled \
