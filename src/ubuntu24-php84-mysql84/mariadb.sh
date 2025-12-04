@@ -19,7 +19,7 @@ libsnappy-dev \
 -DTMPDIR=/var/www/mariadb_server/tmpdir \
 -DINSTALL_RUNDATADIR=/var/www/mariadb_server/tmprundatadir \
 -DWITH_SYSTEM_LIBS=0 \
--DWITH_DYNAMIC_PLUGINS=ON \
+-DWITH_DYNAMIC_PLUGINS=1 \
 -DDOWNLOAD_BOOST=1 \
 -DWITH_BOOST=/usr/local/boostcxx \
 -DDEFAULT_CHARSET=utf8mb4 \
