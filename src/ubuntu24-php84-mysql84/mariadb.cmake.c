@@ -5,6 +5,15 @@
  * ZLIB
  * Python3
  * LibXml2
+ * Boost (required version >= 1.40.0)
+   Required for the OQGraph storage engine
+ * Judy
+   Required for the OQGraph storage engine
+ * BZip2
+ * LZ4 (required version >= 1.6)
+ * LibLZMA
+ * LZO
+ * Snappy
  * BISON (required version >= 2.4)
 
 -- The following RECOMMENDED packages have been found:
@@ -25,7 +34,6 @@
  * CONNECT_ODBC, Support for ODBC in the CONNECT storage engine
  * CONNECT_JDBC, Support for JDBC in the CONNECT storage engine
  * CONNECT_MONGODB, Support for MongoDB in the CONNECT storage engine
- * NUMA, NUMA memory allocation policy
  * INNODB_EXTRA_DEBUG, Extra InnoDB debug checks
  * AWS_KEY_MANAGEMENT, AWS Encryption Key Management Plugin
  * EMBEDDED_SERVER, Embedded MariaDB Server Library
@@ -36,17 +44,10 @@
    Required for the CONNECT_JDBC feature
  * JNI
    Required for the CONNECT_JDBC feature
- * Boost (required version >= 1.40.0)
-   Required for the OQGraph storage engine
  * GSSAPI
- * BZip2
- * LZ4 (required version >= 1.6)
- * LibLZMA
- * LZO
- * Snappy
 
 -- Configuring done (41.4s)
--- Generating done (0.5s)
+-- Generating done (0.6s)
 -- Build files have been written to: /usr/local/src/mariadb-12.1.2/build_tmp_dir
 -- Cache values
 // Allow to download and build AWS C++ SDK
@@ -343,6 +344,9 @@ PLUGIN_METADATA_LOCK_INFO:STRING=DYNAMIC
 // How to build plugin MROONGA. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_MROONGA:STRING=DYNAMIC
 
+// How to build plugin OQGRAPH. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_OQGRAPH:STRING=DYNAMIC
+
 // How to build plugin PARTITION. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_PARTITION:STRING=STATIC
 
@@ -351,6 +355,21 @@ PLUGIN_PASSWORD_REUSE_CHECK:STRING=DYNAMIC
 
 // How to build plugin PERFSCHEMA. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_PERFSCHEMA:STRING=STATIC
+
+// How to build plugin PROVIDER_BZIP2. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_PROVIDER_BZIP2:STRING=DYNAMIC
+
+// How to build plugin PROVIDER_LZ4. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_PROVIDER_LZ4:STRING=DYNAMIC
+
+// How to build plugin PROVIDER_LZMA. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_PROVIDER_LZMA:STRING=DYNAMIC
+
+// How to build plugin PROVIDER_LZO. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_PROVIDER_LZO:STRING=DYNAMIC
+
+// How to build plugin PROVIDER_SNAPPY. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_PROVIDER_SNAPPY:STRING=DYNAMIC
 
 // How to build plugin QA_AUTH_CLIENT. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_QA_AUTH_CLIENT:STRING=DYNAMIC
