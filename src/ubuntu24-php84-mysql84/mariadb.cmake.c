@@ -1,3 +1,5 @@
+# cmake .. -LH
+
 -- The following OPTIONAL packages have been found:
 
  * ZLIB
