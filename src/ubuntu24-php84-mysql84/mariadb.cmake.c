@@ -1,18 +1,51 @@
--- Running cmake version 3.22.1
--- MariaDB 11.7.2
--- Wsrep-lib version: 1.0.0
--- Checking for module 'libpcre2-8'
---   No package 'libpcre2-8' found
--- Will download and bundle pcre2
--- SYSTEM_LIBS: /usr/lib/x86_64-linux-gnu/libz.so;dl;m;dl;m;/usr/lib/x86_64-linux-gnu/libssl.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libz.so
--- Dynamic column API support: ON
--- Could NOT find Boost (missing: Boost_INCLUDE_DIR chrono filesystem program_options regex system thread) (Required is at least version "1.81.0")
--- Could NOT find LibLZMA (missing: LIBLZMA_LIBRARY LIBLZMA_INCLUDE_DIR LIBLZMA_HAS_AUTO_DECODER LIBLZMA_HAS_EASY_ENCODER LIBLZMA_HAS_LZMA_PRESET) 
--- Could NOT find LZO (missing: LZO_LIBRARIES LZO_INCLUDE_DIRS) 
--- Could NOT find Snappy (missing: SNAPPY_LIBRARIES SNAPPY_INCLUDE_DIRS) 
--- Configuring done
--- Generating done
--- Build files have been written to: /usr/local/src/mariadb-11.7.2/build_tmp_dir
+-- The following OPTIONAL packages have been found:
+
+ * ZLIB
+ * Python3
+ * LibXml2
+ * BISON (required version >= 2.4)
+
+-- The following RECOMMENDED packages have been found:
+
+ * OpenSSL
+
+-- The following REQUIRED packages have been found:
+
+ * Curses
+ * Threads
+ * CURL
+
+-- The following features have been disabled:
+
+ * LIBWRAP, Support for tcp wrappers
+ * SYSTEMD, Systemd scripts and notification support
+ * COLUMNSTORE, Storage Engine
+ * CONNECT_ODBC, Support for ODBC in the CONNECT storage engine
+ * CONNECT_JDBC, Support for JDBC in the CONNECT storage engine
+ * CONNECT_MONGODB, Support for MongoDB in the CONNECT storage engine
+ * NUMA, NUMA memory allocation policy
+ * INNODB_EXTRA_DEBUG, Extra InnoDB debug checks
+ * AWS_KEY_MANAGEMENT, AWS Encryption Key Management Plugin
+ * EMBEDDED_SERVER, Embedded MariaDB Server Library
+
+-- The following OPTIONAL packages have not been found:
+
+ * Java (required version >= 1.6)
+   Required for the CONNECT_JDBC feature
+ * JNI
+   Required for the CONNECT_JDBC feature
+ * Boost (required version >= 1.40.0)
+   Required for the OQGraph storage engine
+ * GSSAPI
+ * BZip2
+ * LZ4 (required version >= 1.6)
+ * LibLZMA
+ * LZO
+ * Snappy
+
+-- Configuring done (41.4s)
+-- Generating done (0.5s)
+-- Build files have been written to: /usr/local/src/mariadb-12.1.2/build_tmp_dir
 -- Cache values
 // Allow to download and build AWS C++ SDK
 AWS_SDK_EXTERNAL_PROJECT:BOOL=OFF
@@ -74,10 +107,10 @@ ENABLED_JSON_WRITER_CONSISTENCY_CHECKS:BOOL=OFF
 // Enable profiling
 ENABLED_PROFILING:BOOL=ON
 
-// Enable gcov (debug, Linux builds only)
+// Enable gcov (debug, macOS and Linux builds only)
 ENABLE_GCOV:BOOL=OFF
 
-// Print feature summary at the end of configure step
+//
 FEATURE_SUMMARY:BOOL=OFF
 
 // Groonga's default DB key management algorithm
@@ -164,11 +197,17 @@ GRN_WITH_ZLIB:STRING=auto
 // Build as a static library to embed into an application
 GROONGA_NORMALIZER_MYSQL_EMBED:BOOL=ON
 
+// Command for determining hostname
+HOSTNAME:STRING=uname -n
+
 // Enable innodb_enable_xap_unlock_unmodified_for_primary_debug system variable even for release build
 INNODB_ENABLE_XAP_UNLOCK_UNMODIFIED_FOR_PRIMARY:BOOL=OFF
 
 // Installation directory layout. Options are: STANDALONE (as in zip or tar.gz installer) RPM DEB SVR4
 INSTALL_LAYOUT:STRING=STANDALONE
+
+// Rundata installation directory
+INSTALL_RUNDATADIR:FILEPATH=/tmp
 
 // path to the flex executable
 LEX_EXECUTABLE:FILEPATH=LEX_EXECUTABLE-NOTFOUND
@@ -179,7 +218,7 @@ LIBAIO_INCLUDE_DIRS:PATH=LIBAIO_INCLUDE_DIRS-NOTFOUND
 // Path to a library.
 LIBAIO_LIBRARIES:FILEPATH=LIBAIO_LIBRARIES-NOTFOUND
 
-// 
+//
 LZ4_LIBS:STRING=
 
 // Max number of indexes
@@ -206,6 +245,9 @@ MYSQL_DATADIR:PATH=/usr/local/mysql/data
 // Enable MariaDB maintainer-specific warnings. One of: NO (warnings are disabled) WARN (warnings are enabled) ERR (warnings are errors) AUTO (warnings are errors in Debug only)
 MYSQL_MAINTAINER_MODE:STRING=AUTO
 
+// Path to a library.
+PAM_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpam.so
+
 // How to build plugin ARCHIVE. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_ARCHIVE:STRING=DYNAMIC
 
@@ -218,6 +260,15 @@ PLUGIN_AUTH_0X0100:STRING=DYNAMIC
 // How to build plugin AUTH_ED25519. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_AUTH_ED25519:STRING=DYNAMIC
 
+// How to build plugin AUTH_MYSQL_SHA2. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_AUTH_MYSQL_SHA2:STRING=DYNAMIC
+
+// How to build plugin AUTH_PAM. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_AUTH_PAM:STRING=DYNAMIC
+
+// How to build plugin AUTH_PAM_V1. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_AUTH_PAM_V1:STRING=DYNAMIC
+
 // How to build plugin AUTH_PARSEC. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_AUTH_PARSEC:STRING=DYNAMIC
 
@@ -229,6 +280,9 @@ PLUGIN_AUTH_TEST_PLUGIN:STRING=DYNAMIC
 
 // How to build plugin BLACKHOLE. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_BLACKHOLE:STRING=DYNAMIC
+
+// How to build plugin COLUMNSTORE. Options are: NO STATIC DYNAMIC YES AUTO.
+PLUGIN_COLUMNSTORE:STRING=NO
 
 // How to build plugin CONNECT. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_CONNECT:STRING=DYNAMIC
@@ -295,12 +349,6 @@ PLUGIN_PASSWORD_REUSE_CHECK:STRING=DYNAMIC
 
 // How to build plugin PERFSCHEMA. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_PERFSCHEMA:STRING=STATIC
-
-// How to build plugin PROVIDER_BZIP2. Options are: NO STATIC DYNAMIC YES AUTO.
-PLUGIN_PROVIDER_BZIP2:STRING=DYNAMIC
-
-// How to build plugin PROVIDER_LZ4. Options are: NO STATIC DYNAMIC YES AUTO.
-PLUGIN_PROVIDER_LZ4:STRING=DYNAMIC
 
 // How to build plugin QA_AUTH_CLIENT. Options are: NO STATIC DYNAMIC YES AUTO.
 PLUGIN_QA_AUTH_CLIENT:STRING=DYNAMIC
@@ -422,7 +470,7 @@ WITH_INNODB_PMEM:BOOL=ON
 // Cache index root block descriptors
 WITH_INNODB_ROOT_GUESS:BOOL=ON
 
-// Require that libaio is used, unless uring is there
+// Require that libaio is used
 WITH_LIBAIO:BOOL=OFF
 
 // Which libfmt to use (possible values are 'bundled', 'system', or 'auto')
@@ -473,6 +521,9 @@ WITH_SSL:STRING=yes
 // Enable systemd scripts and notification support. Allowed values yes/no/auto.
 WITH_SYSTEMD:STRING=auto
 
+// Which Thrift to use (possible values are 'bundled', 'system', or 'auto')
+WITH_THRIFT:STRING=bundled
+
 // Enable thread sanitizer
 WITH_TSAN:BOOL=OFF
 
@@ -517,6 +568,9 @@ WSREP_LIB_WITH_TSAN:BOOL=OFF
 
 // Compile unit tests
 WSREP_LIB_WITH_UNIT_TESTS:BOOL=OFF
+
+// The directory containing a CMake configuration file for aws-cpp-sdk-kms.
+aws-cpp-sdk-kms_DIR:PATH=aws-cpp-sdk-kms_DIR-NOTFOUND
 
 // The directory containing a CMake configuration file for libmongoc-1.0.
 libmongoc-1.0_DIR:PATH=libmongoc-1.0_DIR-NOTFOUND
