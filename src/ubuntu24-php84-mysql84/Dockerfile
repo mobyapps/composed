@@ -475,6 +475,7 @@ libvips-dev                     \
 && cd /usr/local/src \
 && rm -f                /usr/local/openresty/nginx/conf/nginx.conf \
 && mv ./openresty.conf  /usr/local/openresty/nginx/conf/nginx.conf \
+&& chown -R www-data:www-data /usr/local/openresty \
 \
 \
 && mkdir -p                    /repos/php-crud-api \
