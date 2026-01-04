@@ -11,6 +11,8 @@ ENV CMAKE_DEB_CODENAME     "noble"
 ENV MYSQL_MAIN_VERSION  "8.0"
 ENV MYSQL_VERSION       "8.0.41-32"
 
+ENV MARIADB_VERSION     "12.1.2"
+
 ENV PHP_VERSION         "8.4.15"
 ENV PHP_HASH            51d23c98073c1e88c98c12b175736a11316cd3d4753f8d060934e53e5a9945c3
 
@@ -213,6 +215,12 @@ libvips-dev                     \
 && echo "${LUAROCKS_HASH} *luarocks-${LUAROCKS_VERSION}.tar.gz" | shasum -a 256 --check \
 && LUAROCKS_HASH_CHECK=$? \
 && if [ "$LUAROCKS_HASH_CHECK" -ne "0" ]; then echo "luarocks-${LUAROCKS_VERSION}.tar.gz hash mismatch." && exit 1; fi \
+\
+&& wget --no-verbose https://mirrors.aliyun.com/mariadb/mariadb-${MARIADB_VERSION}/source/mariadb-${MARIADB_VERSION}.tar.gz \
+&& wget --no-verbose https://mirrors.aliyun.com/mariadb/mariadb-${MARIADB_VERSION}/source/sha256sums.txt \
+&& cat sha256sums.txt | shasum -a 256 --check \
+&& MARIADB_HASH_CHECK=$? \
+&& if [ "$MARIADB_HASH_CHECK" -ne "0" ]; then echo "mariadb-${MARIADB_VERSION}.tar.gz hash mismatch." && exit 1; fi \
 \
 && wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz \
 && wget --no-verbose https://downloads.percona.com/downloads/Percona-Server-${MYSQL_MAIN_VERSION}/Percona-Server-${MYSQL_VERSION}/source/tarball/percona-server-${MYSQL_VERSION}.tar.gz.sha256sum \
