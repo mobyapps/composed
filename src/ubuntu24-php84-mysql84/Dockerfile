@@ -121,6 +121,7 @@ liblz4-dev                      \
 liblzma-dev                     \
 libsasl2-dev                    \
 libpq-dev                       \
+libfmt-dev                      \
 libexpat1-dev                   \
 python3-dev                     \
 pipx                            \
