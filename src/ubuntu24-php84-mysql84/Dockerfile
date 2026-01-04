@@ -123,6 +123,7 @@ libsasl2-dev                    \
 libpq-dev                       \
 libfmt-dev                      \
 libaio-dev                      \
+libjudy-dev                     \
 libexpat1-dev                   \
 python3-dev                     \
 pipx                            \
