@@ -66,7 +66,7 @@ libboost-dev \
 -DWITH_UNIT_TESTS=0
 
 # 必须指定用户为 mariadb
-scripts/mariadb-install-db --defaults-file=/var/www/mariadb_server/sysconfdir/my.cnf \
+/usr/local/mariadb/scripts/mariadb-install-db --defaults-file=/var/www/mariadb_server/sysconfdir/my.cnf \
 --user=www-data \
 --group=www-data \
 --basedir=/usr/local/mariadb \
