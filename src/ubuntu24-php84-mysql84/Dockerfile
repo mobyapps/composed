@@ -163,7 +163,7 @@ libvips-dev                     \
 && chmod +x /etc/my_init.d/runapps.sh \
 \
 && cd /usr/local/src \
-&& git clone --depth 1 --branch v0.2.4   https://github.com/vozlt/nginx-module-vts.git \
+&& git clone --depth 1 --branch v0.2.5   https://github.com/vozlt/nginx-module-vts.git \
 && git clone --depth 1 --branch v1.2.12  https://github.com/winshining/nginx-http-flv-module.git \
 && git clone --depth 1 --branch master   https://github.com/leev/ngx_http_geoip2_module.git \
 && git clone --depth 1 --branch master   https://github.com/evanmiller/mod_zip.git \
