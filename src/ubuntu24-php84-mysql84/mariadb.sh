@@ -8,6 +8,7 @@ mkdir -p /var/www \
 apt -y install \
 liblzo2-dev \
 libsnappy-dev \
+libboost-dev \
 \
 && mkdir /usr/local/src/mariadb-${MARIADB_VERSION}/build_tmp_dir \
 && cd /usr/local/src/mariadb-${MARIADB_VERSION}/build_tmp_dir \
@@ -65,9 +66,48 @@ libsnappy-dev \
 -DWITH_UNIT_TESTS=0
 
 # 必须指定用户为 mariadb
-scripts/mariadb-install-db --user=www-data \
+scripts/mariadb-install-db --defaults-file=/var/www/mariadb_server/sysconfdir/my.cnf \
+--user=www-data \
 --group=www-data \
 --basedir=/usr/local/mariadb \
 --datadir=/var/www/mariadb_server/datadir \
---defaults-file=/var/www/mariadb_server/sysconfdir/my.cnf \
 --skip-name-resolve
+
+/usr/local/mariadb/bin/mariadbd-safe --defaults-file=/var/www/mariadb_server/sysconfdir/my.cnf \
+--user=www-data \
+--group=www-data \
+--basedir=/usr/local/mariadb \
+--datadir=/var/www/mariadb_server/datadir \
+--skip-name-resolve
+
+/usr/local/mariadb/bin/mariadb-secure-installation
+
+# Installing MariaDB/MySQL system tables in '/var/www/mariadb_server/datadir' ...
+  #OK
+  #
+  #To start mariadbd at boot time you have to copy
+  #support-files/mariadb.service to the right place for your system
+  #
+  #
+  #Two all-privilege accounts were created.
+  #One is root@localhost, it has no password, but you need to
+  #be system 'root' user to connect. Use, for example, sudo mariadb
+  #The second is www-data@localhost, it has no password either, but
+  #you need to be the system 'www-data' user to connect.
+  #After connecting you can set the password, if you would need to be
+  #able to connect as any of these users with a password and without sudo
+  #
+  #See the MariaDB Knowledgebase at https://mariadb.com/kb
+  #
+  #You can start the MariaDB daemon with:
+  #cd '/usr/local/mariadb' ; /usr/local/mariadb/bin/mariadbd-safe --datadir='/var/www/mariadb_server/datadir'
+  #
+  #You can test the MariaDB daemon with mariadb-test-run.pl
+  #cd '/usr/local/mariadb/mariadb-test' ; perl mariadb-test-run.pl
+  #
+  #Please report any problems at https://mariadb.org/jira
+  #
+  #The latest information about MariaDB is available at https://mariadb.org/.
+  #
+  #Consider joining MariaDB's strong and vibrant community:
+  #https://mariadb.org/get-involved/
