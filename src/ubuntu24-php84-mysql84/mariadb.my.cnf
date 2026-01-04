@@ -12,7 +12,6 @@ socket                               = /var/www/mariadb_server/mariadb.sock
 tmpdir                               = /var/www/mariadb_server/tmpdir
 tls_version                          = TLSv1.2,TLSv1.3
 skip_name_resolve                    = ON
-log_timestamps                       = SYSTEM
 default-time-zone                    = '+8:00'
 
 
@@ -43,28 +42,28 @@ binlog_expire_logs_seconds = 1209600
 # --------------------------
 
 # InnoDB核心缓存，建议占内存的50%-70%
-innodb_buffer_pool_size = 2G
+innodb_buffer_pool_size = 4G
 
 # 缓冲池实例数（建议等于CPU核心数）
-innodb_buffer_pool_instances = 2
+innodb_buffer_pool_instances = 4
 
 # 日志缓冲区大小
-innodb_log_buffer_size = 64M
+innodb_log_buffer_size = 128M
 
 # 排序缓冲区
-sort_buffer_size = 2M
+sort_buffer_size = 4M
 
 # 顺序读缓冲区
-read_buffer_size = 1M
+read_buffer_size = 2M
 
 # 随机读缓冲区
-read_rnd_buffer_size = 2M
+read_rnd_buffer_size = 4M
 
 # 临时表内存大小
-tmp_table_size = 64M
+tmp_table_size = 128M
 
 # 内存表最大大小
-max_heap_table_size = 64M
+max_heap_table_size = 128M
 
 
 # --------------------------
@@ -78,7 +77,7 @@ innodb_flush_log_at_trx_commit = 1
 innodb_flush_method = O_DIRECT
 
 # 替换旧参数：innodb_log_files_in_group（已弃用）、innodb_log_file_size（已弃用）
-innodb_redo_log_capacity = 1G
+#innodb_redo_log_capacity = 1G
 
 # SSD建议2000-4000，HDD建议200-400
 innodb_io_capacity = 2000
@@ -87,11 +86,10 @@ innodb_io_capacity = 2000
 # MySQL 8.4 (https://blog.csdn.net/qq_39430356/article/details/138445902)
 # --------------------------
 
-innodb_adaptive_hash_index = 0
+#innodb_adaptive_hash_index = 0
 
 
 [mysql]
-bind-address                         = 0.0.0.0
 default-character-set                = utf8mb4
 local-infile                         = 0
 port                                 = 3307
@@ -107,7 +105,6 @@ open-files-limit                     = 32768
 log-error                            = /var/www/mariadb_server/mariadb_error.log
 
 [mysqldump]
-bind-address                         = 0.0.0.0
 comments                             = 1
 default-character-set                = utf8mb4
 max-allowed-packet                   = 128M
@@ -116,7 +113,6 @@ quick                                = 1
 socket                               = /var/www/mariadb_server/mariadb.sock
 
 [mysqlimport]
-bind-address                         = 0.0.0.0
 default-character-set                = utf8mb4
 port                                 = 3307
 socket                               = /var/www/mariadb_server/mariadb.sock
