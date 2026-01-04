@@ -93,6 +93,7 @@ libssl-dev                      \
 libcurl4-openssl-dev            \
 libnss3-tools                   \
 libmaxminddb-dev                \
+libpcre2-dev                    \
 libpcre3-dev                    \
 libxslt1-dev                    \
 libgeoip-dev                    \
