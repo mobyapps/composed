@@ -307,11 +307,14 @@ libvips-dev                     \
 && make install \
 \
 && cd /usr/local/src \
+&& rm -f       /etc/my.cnf \
+&& rm -f       /etc/mysql/my.cnf \
+&& rm -f       /root/.my.cnf \
 && rm -f       /var/www/mysql_server/sysconfdir/my.cnf \
-&& cp ./my.cnf /var/www/mysql_server/sysconfdir/my.cnf \
+&& cp ./my.cnf /etc/my.cnf \
 && chown -R www-data:www-data /var/www \
 && chown -R www-data:www-data /usr/local/mysql \
-&& /usr/local/mysql/bin/mysqld --defaults-file=/var/www/mysql_server/sysconfdir/my.cnf --initialize-insecure --user=www-data \
+&& /usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf --initialize-insecure --user=www-data \
 \
 && chown -R www-data:www-data /usr/local/mysql \
 && chown -R www-data:www-data /var/www \
