@@ -85,6 +85,7 @@ libtool                         \
 dnsutils                        \
 tree                            \
 supervisor                      \
+mkcert                          \
 \
 libxml2-dev                     \
 libssl-dev                      \
