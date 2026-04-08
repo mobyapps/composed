@@ -1,0 +1,34 @@
+name: ci3
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build on ubuntu-24.04
+    if: "contains(github.event.head_commit.message, 'release ubuntu24-hello.rv1')"
+
+    runs-on: ubuntu-24.04
+
+    env:
+      GIT_MSG: ${{ github.event.head_commit.message }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check os env
+        run: |
+          localectl status
+          cat /proc/cpuinfo
+          free -m
+
+      - name: Build image
+        run: docker build -f dockerfiles/charescape__hello/Dockerfile -t ghcr.io/charescape/ubuntu24-hello.rv1 .
+
+      - run: docker image ls
+
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push image
+        run: docker push ghcr.io/charescape/ubuntu24-hello.rv1
