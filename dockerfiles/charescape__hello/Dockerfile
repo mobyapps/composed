@@ -1,4 +1,4 @@
-FROM phusion/baseimage:focal-1.0.0alpha1-amd64
+FROM phusion/baseimage:noble-1.0.2
 
 COPY ./dockerfiles/charescape__hello/helloworld  /etc/my_init.d/
 
