@@ -13,6 +13,10 @@ jobs:
     env:
       GIT_MSG: ${{ github.event.head_commit.message }}
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -22,13 +26,24 @@ jobs:
           cat /proc/cpuinfo
           free -m
 
-      - name: Build image
-        run: docker build -f dockerfiles/charescape__hello/Dockerfile -t ghcr.io/charescape/ubuntu24-hello.rv1 .
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/web:ubuntu24-hello.rv1
+
+          # 镜像名字建议全小写
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+          docker build -f dockerfiles/charescape__hello/Dockerfile -t $IMAGE_ID .
+
+          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
 
       - run: docker image ls
 
-      - name: Login to GitHub Container Registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Push image
-        run: docker push ghcr.io/charescape/ubuntu24-hello.rv1
+      - name: Push Image
+        run: |
+          docker push $IMAGE_ID
+        env:
+          IMAGE_ID: ${{ env.IMAGE_ID }}
